@@ -20,7 +20,7 @@ repository: strongman1995/strongman1995.github.io # ex. DONGChuan/DONGChuan.gith
 
 # The base hostname & protocol for your site
 # For local test, please use http://localhost:4000
-# For production, use your github page url. ex. http://dongchuan.github.io
+# For production, use your github page url. ex. http://strongman1995.github.io
 url: http://localhost:4000
 
 ## Gem
@@ -65,12 +65,12 @@ navs:
     label: About
 
   -
-    href: /open-source
-    label: Open-Source
-
-  -
     href: /blog
     label: Blog
+
+  -
+    href: /open-source
+    label: Open-Source
 
   -
     href: /bookmark
