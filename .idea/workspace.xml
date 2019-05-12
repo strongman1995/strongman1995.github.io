@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="64c9d7fa-a728-47d7-b472-7bd8e609f84a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2018-12-22-概率图学习-Particle-Based-Approximate-Inference.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2018-12-22-概率图学习-Particle-Based-Approximate-Inference.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,20 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_posts/2018-12-22-概率图学习-Particle-Based-Approximate-Inference.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="2227">
-                <caret line="131" column="42" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
-              </first_editor>
-              <second_editor />
+            <state relative-caret-position="451">
+              <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
             </state>
           </provider>
         </entry>
@@ -175,12 +164,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557656766988</updated>
-      <workItem from="1557656771319" duration="3325000" />
+      <workItem from="1557656771319" duration="4128000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3325000" />
+    <option name="totallyTimeSpent" value="4128000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -342,8 +331,8 @@
     <entry file="file://$PROJECT_DIR$/_posts/2018-12-22-概率图学习-Particle-Based-Approximate-Inference.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="2227">
-            <caret line="131" column="42" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
+          <first_editor relative-caret-position="438">
+            <caret line="52" column="54" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="54" />
           </first_editor>
           <second_editor />
         </state>
@@ -351,8 +340,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
+        <state relative-caret-position="451">
+          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
         </state>
       </provider>
     </entry>
