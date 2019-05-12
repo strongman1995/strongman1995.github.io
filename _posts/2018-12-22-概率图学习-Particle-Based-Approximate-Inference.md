@@ -1,4 +1,11 @@
 
+---
+layout: post
+title: Post title
+category: pgm
+tags: [tag1, tag2]
+date:   2018-12-22 13:25:35 +0200
+---
 Inference的定义：给定部分观察值E=e，求目标变量Y的概率$P(Y|E=e)$或者 $\underset{y}{\operatorname{arg max}} P(Y=y|E=e)$ (最大后验概率MAP)
 Particle-Based Approximate Inference （PBAI）最基本的想法是从目标分布中采样x[1], ..., x[m]，然后用采样数据去估计函数$E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])$ 
 PBAI的关键是如何从后验分布$P(x|E=e)$中采样
