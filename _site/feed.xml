@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Welcome to my blog</title>
+    <description>Don't worry, be happy</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 15 May 2019 00:17:33 +0800</pubDate>
+    <lastBuildDate>Wed, 15 May 2019 00:17:33 +0800</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>概率图学习-Particle-Based Approximate Inference</title>
+        <description>&lt;p&gt;Inference的定义：给定部分观察值E=e，求目标变量Y的概率 &lt;script type=&quot;math/tex&quot;&gt;P(Y\|E=e)&lt;/script&gt; 或者 &lt;script type=&quot;math/tex&quot;&gt;\underset{y}{\operatorname{arg max}} P(Y=y\|E=e)&lt;/script&gt; (最大后验概率MAP)&lt;/p&gt;
+
+&lt;p&gt;Particle-Based Approximate Inference （PBAI）最基本的想法是从目标分布中采样x[1], …, x[m]，然后用采样数据去估计函数&lt;script type=&quot;math/tex&quot;&gt;E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;PBAI的关键是如何从后验分布&lt;script type=&quot;math/tex&quot;&gt;P(x\|E=e)&lt;/script&gt;中采样&lt;/p&gt;
+&lt;h2 id=&quot;前向采样-forward-sampling-fs&quot;&gt;前向采样 Forward Sampling （FS）&lt;/h2&gt;
+&lt;p&gt;从分布P(X)中利用Bayesian Network产生随机样本，使用&lt;script type=&quot;math/tex&quot;&gt;P(X=e)\approx \frac{1}{M} \sum_{m=1}^{M} I(x[m]=e)&lt;/script&gt;
+估计概率， 其中I(·)是指示函数
+&lt;strong&gt;采样过程&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;确定X~1~, … , X~n~的拓扑排序&lt;/li&gt;
+  &lt;li&gt;按照拓扑顺序，对每个X~i~进行采样，采样概率&lt;script type=&quot;math/tex&quot;&gt;P(X_i\|pa_i)&lt;/script&gt;，pa~i~的值都已经赋过值了&lt;/li&gt;
+  &lt;li&gt;估计概率&lt;script type=&quot;math/tex&quot;&gt;P(X=e)\approx \frac{1}{M} \sum_{m=1}^{M} I(x[m]=e)&lt;/script&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;从而可以估计任何期望&lt;script type=&quot;math/tex&quot;&gt;E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])&lt;/script&gt; 
+如果只需要估计变量X的子集Y，使用&lt;script type=&quot;math/tex&quot;&gt;P(y)\approx \frac{1}{M} \sum_{m=1}^{M} I\{x[m](Y=y)\}&lt;/script&gt;
+&lt;strong&gt;采样开销&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;每个变量X~i~的开销：O(log(Val|X~i~))， 其中Val|X~i~是指变量X~i~的取值范围&lt;/li&gt;
+  &lt;li&gt;每个sample的开销：&lt;script type=&quot;math/tex&quot;&gt;O(nlog(\underset{i}{\operatorname{max}} Val\|X_i))&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;M个sample的开销：&lt;script type=&quot;math/tex&quot;&gt;O(Mnlog(\underset{i}{\operatorname{max}} Val\|X_i))&lt;/script&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;需要sample的数量&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;为了以概率&lt;script type=&quot;math/tex&quot;&gt;1-\delta&lt;/script&gt;, 达到相对误差&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+&lt; \epsilon %]]&gt;&lt;/script&gt;，至少需要采样&lt;script type=&quot;math/tex&quot;&gt;M \geq 3 \frac{ln(2/\delta)}{P(y) \epsilon ^ 2}&lt;/script&gt;
+如果P(y) ↓，则M↑，才能更精确地观测。&lt;/p&gt;
+&lt;h3 id=&quot;forward-sampling-with-rejection&quot;&gt;Forward Sampling with Rejection&lt;/h3&gt;
+&lt;p&gt;因为是要在观测到一部分变量值e得情况下求目标变量Y的概率&lt;script type=&quot;math/tex&quot;&gt;P(Y\|E=e)&lt;/script&gt;。用带拒绝的方式做采样，用前向采样采出的数据，如果E≠e，就把这个样本扔掉。从被接受的样本中去估计。
+&lt;strong&gt;缺点/问题&lt;/strong&gt; 如果p(e)=0.001,概率非常小，那么扔掉的样本会非常多，浪费很多样本资源。&lt;/p&gt;
+
+&lt;h2 id=&quot;似然采样-likelihood-weighting-lw&quot;&gt;似然采样 Likelihood Weighting （LW）&lt;/h2&gt;
+&lt;p&gt;通过FS with rejection的问题，是否可以让所有的样本都满足E=e。
+那么可以把在sample到观测变量X∈E时，直接设置为X=e。原来我们是从后验P(X|e)做sample，现在我们是直接从先验P(X)得到采样。
+所以想从P’(X, e)中得到sample再归一化。
+总结来说就是从先验分布P(X)得到样本，再用likelihood加权样本。
+P(Y, e) = P(Y|e)P(e), 所以P(Y|e)是P(Y, e)的一部分
+根据BN分解定理，&lt;script type=&quot;math/tex&quot;&gt;P(X)=\prod_i P(X_i\|Pa(X_i))&lt;/script&gt;
+观察值给了定值&lt;script type=&quot;math/tex&quot;&gt;E_j=e_j&lt;/script&gt;, 所以每个采样值应该加上权值&lt;script type=&quot;math/tex&quot;&gt;\prod_{j}P(E_j=e_j\|Pa(E_j))&lt;/script&gt;
+和FS with rejection联系：采样可以看成有&lt;script type=&quot;math/tex&quot;&gt;\prod_{j}P(E_j=e_j\|Pa(E_j))&lt;/script&gt;的概率被接受
+&lt;strong&gt;采样过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;确定X~1~, … , X~n~的拓扑排序&lt;/li&gt;
+  &lt;li&gt;对于每个变量X~i~(采M个样本)
+ 如果X~i~∉E，直接从&lt;script type=&quot;math/tex&quot;&gt;P(X_i\|Pa_i)&lt;/script&gt;采样
+ 如果X~i~∈E，设X~i~=E[x~i~]，&lt;script type=&quot;math/tex&quot;&gt;w_i = w_i · P(E[x_i]\|Pa_i)&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;得到w~i~，x[1], …, x[M]&lt;/li&gt;
+  &lt;li&gt;估计概率&lt;script type=&quot;math/tex&quot;&gt;P(y\|e) \approx \frac{\sum_{m=1}^{M} w[m]I\{x[m](Y=y)\}}{\sum_{m=1}^{M} w[m]}&lt;/script&gt;
+其中&lt;script type=&quot;math/tex&quot;&gt;w[m]=\prod_{x_i \in E}P(x_i=e_i\|Pa_i)&lt;/script&gt;
+    &lt;h2 id=&quot;重要性采样-importance-sampling-is&quot;&gt;重要性采样 Importance Sampling （IS）&lt;/h2&gt;
+    &lt;p&gt;估计一个和P相关的函数Q，从Q中采样。P是目标分布，Q是采样分布。
+要求Q：P(x) &amp;gt; 0 → Q(x) &amp;gt; 0
+Q不会漏掉P的任何一个非零概率的事件。
+在实际中，如果Q和P越想似，采样的效果自然是更好。当Q=P时，得到最低的方差估计
+最简单的Q是把P的BN上的边都去掉了，即每个变量都是完全独立的。&lt;/p&gt;
+    &lt;h3 id=&quot;unnormalized-importance-sampling&quot;&gt;Unnormalized Importance Sampling&lt;/h3&gt;
+    &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/2018122218345624.png&quot; alt=&quot;IS&quot; /&gt;
+左半边是从Q做sampling，右半边是对P做sampling
+所以从Q中Sample的数据可以用来近似P的采样
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222183558234.png&quot; alt=&quot;IS&quot; /&gt;&lt;/p&gt;
+    &lt;h3 id=&quot;normalized-importance-sampling&quot;&gt;Normalized Importance Sampling&lt;/h3&gt;
+    &lt;p&gt;归一化P’，P=P’/α，&lt;script type=&quot;math/tex&quot;&gt;\alpha=\sum_x P'(x)&lt;/script&gt;
+已知α：
+&lt;img src=&quot;https://img-blog.csdnimg.cn/2018122218410039.png&quot; alt=&quot;IS&quot; /&gt;
+因此可以推导出归一化的P和Q的采样估计
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222184128386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIwNjA3MTg5,size_16,color_FFFFFF,t_70&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+所以从Q中Sample的数据可以用来近似P的采样
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222184622950.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+和刚才未归一化的做对比
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222183558234.png&quot; alt=&quot;IS&quot; /&gt;&lt;/p&gt;
+    &lt;h3 id=&quot;importance-sampling-for-bayesian-networks&quot;&gt;Importance Sampling for Bayesian Networks&lt;/h3&gt;
+    &lt;p&gt;定义mutilated network（残支网络）G~E=e~：&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;节点X∈E没有parents&lt;/li&gt;
+  &lt;li&gt;在节点X∈E的CPD中只有X=E[X]那一项概率为1，其余为0&lt;/li&gt;
+  &lt;li&gt;其余节点不变&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222185125204.png&quot; alt=&quot;mutilated network&quot; /&gt;
+如果Q定义为mutilated network, 那么LW和IS是相同的采样公式
+&lt;strong&gt;Likelihood Weighting&lt;/strong&gt;:
+&lt;script type=&quot;math/tex&quot;&gt;P(y\|e) \approx \frac{\sum_{m=1}^{M} w[m]I\{x[m](Y=y)\}}{\sum_{m=1}^{M} w[m]}&lt;/script&gt;
+其中&lt;script type=&quot;math/tex&quot;&gt;w[m]=\prod_{x_i \in E}P(x_i=e_i\|Pa_i)&lt;/script&gt;
+&lt;strong&gt;Importance Sampling&lt;/strong&gt;
+&lt;script type=&quot;math/tex&quot;&gt;P(y\|e) \approx \frac{\sum_{m=1}^{M} P'(x[m])/Q(x[m])I\{x[m](Y=y)\}}{\sum_{m=1}^{M} P'(x[m])/Q(x[m])}&lt;/script&gt;
+其中&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222190212660.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+&lt;strong&gt;需要sample的数量&lt;/strong&gt;
+取决于P和Q的相似度
+&lt;strong&gt;总结&lt;/strong&gt;——LW和IS的不足
+LW在Markov Network（MN）很低效，因为需要将MN转化为BN
+IS在选择一个合适的Q上很难，如果Q和P太不像，收敛会很慢&lt;/p&gt;
+&lt;h2 id=&quot;蒙特卡洛方法-markov-chain-monte-carlo-methodmcmc&quot;&gt;蒙特卡洛方法 Markov Chain Monte Carlo Method（MCMC）&lt;/h2&gt;
+&lt;p&gt;MCMC的基本想法是设计一个马氏链，其稳态分布是P(X|e)，即我们要求的目标分布。所以从这个马氏链上的采样就会服从我们的目标分布。
+通过马氏链的稳态分布来做inference。&lt;/p&gt;
+&lt;h3 id=&quot;markov-chain--stationary-distribution&quot;&gt;Markov Chain &amp;amp; Stationary Distribution&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222190802777.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222190817152.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+一个Markov Chain是regular需要满足链上所有的状态都是在有限k步内可达。
+&lt;strong&gt;定理：一个有限状态的马氏链T有一个唯一的稳态分布 当且仅当 T是regular的。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;gibbs-sampling&quot;&gt;Gibbs Sampling&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222191750195.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+怎么判断Gibbs-sampling MC是regular的呢？&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;BN：所有的CPD严格为正&lt;/li&gt;
+  &lt;li&gt;MN：所有的clique potential严格为正&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;采样过程&lt;/strong&gt;（一个样本）&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;设x[m]=x[m-1]且更换变量更新顺序(增加随机性)&lt;/li&gt;
+  &lt;li&gt;对每个变量X~i~∈X-E：
+    &lt;ul&gt;
+      &lt;li&gt;设u~i~为Xi的Markov Blanket&lt;/li&gt;
+      &lt;li&gt;从P(X~i~|u~i~)采样X~i~的新值&lt;/li&gt;
+      &lt;li&gt;更新X~i~为采样值&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;得到x[m]
+    &lt;h4 id=&quot;gibbs-sampling-for-bns&quot;&gt;Gibbs Sampling for BNs&lt;/h4&gt;
+    &lt;p&gt;&lt;strong&gt;采样过程&lt;/strong&gt;
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222192951919.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIwNjA3MTg5,size_16,color_FFFFFF,t_70&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+    &lt;h4 id=&quot;gibbs-sampling-for-mns&quot;&gt;Gibbs Sampling for MNs&lt;/h4&gt;
+    &lt;p&gt;&lt;strong&gt;采样过程&lt;/strong&gt;
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181222193053624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIwNjA3MTg5,size_16,color_FFFFFF,t_70&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+    &lt;h3 id=&quot;metropolis-hastings-algorithm&quot;&gt;Metropolis-Hastings Algorithm&lt;/h3&gt;
+    &lt;p&gt;Gibbs Sampling 给定一个当前状态 S，转移到下一个状态的转移概率是确定的，整个状态转移概率矩阵其实是确定的。
+现在 MH algorithm 追求的是可以从任意一个转移分布中采到下一个样本。和 Importance sampling 有点像，可以从任意的函数 Q 中去拟合 P。
+所以设计了一个新的因子：acceptance probability 接受概率。是指是否接受一个状态转移 A(x→x’)
+现在的转移变成：
+状态 x 转移到状态 x’：T(x→x’) = T^Q^(x→x’)A(x→x’)
+状态 x 停留在原状态：T(x→x) = T^Q^(x→x) + &lt;script type=&quot;math/tex&quot;&gt;\sum_{x'\neq x}&lt;/script&gt;T^Q^(x→x’)(1-A(x→x’))
+上式第一项是原来的转移就是停留在原状态，第二项是指本来要转到其他状态，但是被拒绝了，只能留在原状态。
+因为 MC 是稳态的，所以互相转移的概率是相等的。
+&lt;script type=&quot;math/tex&quot;&gt;\pi(x)T^Q(x→x')A(x→x')=\pi(x')T^Q(x'→x)A(x'→x)&lt;/script&gt;
+从上式推出：重要！！！在结构学习的时候会使用到这个结论&lt;script type=&quot;math/tex&quot;&gt;A(x'→x)=min[1, \frac{\pi(x')T^Q(x'→x)}{\pi(x)T^Q(x→x')}]&lt;/script&gt;
+在连续概率分布结论也是成立的。经常用到的是把转移概率分布设为多元高斯分布（可以看成是以当前状态为中心的随机游走）。那么此时的转移概率是对称的（随机游走过程），即T(x’→x)=T(x→x’)。
+此时的 acceptance rate 只与稳态分布或者目标分布有关，即&lt;script type=&quot;math/tex&quot;&gt;A(x'→x)=min[1, \frac{\pi(x')}{\pi(x)}]=min[1, \frac{p(x')}{p(x)}]&lt;/script&gt;
+MH algorithm 有个缺陷就是不同状态之间的转移太低效了，可能会产生很多 rejection。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;hybrid-hamiltonian-monte-carlo-hmc&quot;&gt;(Hybrid) Hamiltonian Monte Carlo (HMC)&lt;/h3&gt;
+</description>
+        <pubDate>Sat, 22 Dec 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2018/12/22/%E6%A6%82%E7%8E%87%E5%9B%BE%E5%AD%A6%E4%B9%A0-Particle-Based-Approximate-Inference.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2018/12/22/%E6%A6%82%E7%8E%87%E5%9B%BE%E5%AD%A6%E4%B9%A0-Particle-Based-Approximate-Inference.html</guid>
+        
+        <category>tag1</category>
+        
+        <category>tag2</category>
+        
+        
+        <category>pgm</category>
+        
+      </item>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;p&gt;This is post no right side bar to nav posts.&lt;/p&gt;
+
+&lt;p&gt;You just need to set &lt;strong&gt;no-post-nav: true&lt;/strong&gt; for your post&lt;/p&gt;
+</description>
+        <pubDate>Fri, 13 May 2016 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/jekyll/update/2016/05/13/Example-No-Sidebar-Nav.html</link>
+        <guid isPermaLink="true">http://localhost:4000/jekyll/update/2016/05/13/Example-No-Sidebar-Nav.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;p&gt;Welcome to use Yummy Jekyll as your jekyll theme!&lt;/p&gt;
+
+&lt;h2 id=&quot;yummy-jekyll&quot;&gt;Yummy Jekyll&lt;/h2&gt;
+
+&lt;h2 id=&quot;how-to-install&quot;&gt;How to install&lt;/h2&gt;
+
+&lt;h2 id=&quot;licence&quot;&gt;Licence&lt;/h2&gt;
+</description>
+        <pubDate>Fri, 13 May 2016 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/jekyll/update/2016/05/13/welcome-to-yummy.html</link>
+        <guid isPermaLink="true">http://localhost:4000/jekyll/update/2016/05/13/welcome-to-yummy.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>CSS Animation</title>
+        <description>&lt;p&gt;Quick note about CSS animation.  &lt;script type=&quot;math/tex&quot;&gt;\beta&lt;/script&gt; hahah&lt;/p&gt;
+
+&lt;h2 id=&quot;css-animation&quot;&gt;CSS Animation&lt;/h2&gt;
+
+&lt;p&gt;CSS3 animation lets an element gradually change from one style to another.&lt;/p&gt;
+
+&lt;p&gt;Two steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;@keyframes&lt;/code&gt; to define an animation.&lt;/li&gt;
+  &lt;li&gt;Set this animation on an element with animation properties&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We could set properties one-by-one or with following shorthand:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;animation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-timing-function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-delay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-iteration-count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-direction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-fill-mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-play-state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;keyframes&quot;&gt;@keyframes&lt;/h2&gt;
+
+&lt;p&gt;It defines what the animation looks like at each stage of the animation timeline. It is composed of:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Name of the animation. For example, changeColor.&lt;/li&gt;
+  &lt;li&gt;Stages: From 0% to 100% to represent the whole process of animation&lt;/li&gt;
+  &lt;li&gt;CSS Properties: The CSS properties defined for each stage of the animation timeline.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Following example creates an animation called &lt;code class=&quot;highlighter-rouge&quot;&gt;changeColor&lt;/code&gt; and assign it to &lt;code class=&quot;highlighter-rouge&quot;&gt;div:hover&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;k&quot;&gt;@keyframes&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changeColor&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:hover&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;animation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changeColor&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ease&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.1s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In above example, we could also use &lt;code class=&quot;highlighter-rouge&quot;&gt;from&lt;/code&gt; to represent &lt;code class=&quot;highlighter-rouge&quot;&gt;0%&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;to&lt;/code&gt; to represent &lt;code class=&quot;highlighter-rouge&quot;&gt;100%&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;animation-properties&quot;&gt;Animation Properties&lt;/h2&gt;
+
+&lt;p&gt;It has following properties:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;animation-name&lt;/li&gt;
+  &lt;li&gt;animation-duration&lt;/li&gt;
+  &lt;li&gt;animation-timing-function&lt;/li&gt;
+  &lt;li&gt;animation-delay&lt;/li&gt;
+  &lt;li&gt;animation-iteration-count&lt;/li&gt;
+  &lt;li&gt;animation-direction&lt;/li&gt;
+  &lt;li&gt;animation-fill-mode&lt;/li&gt;
+  &lt;li&gt;animation-play-state&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;animation-name&quot;&gt;animation-name&lt;/h3&gt;
+
+&lt;p&gt;The name of the animation, defined in the @keyframes.&lt;/p&gt;
+
+&lt;h3 id=&quot;animation-duration&quot;&gt;animation-duration&lt;/h3&gt;
+
+&lt;p&gt;The duration of the animation, in seconds (e.g., 5s) or milliseconds (e.g., 200ms).&lt;/p&gt;
+
+&lt;h3 id=&quot;animation-timing-function&quot;&gt;animation-timing-function&lt;/h3&gt;
+
+&lt;p&gt;The speed curve or pace of the animation:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Timing Function&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;linear&lt;/td&gt;
+      &lt;td&gt;The animation has the same speed from start to end&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ease&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;Default value&lt;/strong&gt;. The animation has a slow start, then fast, before it ends slowly.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ease-in&lt;/td&gt;
+      &lt;td&gt;Start slowly and end fast.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ease-out&lt;/td&gt;
+      &lt;td&gt;Start more quickly than linear ones and end slowly. The opposite of ease-in.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ease-in-out&lt;/td&gt;
+      &lt;td&gt;Both a slow start and a slow end&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;initial&lt;/td&gt;
+      &lt;td&gt;Sets this property to its default value. So &lt;code class=&quot;highlighter-rouge&quot;&gt;ease&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;inherit&lt;/td&gt;
+      &lt;td&gt;Inherits this property from its parent element.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Check &lt;a href=&quot;https://developers.google.com/web/fundamentals/design-and-ui/animations/the-basics-of-easing?hl=en&quot;&gt;The basics of easing&lt;/a&gt; for details.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;animation-delay&quot;&gt;animation-delay&lt;/h3&gt;
+
+&lt;p&gt;It specifies when the animation will start. The value is defined in seconds (s) or milliseconds (mil).&lt;/p&gt;
+
+&lt;h3 id=&quot;animation-iteration-count&quot;&gt;animation-iteration-count&lt;/h3&gt;
+
+&lt;p&gt;It specifies the number of times that the animation will play. The possible values are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;a specific number of iterations (default is 1)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;infinite&lt;/code&gt; - repeats forever&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;initial&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inherit&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;animation-direction&quot;&gt;animation-direction&lt;/h3&gt;
+
+&lt;p&gt;It specifies whether the animation should play forward, reverse, or in alternate cycles.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;normal&lt;/code&gt; - Default. On each cycle the animation resets to the beginning state (0%) and plays forward again (to 100%).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;reverse&lt;/code&gt; - On each cycle the animation resets to the end state (100%) and plays backwards (to 0%).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alternate&lt;/code&gt; - On each odd cycle, the animation plays forward (0% to 100%). On each even cycle, the animation plays backwards (100% to 0%).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alternate-reverse&lt;/code&gt; - On each odd cycle, the animation plays in reverse (100% to 0%). On each even cycle, the animation plays forward (0% or 100%).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;animation-fill-mode&quot;&gt;animation-fill-mode&lt;/h3&gt;
+
+&lt;p&gt;It specifies if the animation styles are visible before or after the animation plays.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;normal&lt;/code&gt; - Default. The animation does not apply any styles to the element, before or after the animation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;forwards&lt;/code&gt; - After the animation is finished, the styles defined in the final keyframe (100%) are retained by the element.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt; - Before the animation (during the animation delay), the styles of the initial keyframe (0%) are applied to the element.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;both&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;forwards&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;animation-play-state&quot;&gt;animation-play-state&lt;/h3&gt;
+
+&lt;p&gt;Two values: &lt;code class=&quot;highlighter-rouge&quot;&gt;running&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;paused&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;It specifies whether the animation is &lt;code class=&quot;highlighter-rouge&quot;&gt;playing&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;paused&lt;/code&gt;. &lt;strong&gt;Resuming a paused animation starts the animation where it was left off. But if pause an animation, the element style will return back to its origin.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:hover&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;animation-play-state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paused&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;multiple-animations&quot;&gt;Multiple Animations&lt;/h2&gt;
+
+&lt;p&gt;Add multiple animations to a selector with comma:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;animation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animationA&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animationB&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;refs&quot;&gt;Refs&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.imooc.com/learn/33&quot;&gt;Imooc 十天精通CSS3&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://robots.thoughtbot.com/css-animation-for-beginners#animation-iteration-count&quot;&gt;CSS Animation for Beginners&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.w3schools.com/cssref/css3_pr_animation-timing-function.asp&quot;&gt;CSS3 animation-timing-function Property&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 22 Apr 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/css/2016/04/22/CSS-Animation.html</link>
+        <guid isPermaLink="true">http://localhost:4000/css/2016/04/22/CSS-Animation.html</guid>
+        
+        <category>css</category>
+        
+        
+        <category>CSS</category>
+        
+      </item>
+    
+  </channel>
+</rss>

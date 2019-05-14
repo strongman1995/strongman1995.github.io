@@ -5,7 +5,9 @@ category: CSS
 tags: [css]
 ---
 
-Quick note about CSS animation. 
+
+
+Quick note about CSS animation.  $$\beta$$ hahah
 
 ## CSS Animation
 

@@ -1,55 +1,58 @@
-
 ---
 layout: post
-title: Post title
+title: "概率图学习-Particle-Based Approximate Inference"
 category: pgm
 tags: [tag1, tag2]
 date:   2018-12-22 13:25:35 +0200
+usemathjax: true
 ---
-Inference的定义：给定部分观察值E=e，求目标变量Y的概率$P(Y|E=e)$或者 $\underset{y}{\operatorname{arg max}} P(Y=y|E=e)$ (最大后验概率MAP)
-Particle-Based Approximate Inference （PBAI）最基本的想法是从目标分布中采样x[1], ..., x[m]，然后用采样数据去估计函数$E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])$ 
-PBAI的关键是如何从后验分布$P(x|E=e)$中采样
+
+Inference的定义：给定部分观察值E=e，求目标变量Y的概率 $$P(Y\|E=e)$$ 或者 $$\underset{y}{\operatorname{arg max}} P(Y=y\|E=e)$$ (最大后验概率MAP)
+
+Particle-Based Approximate Inference （PBAI）最基本的想法是从目标分布中采样x[1], ..., x[m]，然后用采样数据去估计函数$$E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])$$ 
+
+PBAI的关键是如何从后验分布$$P(x\|E=e)$$中采样
 ## 前向采样 Forward Sampling （FS）
 从分布P(X)中利用Bayesian Network产生随机样本，使用$$P(X=e)\approx \frac{1}{M} \sum_{m=1}^{M} I(x[m]=e)$$
 估计概率， 其中I(·)是指示函数
 **采样过程**：
 1. 确定X~1~, ... , X~n~的拓扑排序
-2. 按照拓扑顺序，对每个X~i~进行采样，采样概率$P(X_i|pa_i)$，pa~i~的值都已经赋过值了
-3. 估计概率$P(X=e)\approx \frac{1}{M} \sum_{m=1}^{M} I(x[m]=e)$
+2. 按照拓扑顺序，对每个X~i~进行采样，采样概率$$P(X_i\|pa_i)$$，pa~i~的值都已经赋过值了
+3. 估计概率$$P(X=e)\approx \frac{1}{M} \sum_{m=1}^{M} I(x[m]=e)$$
 
-从而可以估计任何期望$E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])$ 
-如果只需要估计变量X的子集Y，使用$P(y)\approx \frac{1}{M} \sum_{m=1}^{M} I\{x[m](Y=y)\}$
+从而可以估计任何期望$$E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])$$ 
+如果只需要估计变量X的子集Y，使用$$P(y)\approx \frac{1}{M} \sum_{m=1}^{M} I\{x[m](Y=y)\}$$
 **采样开销**
 
- - 每个变量X~i~的开销：O(log(Val|X~i~))， 其中Val|X~i~是指变量X~i~的取值范围
- - 每个sample的开销：$O(nlog(\underset{i}{\operatorname{max}} Val|X_i))$
- - M个sample的开销：$O(Mnlog(\underset{i}{\operatorname{max}} Val|X_i))$
+ - 每个变量X~i~的开销：O(log(Val\|X~i~))， 其中Val\|X~i~是指变量X~i~的取值范围
+ - 每个sample的开销：$$O(nlog(\underset{i}{\operatorname{max}} Val\|X_i))$$
+ - M个sample的开销：$$O(Mnlog(\underset{i}{\operatorname{max}} Val\|X_i))$$
 
 **需要sample的数量**
 
-为了以概率$1-\delta$, 达到相对误差$< \epsilon$，至少需要采样$$M \geq 3 \frac{ln(2/\delta)}{P(y) \epsilon ^ 2}$$
+为了以概率$$1-\delta$$, 达到相对误差$$< \epsilon$$，至少需要采样$$M \geq 3 \frac{ln(2/\delta)}{P(y) \epsilon ^ 2}$$
 如果P(y) ↓，则M↑，才能更精确地观测。
 ### Forward Sampling with Rejection
-因为是要在观测到一部分变量值e得情况下求目标变量Y的概率$P(Y|E=e)$。用带拒绝的方式做采样，用前向采样采出的数据，如果E≠e，就把这个样本扔掉。从被接受的样本中去估计。
+因为是要在观测到一部分变量值e得情况下求目标变量Y的概率$$P(Y\|E=e)$$。用带拒绝的方式做采样，用前向采样采出的数据，如果E≠e，就把这个样本扔掉。从被接受的样本中去估计。
 **缺点/问题** 如果p(e)=0.001,概率非常小，那么扔掉的样本会非常多，浪费很多样本资源。
 
 ## 似然采样 Likelihood Weighting （LW）
 通过FS with rejection的问题，是否可以让所有的样本都满足E=e。
-那么可以把在sample到观测变量X∈E时，直接设置为X=e。原来我们是从后验P(X|e)做sample，现在我们是直接从先验P(X)得到采样。
+那么可以把在sample到观测变量X∈E时，直接设置为X=e。原来我们是从后验P(X\|e)做sample，现在我们是直接从先验P(X)得到采样。
 所以想从P'(X, e)中得到sample再归一化。
 总结来说就是从先验分布P(X)得到样本，再用likelihood加权样本。
-P(Y, e) = P(Y|e)P(e), 所以P(Y|e)是P(Y, e)的一部分
-根据BN分解定理，$P(X)=\prod_i P(X_i|Pa(X_i))$
-观察值给了定值$E_j=e_j$, 所以每个采样值应该加上权值$\prod_{j}P(E_j=e_j|Pa(E_j))$
-和FS with rejection联系：采样可以看成有$\prod_{j}P(E_j=e_j|Pa(E_j))$的概率被接受
+P(Y, e) = P(Y\|e)P(e), 所以P(Y\|e)是P(Y, e)的一部分
+根据BN分解定理，$$P(X)=\prod_i P(X_i\|Pa(X_i))$$
+观察值给了定值$$E_j=e_j$$, 所以每个采样值应该加上权值$$\prod_{j}P(E_j=e_j\|Pa(E_j))$$
+和FS with rejection联系：采样可以看成有$$\prod_{j}P(E_j=e_j\|Pa(E_j))$$的概率被接受
 **采样过程**
 1. 确定X~1~, ... , X~n~的拓扑排序
 2. 对于每个变量X~i~(采M个样本)
-	如果X~i~∉E，直接从$P(X_i|Pa_i)$采样
-	如果X~i~∈E，设X~i~=E[x~i~]，$w_i = w_i · P(E[x_i]|Pa_i)$
+	如果X~i~∉E，直接从$$P(X_i\|Pa_i)$$采样
+	如果X~i~∈E，设X~i~=E[x~i~]，$$w_i = w_i · P(E[x_i]\|Pa_i)$$
 3. 得到w~i~，x[1], ..., x[M]
-4. 估计概率$$P(y|e) \approx \frac{\sum_{m=1}^{M} w[m]I\{x[m](Y=y)\}}{\sum_{m=1}^{M} w[m]}$$
-其中$w[m]=\prod_{x_i \in E}P(x_i=e_i|Pa_i)$
+4. 估计概率$$P(y\|e) \approx \frac{\sum_{m=1}^{M} w[m]I\{x[m](Y=y)\}}{\sum_{m=1}^{M} w[m]}$$
+其中$$w[m]=\prod_{x_i \in E}P(x_i=e_i\|Pa_i)$$
 ## 重要性采样 Importance Sampling （IS）
 估计一个和P相关的函数Q，从Q中采样。P是目标分布，Q是采样分布。
 要求Q：P(x) > 0 → Q(x) > 0
@@ -62,7 +65,7 @@ Q不会漏掉P的任何一个非零概率的事件。
 所以从Q中Sample的数据可以用来近似P的采样
 ![IS](https://img-blog.csdnimg.cn/20181222183558234.png)
 ### Normalized Importance Sampling
-归一化P'，P=P'/α，$\alpha=\sum_x P'(x)$
+归一化P'，P=P'/α，$$\alpha=\sum_x P'(x)$$
 已知α：
 ![IS](https://img-blog.csdnimg.cn/2018122218410039.png)
 因此可以推导出归一化的P和Q的采样估计
@@ -81,10 +84,10 @@ Q不会漏掉P的任何一个非零概率的事件。
 ![mutilated network](https://img-blog.csdnimg.cn/20181222185125204.png)
 如果Q定义为mutilated network, 那么LW和IS是相同的采样公式
 **Likelihood Weighting**:
-$$P(y|e) \approx \frac{\sum_{m=1}^{M} w[m]I\{x[m](Y=y)\}}{\sum_{m=1}^{M} w[m]}$$
-其中$w[m]=\prod_{x_i \in E}P(x_i=e_i|Pa_i)$
+$$P(y\|e) \approx \frac{\sum_{m=1}^{M} w[m]I\{x[m](Y=y)\}}{\sum_{m=1}^{M} w[m]}$$
+其中$$w[m]=\prod_{x_i \in E}P(x_i=e_i\|Pa_i)$$
 **Importance Sampling**
-$$P(y|e) \approx \frac{\sum_{m=1}^{M} P'(x[m])/Q(x[m])I\{x[m](Y=y)\}}{\sum_{m=1}^{M} P'(x[m])/Q(x[m])}$$
+$$P(y\|e) \approx \frac{\sum_{m=1}^{M} P'(x[m])/Q(x[m])I\{x[m](Y=y)\}}{\sum_{m=1}^{M} P'(x[m])/Q(x[m])}$$
 其中![在这里插入图片描述](https://img-blog.csdnimg.cn/20181222190212660.png)
 **需要sample的数量**
 取决于P和Q的相似度
@@ -92,7 +95,7 @@ $$P(y|e) \approx \frac{\sum_{m=1}^{M} P'(x[m])/Q(x[m])I\{x[m](Y=y)\}}{\sum_{m=1}
 LW在Markov Network（MN）很低效，因为需要将MN转化为BN
 IS在选择一个合适的Q上很难，如果Q和P太不像，收敛会很慢
 ## 蒙特卡洛方法 Markov Chain Monte Carlo Method（MCMC）
-MCMC的基本想法是设计一个马氏链，其稳态分布是P(X|e)，即我们要求的目标分布。所以从这个马氏链上的采样就会服从我们的目标分布。
+MCMC的基本想法是设计一个马氏链，其稳态分布是P(X\|e)，即我们要求的目标分布。所以从这个马氏链上的采样就会服从我们的目标分布。
 通过马氏链的稳态分布来做inference。
 ### Markov Chain & Stationary Distribution
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20181222190802777.png)
@@ -111,7 +114,7 @@ MCMC的基本想法是设计一个马氏链，其稳态分布是P(X|e)，即我�
 1. 设x[m]=x[m-1]且更换变量更新顺序(增加随机性)
 2. 对每个变量X~i~∈X-E：
 	- 设u~i~为Xi的Markov Blanket
-	- 从P(X~i~|u~i~)采样X~i~的新值
+	- 从P(X~i~\|u~i~)采样X~i~的新值
 	- 更新X~i~为采样值
 3. 得到x[m]
 #### Gibbs Sampling for BNs
@@ -126,13 +129,13 @@ Gibbs Sampling 给定一个当前状态 S，转移到下一个状态的转移概
 所以设计了一个新的因子：acceptance probability 接受概率。是指是否接受一个状态转移 A(x→x')
 现在的转移变成：
 状态 x 转移到状态 x'：T(x→x') = T^Q^(x→x')A(x→x')
-状态 x 停留在原状态：T(x→x) = T^Q^(x→x) + $\sum_{x'\neq x}$T^Q^(x→x')(1-A(x→x'))
+状态 x 停留在原状态：T(x→x) = T^Q^(x→x) + $$\sum_{x'\neq x}$$T^Q^(x→x')(1-A(x→x'))
 上式第一项是原来的转移就是停留在原状态，第二项是指本来要转到其他状态，但是被拒绝了，只能留在原状态。
 因为 MC 是稳态的，所以互相转移的概率是相等的。
-$\pi(x)T^Q(x→x')A(x→x')=\pi(x')T^Q(x'→x)A(x'→x)$
+$$\pi(x)T^Q(x→x')A(x→x')=\pi(x')T^Q(x'→x)A(x'→x)$$
 从上式推出：重要！！！在结构学习的时候会使用到这个结论$$A(x'→x)=min[1, \frac{\pi(x')T^Q(x'→x)}{\pi(x)T^Q(x→x')}]$$
 在连续概率分布结论也是成立的。经常用到的是把转移概率分布设为多元高斯分布（可以看成是以当前状态为中心的随机游走）。那么此时的转移概率是对称的（随机游走过程），即T(x'→x)=T(x→x')。
-此时的 acceptance rate 只与稳态分布或者目标分布有关，即$A(x'→x)=min[1, \frac{\pi(x')}{\pi(x)}]=min[1, \frac{p(x')}{p(x)}]$
+此时的 acceptance rate 只与稳态分布或者目标分布有关，即$$A(x'→x)=min[1, \frac{\pi(x')}{\pi(x)}]=min[1, \frac{p(x')}{p(x)}]$$
 MH algorithm 有个缺陷就是不同状态之间的转移太低效了，可能会产生很多 rejection。
 
 ### (Hybrid) Hamiltonian Monte Carlo (HMC)
