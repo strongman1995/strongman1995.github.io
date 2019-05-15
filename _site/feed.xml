@@ -5,8 +5,8 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 15 May 2019 21:13:39 +0800</pubDate>
-    <lastBuildDate>Wed, 15 May 2019 21:13:39 +0800</lastBuildDate>
+    <pubDate>Wed, 15 May 2019 21:34:18 +0800</pubDate>
+    <lastBuildDate>Wed, 15 May 2019 21:34:18 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -254,111 +254,122 @@
       </item>
     
       <item>
+        <title>Inference As Optimization</title>
+        <description>
+&lt;h3 id=&quot;variable-eliminationve-消元法&quot;&gt;Variable Elimination(VE) 消元法&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225162242562.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+线性链上的消元：
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225162328300.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+按照 A、B、C、D 的顺序依次消去&lt;/p&gt;
+&lt;h4 id=&quot;ve-in-complex-graphs&quot;&gt;VE in complex graphs&lt;/h4&gt;
+&lt;p&gt;induced graph in VE
+step 1: Moralizing for BN （即在 v-structure 的两个父亲节点连边）
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225163502592.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225163519884.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+step 2: Triangulation （即在消元过程中做三角化操作）
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225163502592.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225163544995.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+最后出来会是 chordal，即是一个弦图，图中只有三角，没有四边形
+如果每次 inference 的时候都要遍历整个图，那就太蠢了，这里可以采用动态规划的算法，消元时候的中间结果是可以拿来重用的。
+提前计算好定义在每个 clique 上的 marginal distribution，在做 inference 时候也能快很多。&lt;/p&gt;
+&lt;h3 id=&quot;exact-inference-clique-tree&quot;&gt;Exact Inference: Clique Tree&lt;/h3&gt;
+&lt;h4 id=&quot;cluster-graph-and-clique-tree&quot;&gt;Cluster graph and clique tree&lt;/h4&gt;
+&lt;p&gt;clique tree 是定义在弦图上的，根据 clique 生成的树状结构。
+clique tree 有两个非常重要的性质：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;tree and family preserving: 原来的 induced graph 转化为 clique tree 后具有树状结构，而且和原来的结构是可以相互转换的。clique tree 的每一个节点是代表一个 clique，边上是两个 clique 间重叠的部分。&lt;/li&gt;
+  &lt;li&gt;running intersection property：是指变量 X 存在一条连续的树的子路径上。如 G 出现在了 Clique2和 clique4中，那么中间的 clique3和 clique5
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225164707586.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225164726619.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+每个 clique 都是有他们对应的 local CPD
+&lt;img src=&quot;https://img-blog.csdnimg.cn/2018122516540046.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+    &lt;h4 id=&quot;message-passing-sum-product&quot;&gt;Message passing: Sum Product&lt;/h4&gt;
+    &lt;p&gt;顺序1：
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225165835873.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
+顺序2：
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225165858394.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+    &lt;h4 id=&quot;clique-tree-calibration&quot;&gt;Clique Tree Calibration&lt;/h4&gt;
+    &lt;p&gt;calibration（校准）：使得两个相邻 clique 之间传送的消息相等。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;message-passing-belief-update&quot;&gt;Message passing: Belief Update&lt;/h4&gt;
+&lt;h4 id=&quot;constructing-clique-tree&quot;&gt;Constructing clique tree&lt;/h4&gt;
+</description>
+        <pubDate>Fri, 26 Oct 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/10/26/inference-as-optimization.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/10/26/inference-as-optimization.html</guid>
+        
+        
+      </item>
+    
+      <item>
         <title>Parameter Learning</title>
-        <description>&lt;p&gt;概率图分为三大部分：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Representation	P &amp;lt;=&amp;gt;{P,G}&lt;/p&gt;
+        <description>
+&lt;h3 id=&quot;variable-eliminationve-消元法&quot;&gt;Variable Elimination(VE) 消元法&lt;/h3&gt;
 
-    &lt;ul&gt;
-      &lt;li&gt;parent→child structure(BN) &amp;amp; clique(MN)&lt;/li&gt;
-      &lt;li&gt;Gaussian model &amp;amp; exponential families&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Inference		P(Y&lt;/td&gt;
-          &lt;td&gt;E=e, θ)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/1.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
 
-    &lt;ul&gt;
-      &lt;li&gt;Particle-based inference&lt;/li&gt;
-      &lt;li&gt;Inference as optimization&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Learning&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;线性链上的消元：&lt;/p&gt;
 
- 	- $\underset{\theta}{\operatorname{max}} P(x[1], x[2], …, x[M]|\theta)$
- 	- P(θ|x[1], x[2], …, x[M])
-&lt;h3 id=&quot;learning-basics&quot;&gt;Learning Basics&lt;/h3&gt;
-&lt;p&gt;Learning：从观测数据中构建模型。
-根据不同的准则，定义合适的 loss 或者 likelihood function
-准则包括：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;minimum error,&lt;/li&gt;
-  &lt;li&gt;probability (maximum likelihood, maximum a posterior )&lt;/li&gt;
-  &lt;li&gt;maximum margin&lt;/li&gt;
-  &lt;li&gt;compressive sensing&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/2.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;在概率框架下的学习：&lt;/p&gt;
+&lt;p&gt;按照 A、B、C、D 的顺序依次消去&lt;/p&gt;
+
+&lt;h4 id=&quot;ve-in-complex-graphs&quot;&gt;VE in complex graphs&lt;/h4&gt;
+
+&lt;p&gt;induced graph in VE&lt;/p&gt;
+
+&lt;p&gt;step 1: Moralizing for BN （即在 v-structure 的两个父亲节点连边）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/3.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/4.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;step 2: Triangulation （即在消元过程中做三角化操作）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/5.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/6.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最后出来会是 chordal，即是一个弦图，图中只有三角，没有四边形&lt;/p&gt;
+
+&lt;p&gt;如果每次 inference 的时候都要遍历整个图，那就太蠢了，这里可以采用动态规划的算法，消元时候的中间结果是可以拿来重用的。&lt;/p&gt;
+
+&lt;p&gt;提前计算好定义在每个 clique 上的 marginal distribution，在做 inference 时候也能快很多。&lt;/p&gt;
+
+&lt;h3 id=&quot;exact-inference-clique-tree&quot;&gt;Exact Inference: Clique Tree&lt;/h3&gt;
+
+&lt;h4 id=&quot;cluster-graph-and-clique-tree&quot;&gt;Cluster graph and clique tree&lt;/h4&gt;
+
+&lt;p&gt;clique tree 是定义在弦图上的，根据 clique 生成的树状结构。&lt;/p&gt;
+
+&lt;p&gt;clique tree 有两个非常重要的性质：&lt;/p&gt;
+
 &lt;ol&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;parameter learning：{x[m]}~m=1-M~&lt;/td&gt;
-          &lt;td&gt;~G~→P(θ&lt;/td&gt;
-          &lt;td&gt;D)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;tree and family preserving: 原来的 induced graph 转化为 clique tree 后具有树状结构，而且和原来的结构是可以相互转换的。clique tree 的每一个节点是代表一个 clique，边上是两个 clique 间重叠的部分。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Structure learning：{x[m]}~m=1-M~→P(G, θ&lt;/td&gt;
-          &lt;td&gt;D)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;running intersection property：是指变量 X 存在一条连续的树的子路径上。如 G 出现在了 Clique2和 clique4中，那么中间的 clique3和 clique5&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;Generative Models: 学习 joint probability P(X=x, Y)&lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Discriminative model: 学习conditional probability P(Y&lt;/td&gt;
-          &lt;td&gt;X=x)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/7.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/8.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;避免 Overfitting&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;如果模型复杂度比训练数据更大，能得到非常“好”的学习，0 empirical risk，但是在 测试集表现会很差&lt;/li&gt;
-  &lt;li&gt;增加泛化，需要去惩罚模型的复杂度，分离训练和测试数据&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;每个 clique 都是有他们对应的 local CPD&lt;/p&gt;
 
-&lt;p&gt;在理论层面：&lt;strong&gt;模型的复杂度需要适应数据的复杂度&lt;/strong&gt;，loss function 中的正则项
-在经验层面：cross-validation(LOOCV/N-fold CV)，0.632 boostraping(1-e^-1^)
-什么是0.632 bootstrapping？
-从 M 个样本中有放回地抽取 M 次，那么这些数据大概率会有0.632是不重复的数据，这些数据作为 training 集，剩下没有被抽到的作为 test 集。最后 performance：0.368&lt;em&gt;Performance~Train~ + 0.632&lt;/em&gt;Performance~Test~&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/9.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;判断是否 overfitting: 在 test 集的 performance 是否严重低于training 集的 performance&lt;/p&gt;
+&lt;h4 id=&quot;message-passing-sum-product&quot;&gt;Message passing: Sum Product&lt;/h4&gt;
 
-&lt;p&gt;&lt;strong&gt;参数估计&lt;/strong&gt;
-如果一组数据的分布参数不知道，那么这组数据的联合分布不会等于每个数据的概率乘积。假设知道了分布参数，那所有的 samples 是独立同分布的，即 i.i.d
-&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-10-parameter-learning/1.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;最大似然参数估计-maximum-likelihood-parameter-estimationmle&quot;&gt;最大似然参数估计 Maximum Likelihood Parameter Estimation（MLE）&lt;/h3&gt;
-&lt;p&gt;首先，什么是 likelihood？
-likelihood 是给定分布参数的 probability 或者是 confidence
-而 log likelihood 更经常被使用，为了更好的计算$log P(D|\theta)=\sum_i log \phi_i(x[i];\theta)$
-&lt;strong&gt;MLE&lt;/strong&gt;：找到是的 likelihood 最大的参数赋值θ，参数估计的一种方法，&lt;/p&gt;
-&lt;h3 id=&quot;bayesian-parameter-estimation&quot;&gt;Bayesian Parameter Estimation&lt;/h3&gt;
+&lt;p&gt;顺序1：&lt;/p&gt;
 
-&lt;h3 id=&quot;map-parameter-estimation&quot;&gt;MAP Parameter Estimation&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/10.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;顺序2：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/11.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;clique-tree-calibration&quot;&gt;Clique Tree Calibration&lt;/h4&gt;
+
+&lt;p&gt;calibration（校准）：使得两个相邻 clique 之间传送的消息相等。&lt;/p&gt;
+
+&lt;h4 id=&quot;message-passing-belief-update&quot;&gt;Message passing: Belief Update&lt;/h4&gt;
+&lt;h4 id=&quot;constructing-clique-tree3&quot;&gt;Constructing clique tree3&lt;/h4&gt;
 </description>
         <pubDate>Wed, 10 Oct 2018 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/2018/10/10/parameter-learning.html</link>
