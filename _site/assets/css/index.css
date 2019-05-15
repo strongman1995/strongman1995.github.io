@@ -2,7 +2,7 @@
 
 .site-header{
     color: #fff;
-    background: #4183c4;
+    background: #2b3d71;
 }
 
 .site-header #site-header-brand {
@@ -18,7 +18,8 @@
 }
 
 .jumbotron {
-    background: #4183c4;
+    background: #fff;
+    position: relative;
 }
 
 .site-header.site-header-nav-scrolled a {
@@ -31,4 +32,18 @@
 
 .site-header.site-header-nav-scrolled a:hover {
     color: #4183c4;
+}
+
+#myCanvas {
+    background-color: #121a31;
+    position: relative;
+    width: 100%;
+    height: 500px;
+  /*background-color: #4603a3;*/
+}
+
+.jumbotron.container {
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
 }

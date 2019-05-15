@@ -5,7 +5,9 @@ category: CSS
 tags: [css]
 ---
 
+This is post no right side bar to nav posts.
 
+You just need to set **no-post-nav: true** for your post
 
 Quick note about CSS animation.  $$\beta$$ hahah
 

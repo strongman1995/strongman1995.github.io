@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon Icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
 
-    <title>Welcome to Jekyll!</title>
+    <title>Parameter Learning</title>
     <meta name="description"
-          content="Welcome to use Yummy Jekyll as your jekyll theme!">
+          content="概率图分为三大部分：      Representation	P &lt;=&gt;{P,G}          parent→child structure(BN) &amp; clique(MN)      Gaussian model &amp; exponential families          ...">
 
-    <link rel="canonical" href="http://localhost:4000/jekyll/update/2016/05/13/welcome-to-yummy.html">
-    <link rel="alternate" type="application/rss+xml" title="Welcome to my blog" href="http://localhost:4000/feed.xml">
+    <link rel="canonical" href="http://localhost:4000/2018/10/10/parameter-learning.html">
+    <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -91,14 +91,14 @@
 
 
         <div class="content">
-            <section class="jumbotron geopattern" data-pattern-id="Welcome to Jekyll!">
+            <section class="jumbotron geopattern" data-pattern-id="Parameter Learning">
     <div class="container">
         <div id="jumbotron-meta-info">
-            <h1>Welcome to Jekyll!</h1>
+            <h1>Parameter Learning</h1>
             <span class="meta-info">
                 
                 
-                <span class="octicon octicon-calendar"></span> 2016/05/13
+                <span class="octicon octicon-calendar"></span> 2018/10/10
                 
             </span>
         </div>
@@ -120,13 +120,110 @@
         
         <div class="col-md-8 markdown-body">
 
-            <p>Welcome to use Yummy Jekyll as your jekyll theme!</p>
+            <p>概率图分为三大部分：</p>
+<ul>
+  <li>
+    <p>Representation	P &lt;=&gt;{P,G}</p>
 
-<h2 id="yummy-jekyll">Yummy Jekyll</h2>
+    <ul>
+      <li>parent→child structure(BN) &amp; clique(MN)</li>
+      <li>Gaussian model &amp; exponential families</li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Inference		P(Y</td>
+          <td>E=e, θ)</td>
+        </tr>
+      </tbody>
+    </table>
 
-<h2 id="how-to-install">How to install</h2>
+    <ul>
+      <li>Particle-based inference</li>
+      <li>Inference as optimization</li>
+    </ul>
+  </li>
+  <li>Learning</li>
+</ul>
 
-<h2 id="licence">Licence</h2>
+ 	- $\underset{\theta}{\operatorname{max}} P(x[1], x[2], …, x[M]|\theta)$
+ 	- P(θ|x[1], x[2], …, x[M])
+<h3 id="learning-basics">Learning Basics</h3>
+<p>Learning：从观测数据中构建模型。
+根据不同的准则，定义合适的 loss 或者 likelihood function
+准则包括：</p>
+<ol>
+  <li>minimum error,</li>
+  <li>probability (maximum likelihood, maximum a posterior )</li>
+  <li>maximum margin</li>
+  <li>compressive sensing</li>
+</ol>
+
+<p>在概率框架下的学习：</p>
+<ol>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>parameter learning：{x[m]}~m=1-M~</td>
+          <td>~G~→P(θ</td>
+          <td>D)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Structure learning：{x[m]}~m=1-M~→P(G, θ</td>
+          <td>D)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ol>
+
+<ul>
+  <li>Generative Models: 学习 joint probability P(X=x, Y)</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Discriminative model: 学习conditional probability P(Y</td>
+          <td>X=x)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<p><strong>避免 Overfitting</strong></p>
+<ol>
+  <li>如果模型复杂度比训练数据更大，能得到非常“好”的学习，0 empirical risk，但是在 测试集表现会很差</li>
+  <li>增加泛化，需要去惩罚模型的复杂度，分离训练和测试数据</li>
+</ol>
+
+<p>在理论层面：<strong>模型的复杂度需要适应数据的复杂度</strong>，loss function 中的正则项
+在经验层面：cross-validation(LOOCV/N-fold CV)，0.632 boostraping(1-e^-1^)
+什么是0.632 bootstrapping？
+从 M 个样本中有放回地抽取 M 次，那么这些数据大概率会有0.632是不重复的数据，这些数据作为 training 集，剩下没有被抽到的作为 test 集。最后 performance：0.368<em>Performance~Train~ + 0.632</em>Performance~Test~</p>
+
+<p>判断是否 overfitting: 在 test 集的 performance 是否严重低于training 集的 performance</p>
+
+<p><strong>参数估计</strong>
+如果一组数据的分布参数不知道，那么这组数据的联合分布不会等于每个数据的概率乘积。假设知道了分布参数，那所有的 samples 是独立同分布的，即 i.i.d
+<img src="http://127.0.0.1:4000/assets/images/2018-10-10-parameter-learning/1.png" alt="在这里插入图片描述" /></p>
+<h3 id="最大似然参数估计-maximum-likelihood-parameter-estimationmle">最大似然参数估计 Maximum Likelihood Parameter Estimation（MLE）</h3>
+<p>首先，什么是 likelihood？
+likelihood 是给定分布参数的 probability 或者是 confidence
+而 log likelihood 更经常被使用，为了更好的计算$log P(D|\theta)=\sum_i log \phi_i(x[i];\theta)$
+<strong>MLE</strong>：找到是的 likelihood 最大的参数赋值θ，参数估计的一种方法，</p>
+<h3 id="bayesian-parameter-estimation">Bayesian Parameter Estimation</h3>
+
+<h3 id="map-parameter-estimation">MAP Parameter Estimation</h3>
 
 
             <!-- Comments -->
@@ -211,17 +308,17 @@
 
     <div class="site-footer">
 
-        <div class="copyright pull-left">
-            <!-- 请不要更改这一行 方便其他人知道模板的来源 谢谢 -->
-            <!-- Please keep this line to let others know where this theme comes from. Thank you :D -->
-            Power by <a href="https://github.com/DONGChuan/Yummy-Jekyll">Yummy Jekyll</a>
-        </div>
+        <!--<div class="copyright pull-left">-->
+            <!--&lt;!&ndash; 请不要更改这一行 方便其他人知道模板的来源 谢谢 &ndash;&gt;-->
+            <!--&lt;!&ndash; Please keep this line to let others know where this theme comes from. Thank you :D &ndash;&gt;-->
+            <!--Power by <a href="https://github.com/DONGChuan/Yummy-Jekyll">Yummy Jekyll</a>-->
+        <!--</div>-->
 
         <a href="https://github.com/strongman1995" target="_blank" aria-label="view source code">
             <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
         </a>
 
-        <div align=center>
+        <div align=left>
             Visitors:
             <a href='https://www.counter12.com'>
                 <img src='https://www.counter12.com/img-Cwz4393YWx8CY2a8-15.gif' border='0' alt='free web counter'></a>
