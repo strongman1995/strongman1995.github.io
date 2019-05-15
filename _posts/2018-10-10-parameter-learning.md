@@ -1,63 +1,78 @@
+---
+layout: post
+title: "概率图学习——Parameter Learning 参数学习"
+category: pgm
+tags: [参数学习, 参数估计, 最大似然估计, MLE]
+date:   2018-10-10 13:25:35 +0200
+---
 
-### Variable Elimination(VE) 消元法
+概率图分为三大部分：
+ - Representation	P <=>{P,G}
+	
+	 - parent→child structure(BN) & clique(MN)
+	 - Gaussian model & exponential families
+	 
+ - Inference		P(Y\|E=e, θ)
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/1.png)
+	- Particle-based inference
+	- Inference as optimization
+	
+ - Learning 
+ 
+ 	- $$\underset{\theta}{\operatorname{max}} P(x[1], x[2], ..., x[M]\|\theta)$$
+ 	- P(θ\|x[1], x[2], ..., x[M])
 
-线性链上的消元：
+## Learning Basics
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/2.png)
+Learning：从观测数据中构建模型。
 
-按照 A、B、C、D 的顺序依次消去
+根据不同的准则，定义合适的 loss 或者 likelihood function
 
-#### VE in complex graphs
+准则包括：
 
-induced graph in VE
+1. minimum error,
+2. probability (maximum likelihood, maximum a posterior )
+3. maximum margin
+4. compressive sensing
 
-step 1: Moralizing for BN （即在 v-structure 的两个父亲节点连边）
+在概率框架下的学习：
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/3.png)![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/4.png)
+1. parameter learning：{x[m]}~m=1-M~\|~G~→P(θ\|D)
+2. Structure learning：{x[m]}~m=1-M~→P(G, θ\|D)
 
-step 2: Triangulation （即在消元过程中做三角化操作）
+- Generative Models: 学习 joint probability P(X=x, Y)
+- Discriminative model: 学习conditional probability P(Y\|X=x)
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/5.png)![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/6.png)
+**避免 Overfitting**
+1. 如果模型复杂度比训练数据更大，能得到非常“好”的学习，0 empirical risk，但是在 测试集表现会很差
+2. 增加泛化，需要去惩罚模型的复杂度，分离训练和测试数据
 
-最后出来会是 chordal，即是一个弦图，图中只有三角，没有四边形
+在理论层面：**模型的复杂度需要适应数据的复杂度**，loss function 中的正则项
 
-如果每次 inference 的时候都要遍历整个图，那就太蠢了，这里可以采用动态规划的算法，消元时候的中间结果是可以拿来重用的。
+在经验层面：cross-validation(LOOCV/N-fold CV)，0.632 boostraping(1-e^-1^)
 
-提前计算好定义在每个 clique 上的 marginal distribution，在做 inference 时候也能快很多。
+什么是0.632 bootstrapping？
 
-### Exact Inference: Clique Tree 
+从 M 个样本中有放回地抽取 M 次，那么这些数据大概率会有0.632是不重复的数据，这些数据作为 training 集，剩下没有被抽到的作为 test 集。最后 performance：0.368*Performance~Train~ + 0.632*Performance~Test~
 
-#### Cluster graph and clique tree
+判断是否 overfitting: 在 test 集的 performance 是否严重低于training 集的 performance
 
-clique tree 是定义在弦图上的，根据 clique 生成的树状结构。
+**参数估计**
 
-clique tree 有两个非常重要的性质：
+如果一组数据的分布参数不知道，那么这组数据的联合分布不会等于每个数据的概率乘积。假设知道了分布参数，那所有的 samples 是独立同分布的，即 i.i.d
 
-1. tree and family preserving: 原来的 induced graph 转化为 clique tree 后具有树状结构，而且和原来的结构是可以相互转换的。clique tree 的每一个节点是代表一个 clique，边上是两个 clique 间重叠的部分。
+![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-10-parameter-learning/1.png)
 
-2. running intersection property：是指变量 X 存在一条连续的树的子路径上。如 G 出现在了 Clique2和 clique4中，那么中间的 clique3和 clique5
+## 最大似然参数估计 Maximum Likelihood Parameter Estimation（MLE）
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/7.png)![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/8.png)
+首先，什么是 likelihood？
 
-每个 clique 都是有他们对应的 local CPD
+likelihood 是给定分布参数的 probability 或者是 confidence
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/9.png)
+而 log likelihood 更经常被使用，为了更好的计算$$log P(D\|\theta)=\sum_i log \phi_i(x[i];\theta)$$
 
-#### Message passing: Sum Product
+**MLE**：找到是的 likelihood 最大的参数赋值θ，参数估计的一种方法，
 
-顺序1：
+## Bayesian Parameter Estimation
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/10.png)
-
-顺序2：
-
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/11.png)
-
-#### Clique Tree Calibration
-
-calibration（校准）：使得两个相邻 clique 之间传送的消息相等。
-
-#### Message passing: Belief Update
-#### Constructing clique tree3
+## MAP Parameter Estimation

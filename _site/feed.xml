@@ -5,18 +5,385 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 15 May 2019 21:34:18 +0800</pubDate>
-    <lastBuildDate>Wed, 15 May 2019 21:34:18 +0800</lastBuildDate>
+    <pubDate>Wed, 15 May 2019 22:09:21 +0800</pubDate>
+    <lastBuildDate>Wed, 15 May 2019 22:09:21 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
-        <title>概率图学习-Particle-Based Approximate Inference</title>
+        <title>leetcode 学习笔记</title>
+        <description>&lt;h2 id=&quot;2-两数相加&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/add-two-numbers/&quot;&gt;2. 两数相加&lt;/a&gt;&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addTwoNumbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mod&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;divmod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;3-无重复字符的最长子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/&quot;&gt;3. 无重复字符的最长子串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;暴力法：O(n^3)
+滑动窗口: O(n)， 通过使用 HashSet 作为滑动窗口，我们可以用O(1)的时间来完成对字符是否在当前的子字符串中的检查。滑动窗口是数组/字符串问题中常用的抽象概念。 窗口通常是在数组/字符串中由开始和结束索引定义的一系列元素的集合，即 [i,j)（左闭，右开）。而滑动窗口是可以将两个边界向某一方向“滑动”的窗口。例如，我们将 [i,j)向右滑动 11 个元素，则它将变为 [i+1,j+1)（左闭，右开）。
+回到我们的问题，我们使用 HashSet 将字符存储在当前窗口 [i,j)最初 （j=i）中。 然后我们向右侧滑动索引 j，如果它不在 HashSet 中，我们会继续滑动 j。直到 s[j] 已经存在于 HashSet 中。此时，我们找到的没有重复字符的最长子字符串将会以索引 i 开头。如果我们对所有的 i 这样做，就可以得到答案。&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lengthOfLongestSubstring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# i 是开始位置&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 原来开始的位置和s[j]重复的位置，取大的那个&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 更新当前字符在 hashset 中存储的位置，hashset 存储了一个窗口中字符的位置&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;5-最长回文子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-palindromic-substring/&quot;&gt;5. 最长回文子串&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;可以用动态规划
+但更优的是中心扩展算法，回文可以从它的中心展开，并且只有 2n−1 个这样的中心。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;longestPalindrome&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;len1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expand_around_center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;len2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expand_around_center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;m_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;expand_around_center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 12 Dec 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/leetcode/2018/12/12/leetcode.html</link>
+        <guid isPermaLink="true">http://localhost:4000/leetcode/2018/12/12/leetcode.html</guid>
+        
+        
+        <category>leetcode</category>
+        
+      </item>
+    
+      <item>
+        <title>概率图模型——inference as optimization: structured variational inference 结构变分推断</title>
+        <description>&lt;h2 id=&quot;variational-inferences&quot;&gt;Variational inferences&lt;/h2&gt;
+&lt;h2 id=&quot;mean-field-variational-inferences&quot;&gt;Mean field variational inferences&lt;/h2&gt;
+&lt;h2 id=&quot;structured-variational-inferences&quot;&gt;Structured variational inferences&lt;/h2&gt;
+&lt;h2 id=&quot;deep-variational-autocoders&quot;&gt;Deep variational autocoders&lt;/h2&gt;
+</description>
+        <pubDate>Fri, 09 Nov 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2018/11/09/variational-inference.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2018/11/09/variational-inference.html</guid>
+        
+        
+        <category>pgm</category>
+        
+      </item>
+    
+      <item>
+        <title>概率图学习——Inference as Optimization: Cluster Graph &amp; Belief Propagation 聚类图，置信传播</title>
+        <description>&lt;h2 id=&quot;variable-eliminationve-消元法&quot;&gt;Variable Elimination(VE) 消元法&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/1.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;线性链上的消元：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/2.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;按照 A、B、C、D 的顺序依次消去&lt;/p&gt;
+
+&lt;h3 id=&quot;ve-in-complex-graphs&quot;&gt;VE in complex graphs&lt;/h3&gt;
+
+&lt;p&gt;induced graph in VE&lt;/p&gt;
+
+&lt;p&gt;step 1: Moralizing for BN （即在 v-structure 的两个父亲节点连边）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/3.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/4.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;step 2: Triangulation （即在消元过程中做三角化操作）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/5.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/6.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最后出来会是 chordal，即是一个弦图，图中只有三角，没有四边形&lt;/p&gt;
+
+&lt;p&gt;如果每次 inference 的时候都要遍历整个图，那就太蠢了，这里可以采用动态规划的算法，消元时候的中间结果是可以拿来重用的。&lt;/p&gt;
+
+&lt;p&gt;提前计算好定义在每个 clique 上的 marginal distribution，在做 inference 时候也能快很多。&lt;/p&gt;
+
+&lt;h2 id=&quot;exact-inference-clique-tree&quot;&gt;Exact Inference: Clique Tree&lt;/h2&gt;
+
+&lt;h3 id=&quot;cluster-graph-and-clique-tree&quot;&gt;Cluster graph and clique tree&lt;/h3&gt;
+
+&lt;p&gt;clique tree 是定义在弦图上的，根据 clique 生成的树状结构。&lt;/p&gt;
+
+&lt;p&gt;clique tree 有两个非常重要的性质：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;tree and family preserving: 原来的 induced graph 转化为 clique tree 后具有树状结构，而且和原来的结构是可以相互转换的。clique tree 的每一个节点是代表一个 clique，边上是两个 clique 间重叠的部分。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;running intersection property：是指变量 X 存在一条连续的树的子路径上。如 G 出现在了 Clique2和 clique4中，那么中间的 clique3和 clique5&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/7.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/8.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;每个 clique 都是有他们对应的 local CPD&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/9.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;message-passing-sum-product&quot;&gt;Message passing: Sum Product&lt;/h3&gt;
+
+&lt;p&gt;顺序1：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/10.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;顺序2：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/11.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;clique-tree-calibration&quot;&gt;Clique Tree Calibration&lt;/h3&gt;
+
+&lt;p&gt;calibration（校准）：使得两个相邻 clique 之间传送的消息相等。&lt;/p&gt;
+
+&lt;h3 id=&quot;message-passing-belief-update&quot;&gt;Message passing: Belief Update&lt;/h3&gt;
+&lt;h3 id=&quot;constructing-clique-tree3&quot;&gt;Constructing clique tree3&lt;/h3&gt;
+</description>
+        <pubDate>Fri, 26 Oct 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2018/10/26/inference-as-optimization.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2018/10/26/inference-as-optimization.html</guid>
+        
+        <category>推断</category>
+        
+        <category>聚类图</category>
+        
+        <category>置信传播</category>
+        
+        
+        <category>pgm</category>
+        
+      </item>
+    
+      <item>
+        <title>概率图学习——Learning with incomplete data 从部分观测数据学习</title>
+        <description>&lt;h2 id=&quot;variables-are-not-detectable&quot;&gt;Variables are Not Detectable&lt;/h2&gt;
+
+&lt;p&gt;为什么变量是不能观测到的呢？因为变量可能是 hidden variables，不能被观测，只是一个概念，非真实存在。&lt;/p&gt;
+
+&lt;h3 id=&quot;hmm&quot;&gt;HMM&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/1.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;状态变量 y 不能被观测&lt;/p&gt;
+
+&lt;h3 id=&quot;gaussian-mixture-model&quot;&gt;Gaussian Mixture Model&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/2.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;missing-values-and-data-outliers&quot;&gt;Missing Values and Data Outliers&lt;/h2&gt;
+
+&lt;p&gt;缺失值和异常点，系统可能会没有检测到一些观测点。还有一些异常点。&lt;/p&gt;
+
+&lt;h2 id=&quot;learning-in-gaussian-mixture-models&quot;&gt;Learning in Gaussian Mixture Models&lt;/h2&gt;
+
+&lt;p&gt;对一个MLE 框架下，已知数据 D={y[1],…,y[M]}&lt;/p&gt;
+
+&lt;p&gt;目标函数：$\underset{\theta}{\operatorname{arg max}} p(D|\theta)$&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/3.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;对于完整数据，MLE 学习是简单的，已知完整数据 Dc={(x[i], y[i])}~i=1…M~&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/4.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;E-step:&lt;/p&gt;
+
+&lt;p&gt;x的先验分布π~k~ = p(X=k):  $\pi_k^*=\frac{M[x=k]}{M}$&lt;/p&gt;
+
+&lt;p&gt;M-step:&lt;/p&gt;
+
+&lt;p&gt;$\mu_k^*=\frac{1}{M[x=k]}\sum_m y[m] |_{x[m]=k}$&lt;/p&gt;
+
+&lt;p&gt;$\Sigma_k^&lt;em&gt;=\frac{1}{M[x=k]}\sum_m (y[m]-\mu_k^&lt;/em&gt;)(y[m]-\mu_k^*)^T |_{x[m]=k}$&lt;/p&gt;
+
+&lt;p&gt;但是实际上X 是不知道的，只有 Y 被观测到。&lt;/p&gt;
+
+&lt;p&gt;如果我们知道参数θ，可以求得 X 的后验分布（这是 inference 过程）&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Q(x=k)=P(x=k\|y, \theta)=\frac{p(y\|x=k, \theta)p(x=k\|\theta)}{\sum_{k=1}^{K} p(y\|x=k, \theta)p(x=k\|\theta)}&lt;/script&gt;
+
+&lt;p&gt;将 x 的先验分布P(X)=π和 Y 的 likelihood P(Y|X=k)=N~k~^(t)^(Y)代入上式, 得到：&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Q(x[m]=k)=\frac{\pi_k^{(t)}N_k^{(t)}(y[m])}{\sum_{k=1}{K}\pi_k^{(t)}N_k^{(t)}(y[m])}&lt;/script&gt;
+
+&lt;p&gt;其中$N_k^{(y)}=\frac{1}{\sqrt{|2\pi \Sigma|}}exp{-\frac{1}{2}(y-\mu_k)^T\Sigma^{-1}(y-\mu_k)}$&lt;/p&gt;
+
+&lt;p&gt;新一轮的 E 步迭代，使用 MLE 更新&lt;/p&gt;
+
+&lt;p&gt;计算$Q^{(t)}(x[m]=k)$, 代入下面式子&lt;/p&gt;
+
+&lt;p&gt;$\pi_k^{t+1}=\frac{1}{M}\sum_{m=1}^M Q^{(t)}(x[m]=k)$&lt;/p&gt;
+
+&lt;p&gt;新一轮的 M 步迭代：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/5.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;general-principles-and-methods&quot;&gt;General Principles and Methods&lt;/h2&gt;
+&lt;h3 id=&quot;general-priciples&quot;&gt;General Priciples&lt;/h3&gt;
+&lt;h3 id=&quot;expectation-maximizationem&quot;&gt;Expectation Maximization(EM)&lt;/h3&gt;
+&lt;h3 id=&quot;mcmc-sampling&quot;&gt;MCMC Sampling&lt;/h3&gt;
+</description>
+        <pubDate>Thu, 18 Oct 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2018/10/18/learning-with-incomplete-data.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2018/10/18/learning-with-incomplete-data.html</guid>
+        
+        <category>参数学习</category>
+        
+        <category>参数估计</category>
+        
+        <category>最大似然估计</category>
+        
+        <category>MLE</category>
+        
+        
+        <category>pgm</category>
+        
+      </item>
+    
+      <item>
+        <title>概率图学习——Parameter Learning 参数学习</title>
+        <description>&lt;p&gt;概率图分为三大部分：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Representation	P &amp;lt;=&amp;gt;{P,G}&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;parent→child structure(BN) &amp;amp; clique(MN)&lt;/li&gt;
+      &lt;li&gt;Gaussian model &amp;amp; exponential families&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Inference		P(Y|E=e, θ)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Particle-based inference&lt;/li&gt;
+      &lt;li&gt;Inference as optimization&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Learning&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+ 	- &lt;script type=&quot;math/tex&quot;&gt;\underset{\theta}{\operatorname{max}} P(x[1], x[2], ..., x[M]\|\theta)&lt;/script&gt;
+ 	- P(θ|x[1], x[2], …, x[M])
+
+&lt;h2 id=&quot;learning-basics&quot;&gt;Learning Basics&lt;/h2&gt;
+
+&lt;p&gt;Learning：从观测数据中构建模型。&lt;/p&gt;
+
+&lt;p&gt;根据不同的准则，定义合适的 loss 或者 likelihood function&lt;/p&gt;
+
+&lt;p&gt;准则包括：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;minimum error,&lt;/li&gt;
+  &lt;li&gt;probability (maximum likelihood, maximum a posterior )&lt;/li&gt;
+  &lt;li&gt;maximum margin&lt;/li&gt;
+  &lt;li&gt;compressive sensing&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;在概率框架下的学习：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;parameter learning：{x[m]}~m=1-M~|~G~→P(θ|D)&lt;/li&gt;
+  &lt;li&gt;Structure learning：{x[m]}~m=1-M~→P(G, θ|D)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Generative Models: 学习 joint probability P(X=x, Y)&lt;/li&gt;
+  &lt;li&gt;Discriminative model: 学习conditional probability P(Y|X=x)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;避免 Overfitting&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;如果模型复杂度比训练数据更大，能得到非常“好”的学习，0 empirical risk，但是在 测试集表现会很差&lt;/li&gt;
+  &lt;li&gt;增加泛化，需要去惩罚模型的复杂度，分离训练和测试数据&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;在理论层面：&lt;strong&gt;模型的复杂度需要适应数据的复杂度&lt;/strong&gt;，loss function 中的正则项&lt;/p&gt;
+
+&lt;p&gt;在经验层面：cross-validation(LOOCV/N-fold CV)，0.632 boostraping(1-e^-1^)&lt;/p&gt;
+
+&lt;p&gt;什么是0.632 bootstrapping？&lt;/p&gt;
+
+&lt;p&gt;从 M 个样本中有放回地抽取 M 次，那么这些数据大概率会有0.632是不重复的数据，这些数据作为 training 集，剩下没有被抽到的作为 test 集。最后 performance：0.368&lt;em&gt;Performance~Train~ + 0.632&lt;/em&gt;Performance~Test~&lt;/p&gt;
+
+&lt;p&gt;判断是否 overfitting: 在 test 集的 performance 是否严重低于training 集的 performance&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;参数估计&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果一组数据的分布参数不知道，那么这组数据的联合分布不会等于每个数据的概率乘积。假设知道了分布参数，那所有的 samples 是独立同分布的，即 i.i.d&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-10-parameter-learning/1.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;最大似然参数估计-maximum-likelihood-parameter-estimationmle&quot;&gt;最大似然参数估计 Maximum Likelihood Parameter Estimation（MLE）&lt;/h2&gt;
+
+&lt;p&gt;首先，什么是 likelihood？&lt;/p&gt;
+
+&lt;p&gt;likelihood 是给定分布参数的 probability 或者是 confidence&lt;/p&gt;
+
+&lt;p&gt;而 log likelihood 更经常被使用，为了更好的计算&lt;script type=&quot;math/tex&quot;&gt;log P(D\|\theta)=\sum_i log \phi_i(x[i];\theta)&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;MLE&lt;/strong&gt;：找到是的 likelihood 最大的参数赋值θ，参数估计的一种方法，&lt;/p&gt;
+
+&lt;h2 id=&quot;bayesian-parameter-estimation&quot;&gt;Bayesian Parameter Estimation&lt;/h2&gt;
+
+&lt;h2 id=&quot;map-parameter-estimation&quot;&gt;MAP Parameter Estimation&lt;/h2&gt;
+</description>
+        <pubDate>Wed, 10 Oct 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2018/10/10/parameter-learning.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2018/10/10/parameter-learning.html</guid>
+        
+        <category>参数学习</category>
+        
+        <category>参数估计</category>
+        
+        <category>最大似然估计</category>
+        
+        <category>MLE</category>
+        
+        
+        <category>pgm</category>
+        
+      </item>
+    
+      <item>
+        <title>概率图学习——Particle-Based Approximate Inference</title>
         <description>&lt;p&gt;Inference的定义：给定部分观察值E=e，求目标变量Y的概率 &lt;script type=&quot;math/tex&quot;&gt;P(Y\|E=e)&lt;/script&gt; 或者 &lt;script type=&quot;math/tex&quot;&gt;\underset{y}{\operatorname{arg max}} P(Y=y\|E=e)&lt;/script&gt; (最大后验概率MAP)&lt;/p&gt;
 
 &lt;p&gt;Particle-Based Approximate Inference （2018-12-22-PBAI/PBAI）最基本的想法是从目标分布中采样x[1], …, x[m]，然后用采样数据去估计函数&lt;script type=&quot;math/tex&quot;&gt;E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])&lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;2018-12-22-PBAI/PBAI的关键是如何从后验分布&lt;script type=&quot;math/tex&quot;&gt;P(x\|E=e)&lt;/script&gt;中采样&lt;/p&gt;
+
 &lt;h2 id=&quot;前向采样-forward-sampling-fs&quot;&gt;前向采样 Forward Sampling （FS）&lt;/h2&gt;
+
 &lt;p&gt;从分布P(X)中利用Bayesian Network产生随机样本，使用&lt;script type=&quot;math/tex&quot;&gt;P(X=e)\approx \frac{1}{M} \sum_{m=1}^{M} I(x[m]=e)&lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;估计概率， 其中I(·)是指示函数&lt;/p&gt;
@@ -240,358 +607,18 @@
 
 &lt;h3 id=&quot;hybrid-hamiltonian-monte-carlo-hmc&quot;&gt;(Hybrid) Hamiltonian Monte Carlo (HMC)&lt;/h3&gt;
 </description>
-        <pubDate>Sat, 22 Dec 2018 19:25:35 +0800</pubDate>
-        <link>http://localhost:4000/pgm/2018/12/22/PBAI.html</link>
-        <guid isPermaLink="true">http://localhost:4000/pgm/2018/12/22/PBAI.html</guid>
+        <pubDate>Wed, 10 Oct 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2018/10/10/PBAI.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2018/10/10/PBAI.html</guid>
+        
+        <category>采样</category>
+        
+        <category>推理</category>
         
         <category>MCMC</category>
         
-        <category>似然采样</category>
-        
         
         <category>pgm</category>
-        
-      </item>
-    
-      <item>
-        <title>Inference As Optimization</title>
-        <description>
-&lt;h3 id=&quot;variable-eliminationve-消元法&quot;&gt;Variable Elimination(VE) 消元法&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225162242562.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
-线性链上的消元：
-&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225162328300.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
-按照 A、B、C、D 的顺序依次消去&lt;/p&gt;
-&lt;h4 id=&quot;ve-in-complex-graphs&quot;&gt;VE in complex graphs&lt;/h4&gt;
-&lt;p&gt;induced graph in VE
-step 1: Moralizing for BN （即在 v-structure 的两个父亲节点连边）
-&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225163502592.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225163519884.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
-step 2: Triangulation （即在消元过程中做三角化操作）
-&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225163502592.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225163544995.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
-最后出来会是 chordal，即是一个弦图，图中只有三角，没有四边形
-如果每次 inference 的时候都要遍历整个图，那就太蠢了，这里可以采用动态规划的算法，消元时候的中间结果是可以拿来重用的。
-提前计算好定义在每个 clique 上的 marginal distribution，在做 inference 时候也能快很多。&lt;/p&gt;
-&lt;h3 id=&quot;exact-inference-clique-tree&quot;&gt;Exact Inference: Clique Tree&lt;/h3&gt;
-&lt;h4 id=&quot;cluster-graph-and-clique-tree&quot;&gt;Cluster graph and clique tree&lt;/h4&gt;
-&lt;p&gt;clique tree 是定义在弦图上的，根据 clique 生成的树状结构。
-clique tree 有两个非常重要的性质：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;tree and family preserving: 原来的 induced graph 转化为 clique tree 后具有树状结构，而且和原来的结构是可以相互转换的。clique tree 的每一个节点是代表一个 clique，边上是两个 clique 间重叠的部分。&lt;/li&gt;
-  &lt;li&gt;running intersection property：是指变量 X 存在一条连续的树的子路径上。如 G 出现在了 Clique2和 clique4中，那么中间的 clique3和 clique5
-&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225164707586.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225164726619.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
-每个 clique 都是有他们对应的 local CPD
-&lt;img src=&quot;https://img-blog.csdnimg.cn/2018122516540046.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
-    &lt;h4 id=&quot;message-passing-sum-product&quot;&gt;Message passing: Sum Product&lt;/h4&gt;
-    &lt;p&gt;顺序1：
-&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225165835873.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;
-顺序2：
-&lt;img src=&quot;https://img-blog.csdnimg.cn/20181225165858394.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-    &lt;h4 id=&quot;clique-tree-calibration&quot;&gt;Clique Tree Calibration&lt;/h4&gt;
-    &lt;p&gt;calibration（校准）：使得两个相邻 clique 之间传送的消息相等。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;message-passing-belief-update&quot;&gt;Message passing: Belief Update&lt;/h4&gt;
-&lt;h4 id=&quot;constructing-clique-tree&quot;&gt;Constructing clique tree&lt;/h4&gt;
-</description>
-        <pubDate>Fri, 26 Oct 2018 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2018/10/26/inference-as-optimization.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/10/26/inference-as-optimization.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Parameter Learning</title>
-        <description>
-&lt;h3 id=&quot;variable-eliminationve-消元法&quot;&gt;Variable Elimination(VE) 消元法&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/1.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;线性链上的消元：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/2.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;按照 A、B、C、D 的顺序依次消去&lt;/p&gt;
-
-&lt;h4 id=&quot;ve-in-complex-graphs&quot;&gt;VE in complex graphs&lt;/h4&gt;
-
-&lt;p&gt;induced graph in VE&lt;/p&gt;
-
-&lt;p&gt;step 1: Moralizing for BN （即在 v-structure 的两个父亲节点连边）&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/3.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/4.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;step 2: Triangulation （即在消元过程中做三角化操作）&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/5.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/6.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最后出来会是 chordal，即是一个弦图，图中只有三角，没有四边形&lt;/p&gt;
-
-&lt;p&gt;如果每次 inference 的时候都要遍历整个图，那就太蠢了，这里可以采用动态规划的算法，消元时候的中间结果是可以拿来重用的。&lt;/p&gt;
-
-&lt;p&gt;提前计算好定义在每个 clique 上的 marginal distribution，在做 inference 时候也能快很多。&lt;/p&gt;
-
-&lt;h3 id=&quot;exact-inference-clique-tree&quot;&gt;Exact Inference: Clique Tree&lt;/h3&gt;
-
-&lt;h4 id=&quot;cluster-graph-and-clique-tree&quot;&gt;Cluster graph and clique tree&lt;/h4&gt;
-
-&lt;p&gt;clique tree 是定义在弦图上的，根据 clique 生成的树状结构。&lt;/p&gt;
-
-&lt;p&gt;clique tree 有两个非常重要的性质：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;tree and family preserving: 原来的 induced graph 转化为 clique tree 后具有树状结构，而且和原来的结构是可以相互转换的。clique tree 的每一个节点是代表一个 clique，边上是两个 clique 间重叠的部分。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;running intersection property：是指变量 X 存在一条连续的树的子路径上。如 G 出现在了 Clique2和 clique4中，那么中间的 clique3和 clique5&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/7.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/8.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;每个 clique 都是有他们对应的 local CPD&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/9.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;message-passing-sum-product&quot;&gt;Message passing: Sum Product&lt;/h4&gt;
-
-&lt;p&gt;顺序1：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/10.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;顺序2：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-10-26-inference-as-optimization/11.png&quot; alt=&quot;在这里插入图片描述&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;clique-tree-calibration&quot;&gt;Clique Tree Calibration&lt;/h4&gt;
-
-&lt;p&gt;calibration（校准）：使得两个相邻 clique 之间传送的消息相等。&lt;/p&gt;
-
-&lt;h4 id=&quot;message-passing-belief-update&quot;&gt;Message passing: Belief Update&lt;/h4&gt;
-&lt;h4 id=&quot;constructing-clique-tree3&quot;&gt;Constructing clique tree3&lt;/h4&gt;
-</description>
-        <pubDate>Wed, 10 Oct 2018 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2018/10/10/parameter-learning.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/10/10/parameter-learning.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>CSS Animation</title>
-        <description>&lt;p&gt;This is post no right side bar to nav posts.&lt;/p&gt;
-
-&lt;p&gt;You just need to set &lt;strong&gt;no-post-nav: true&lt;/strong&gt; for your post&lt;/p&gt;
-
-&lt;p&gt;Quick note about CSS animation.  &lt;script type=&quot;math/tex&quot;&gt;\beta&lt;/script&gt; hahah&lt;/p&gt;
-
-&lt;h2 id=&quot;css-animation&quot;&gt;CSS Animation&lt;/h2&gt;
-
-&lt;p&gt;CSS3 animation lets an element gradually change from one style to another.&lt;/p&gt;
-
-&lt;p&gt;Two steps:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;@keyframes&lt;/code&gt; to define an animation.&lt;/li&gt;
-  &lt;li&gt;Set this animation on an element with animation properties&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;We could set properties one-by-one or with following shorthand:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;animation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-timing-function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-delay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-iteration-count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-direction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-fill-mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;animation-play-state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;keyframes&quot;&gt;@keyframes&lt;/h2&gt;
-
-&lt;p&gt;It defines what the animation looks like at each stage of the animation timeline. It is composed of:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Name of the animation. For example, changeColor.&lt;/li&gt;
-  &lt;li&gt;Stages: From 0% to 100% to represent the whole process of animation&lt;/li&gt;
-  &lt;li&gt;CSS Properties: The CSS properties defined for each stage of the animation timeline.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Following example creates an animation called &lt;code class=&quot;highlighter-rouge&quot;&gt;changeColor&lt;/code&gt; and assign it to &lt;code class=&quot;highlighter-rouge&quot;&gt;div:hover&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;k&quot;&gt;@keyframes&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changeColor&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:hover&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nl&quot;&gt;animation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changeColor&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ease&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.1s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;In above example, we could also use &lt;code class=&quot;highlighter-rouge&quot;&gt;from&lt;/code&gt; to represent &lt;code class=&quot;highlighter-rouge&quot;&gt;0%&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;to&lt;/code&gt; to represent &lt;code class=&quot;highlighter-rouge&quot;&gt;100%&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;animation-properties&quot;&gt;Animation Properties&lt;/h2&gt;
-
-&lt;p&gt;It has following properties:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;animation-name&lt;/li&gt;
-  &lt;li&gt;animation-duration&lt;/li&gt;
-  &lt;li&gt;animation-timing-function&lt;/li&gt;
-  &lt;li&gt;animation-delay&lt;/li&gt;
-  &lt;li&gt;animation-iteration-count&lt;/li&gt;
-  &lt;li&gt;animation-direction&lt;/li&gt;
-  &lt;li&gt;animation-fill-mode&lt;/li&gt;
-  &lt;li&gt;animation-play-state&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;animation-name&quot;&gt;animation-name&lt;/h3&gt;
-
-&lt;p&gt;The name of the animation, defined in the @keyframes.&lt;/p&gt;
-
-&lt;h3 id=&quot;animation-duration&quot;&gt;animation-duration&lt;/h3&gt;
-
-&lt;p&gt;The duration of the animation, in seconds (e.g., 5s) or milliseconds (e.g., 200ms).&lt;/p&gt;
-
-&lt;h3 id=&quot;animation-timing-function&quot;&gt;animation-timing-function&lt;/h3&gt;
-
-&lt;p&gt;The speed curve or pace of the animation:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Timing Function&lt;/th&gt;
-      &lt;th&gt;Description&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;linear&lt;/td&gt;
-      &lt;td&gt;The animation has the same speed from start to end&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ease&lt;/td&gt;
-      &lt;td&gt;&lt;strong&gt;Default value&lt;/strong&gt;. The animation has a slow start, then fast, before it ends slowly.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ease-in&lt;/td&gt;
-      &lt;td&gt;Start slowly and end fast.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ease-out&lt;/td&gt;
-      &lt;td&gt;Start more quickly than linear ones and end slowly. The opposite of ease-in.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ease-in-out&lt;/td&gt;
-      &lt;td&gt;Both a slow start and a slow end&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;initial&lt;/td&gt;
-      &lt;td&gt;Sets this property to its default value. So &lt;code class=&quot;highlighter-rouge&quot;&gt;ease&lt;/code&gt;.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;inherit&lt;/td&gt;
-      &lt;td&gt;Inherits this property from its parent element.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Check &lt;a href=&quot;https://developers.google.com/web/fundamentals/design-and-ui/animations/the-basics-of-easing?hl=en&quot;&gt;The basics of easing&lt;/a&gt; for details.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;animation-delay&quot;&gt;animation-delay&lt;/h3&gt;
-
-&lt;p&gt;It specifies when the animation will start. The value is defined in seconds (s) or milliseconds (mil).&lt;/p&gt;
-
-&lt;h3 id=&quot;animation-iteration-count&quot;&gt;animation-iteration-count&lt;/h3&gt;
-
-&lt;p&gt;It specifies the number of times that the animation will play. The possible values are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;a specific number of iterations (default is 1)&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;infinite&lt;/code&gt; - repeats forever&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;initial&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inherit&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;animation-direction&quot;&gt;animation-direction&lt;/h3&gt;
-
-&lt;p&gt;It specifies whether the animation should play forward, reverse, or in alternate cycles.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;normal&lt;/code&gt; - Default. On each cycle the animation resets to the beginning state (0%) and plays forward again (to 100%).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;reverse&lt;/code&gt; - On each cycle the animation resets to the end state (100%) and plays backwards (to 0%).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alternate&lt;/code&gt; - On each odd cycle, the animation plays forward (0% to 100%). On each even cycle, the animation plays backwards (100% to 0%).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alternate-reverse&lt;/code&gt; - On each odd cycle, the animation plays in reverse (100% to 0%). On each even cycle, the animation plays forward (0% or 100%).&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;animation-fill-mode&quot;&gt;animation-fill-mode&lt;/h3&gt;
-
-&lt;p&gt;It specifies if the animation styles are visible before or after the animation plays.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;normal&lt;/code&gt; - Default. The animation does not apply any styles to the element, before or after the animation.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;forwards&lt;/code&gt; - After the animation is finished, the styles defined in the final keyframe (100%) are retained by the element.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt; - Before the animation (during the animation delay), the styles of the initial keyframe (0%) are applied to the element.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;both&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;forwards&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;animation-play-state&quot;&gt;animation-play-state&lt;/h3&gt;
-
-&lt;p&gt;Two values: &lt;code class=&quot;highlighter-rouge&quot;&gt;running&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;paused&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;It specifies whether the animation is &lt;code class=&quot;highlighter-rouge&quot;&gt;playing&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;paused&lt;/code&gt;. &lt;strong&gt;Resuming a paused animation starts the animation where it was left off. But if pause an animation, the element style will return back to its origin.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:hover&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nl&quot;&gt;animation-play-state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paused&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;multiple-animations&quot;&gt;Multiple Animations&lt;/h2&gt;
-
-&lt;p&gt;Add multiple animations to a selector with comma:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nl&quot;&gt;animation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animationA&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animationB&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;refs&quot;&gt;Refs&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.imooc.com/learn/33&quot;&gt;Imooc 十天精通CSS3&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://robots.thoughtbot.com/css-animation-for-beginners#animation-iteration-count&quot;&gt;CSS Animation for Beginners&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.w3schools.com/cssref/css3_pr_animation-timing-function.asp&quot;&gt;CSS3 animation-timing-function Property&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 22 Apr 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/css/2016/04/22/CSS-Animation.html</link>
-        <guid isPermaLink="true">http://localhost:4000/css/2016/04/22/CSS-Animation.html</guid>
-        
-        <category>css</category>
-        
-        
-        <category>CSS</category>
         
       </item>
     

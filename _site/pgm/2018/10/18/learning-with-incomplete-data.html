@@ -9,11 +9,11 @@
     <!-- Favicon Icon -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
 
-    <title>Inference As Optimization</title>
+    <title>概率图学习——Learning with incomplete data 从部分观测数据学习</title>
     <meta name="description"
-          content="Variable Elimination(VE) 消元法线性链上的消元：按照 A、B、C、D 的顺序依次消去VE in complex graphsinduced graph in VEstep 1: Moralizing for BN （即在 v-structure 的两个父亲节点连边）step 2: Tria...">
+          content="Variables are Not Detectable">
 
-    <link rel="canonical" href="http://localhost:4000/2018/10/26/inference-as-optimization.html">
+    <link rel="canonical" href="http://localhost:4000/pgm/2018/10/18/learning-with-incomplete-data.html">
     <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -91,14 +91,14 @@
 
 
         <div class="content">
-            <section class="jumbotron geopattern" data-pattern-id="Inference As Optimization">
+            <section class="jumbotron geopattern" data-pattern-id="概率图学习——Learning with incomplete data 从部分观测数据学习">
     <div class="container">
         <div id="jumbotron-meta-info">
-            <h1>Inference As Optimization</h1>
+            <h1>概率图学习——Learning with incomplete data 从部分观测数据学习</h1>
             <span class="meta-info">
                 
                 
-                <span class="octicon octicon-calendar"></span> 2018/10/26
+                <span class="octicon octicon-calendar"></span> 2018/10/18
                 
             </span>
         </div>
@@ -120,43 +120,72 @@
         
         <div class="col-md-8 markdown-body">
 
-            
-<h3 id="variable-eliminationve-消元法">Variable Elimination(VE) 消元法</h3>
-<p><img src="https://img-blog.csdnimg.cn/20181225162242562.png" alt="在这里插入图片描述" />
-线性链上的消元：
-<img src="https://img-blog.csdnimg.cn/20181225162328300.png" alt="在这里插入图片描述" />
-按照 A、B、C、D 的顺序依次消去</p>
-<h4 id="ve-in-complex-graphs">VE in complex graphs</h4>
-<p>induced graph in VE
-step 1: Moralizing for BN （即在 v-structure 的两个父亲节点连边）
-<img src="https://img-blog.csdnimg.cn/20181225163502592.png" alt="在这里插入图片描述" /><img src="https://img-blog.csdnimg.cn/20181225163519884.png" alt="在这里插入图片描述" />
-step 2: Triangulation （即在消元过程中做三角化操作）
-<img src="https://img-blog.csdnimg.cn/20181225163502592.png" alt="在这里插入图片描述" /><img src="https://img-blog.csdnimg.cn/20181225163544995.png" alt="在这里插入图片描述" />
-最后出来会是 chordal，即是一个弦图，图中只有三角，没有四边形
-如果每次 inference 的时候都要遍历整个图，那就太蠢了，这里可以采用动态规划的算法，消元时候的中间结果是可以拿来重用的。
-提前计算好定义在每个 clique 上的 marginal distribution，在做 inference 时候也能快很多。</p>
-<h3 id="exact-inference-clique-tree">Exact Inference: Clique Tree</h3>
-<h4 id="cluster-graph-and-clique-tree">Cluster graph and clique tree</h4>
-<p>clique tree 是定义在弦图上的，根据 clique 生成的树状结构。
-clique tree 有两个非常重要的性质：</p>
-<ol>
-  <li>tree and family preserving: 原来的 induced graph 转化为 clique tree 后具有树状结构，而且和原来的结构是可以相互转换的。clique tree 的每一个节点是代表一个 clique，边上是两个 clique 间重叠的部分。</li>
-  <li>running intersection property：是指变量 X 存在一条连续的树的子路径上。如 G 出现在了 Clique2和 clique4中，那么中间的 clique3和 clique5
-<img src="https://img-blog.csdnimg.cn/20181225164707586.png" alt="在这里插入图片描述" /><img src="https://img-blog.csdnimg.cn/20181225164726619.png" alt="在这里插入图片描述" />
-每个 clique 都是有他们对应的 local CPD
-<img src="https://img-blog.csdnimg.cn/2018122516540046.png" alt="在这里插入图片描述" />
-    <h4 id="message-passing-sum-product">Message passing: Sum Product</h4>
-    <p>顺序1：
-<img src="https://img-blog.csdnimg.cn/20181225165835873.png" alt="在这里插入图片描述" />
-顺序2：
-<img src="https://img-blog.csdnimg.cn/20181225165858394.png" alt="在这里插入图片描述" /></p>
-    <h4 id="clique-tree-calibration">Clique Tree Calibration</h4>
-    <p>calibration（校准）：使得两个相邻 clique 之间传送的消息相等。</p>
-  </li>
-</ol>
+            <h2 id="variables-are-not-detectable">Variables are Not Detectable</h2>
 
-<h4 id="message-passing-belief-update">Message passing: Belief Update</h4>
-<h4 id="constructing-clique-tree">Constructing clique tree</h4>
+<p>为什么变量是不能观测到的呢？因为变量可能是 hidden variables，不能被观测，只是一个概念，非真实存在。</p>
+
+<h3 id="hmm">HMM</h3>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/1.png" alt="在这里插入图片描述" /></p>
+
+<p>状态变量 y 不能被观测</p>
+
+<h3 id="gaussian-mixture-model">Gaussian Mixture Model</h3>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/2.png" alt="在这里插入图片描述" /></p>
+
+<h2 id="missing-values-and-data-outliers">Missing Values and Data Outliers</h2>
+
+<p>缺失值和异常点，系统可能会没有检测到一些观测点。还有一些异常点。</p>
+
+<h2 id="learning-in-gaussian-mixture-models">Learning in Gaussian Mixture Models</h2>
+
+<p>对一个MLE 框架下，已知数据 D={y[1],…,y[M]}</p>
+
+<p>目标函数：$\underset{\theta}{\operatorname{arg max}} p(D|\theta)$</p>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/3.png" alt="在这里插入图片描述" /></p>
+
+<p>对于完整数据，MLE 学习是简单的，已知完整数据 Dc={(x[i], y[i])}~i=1…M~</p>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/4.png" alt="在这里插入图片描述" /></p>
+
+<p>E-step:</p>
+
+<p>x的先验分布π~k~ = p(X=k):  $\pi_k^*=\frac{M[x=k]}{M}$</p>
+
+<p>M-step:</p>
+
+<p>$\mu_k^*=\frac{1}{M[x=k]}\sum_m y[m] |_{x[m]=k}$</p>
+
+<p>$\Sigma_k^<em>=\frac{1}{M[x=k]}\sum_m (y[m]-\mu_k^</em>)(y[m]-\mu_k^*)^T |_{x[m]=k}$</p>
+
+<p>但是实际上X 是不知道的，只有 Y 被观测到。</p>
+
+<p>如果我们知道参数θ，可以求得 X 的后验分布（这是 inference 过程）</p>
+
+<script type="math/tex; mode=display">Q(x=k)=P(x=k\|y, \theta)=\frac{p(y\|x=k, \theta)p(x=k\|\theta)}{\sum_{k=1}^{K} p(y\|x=k, \theta)p(x=k\|\theta)}</script>
+
+<p>将 x 的先验分布P(X)=π和 Y 的 likelihood P(Y|X=k)=N~k~^(t)^(Y)代入上式, 得到：</p>
+
+<script type="math/tex; mode=display">Q(x[m]=k)=\frac{\pi_k^{(t)}N_k^{(t)}(y[m])}{\sum_{k=1}{K}\pi_k^{(t)}N_k^{(t)}(y[m])}</script>
+
+<p>其中$N_k^{(y)}=\frac{1}{\sqrt{|2\pi \Sigma|}}exp{-\frac{1}{2}(y-\mu_k)^T\Sigma^{-1}(y-\mu_k)}$</p>
+
+<p>新一轮的 E 步迭代，使用 MLE 更新</p>
+
+<p>计算$Q^{(t)}(x[m]=k)$, 代入下面式子</p>
+
+<p>$\pi_k^{t+1}=\frac{1}{M}\sum_{m=1}^M Q^{(t)}(x[m]=k)$</p>
+
+<p>新一轮的 M 步迭代：</p>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/5.png" alt="在这里插入图片描述" /></p>
+
+<h2 id="general-principles-and-methods">General Principles and Methods</h2>
+<h3 id="general-priciples">General Priciples</h3>
+<h3 id="expectation-maximizationem">Expectation Maximization(EM)</h3>
+<h3 id="mcmc-sampling">MCMC Sampling</h3>
 
 
             <!-- Comments -->

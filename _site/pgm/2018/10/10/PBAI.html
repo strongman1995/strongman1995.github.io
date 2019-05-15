@@ -9,11 +9,11 @@
     <!-- Favicon Icon -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
 
-    <title>概率图学习-Particle-Based Approximate Inference</title>
+    <title>概率图学习——Particle-Based Approximate Inference</title>
     <meta name="description"
           content="Inference的定义：给定部分观察值E=e，求目标变量Y的概率  或者  (最大后验概率MAP)">
 
-    <link rel="canonical" href="http://localhost:4000/pgm/2018/12/22/PBAI.html">
+    <link rel="canonical" href="http://localhost:4000/pgm/2018/10/10/PBAI.html">
     <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -91,14 +91,14 @@
 
 
         <div class="content">
-            <section class="jumbotron geopattern" data-pattern-id="概率图学习-Particle-Based Approximate Inference">
+            <section class="jumbotron geopattern" data-pattern-id="概率图学习——Particle-Based Approximate Inference">
     <div class="container">
         <div id="jumbotron-meta-info">
-            <h1>概率图学习-Particle-Based Approximate Inference</h1>
+            <h1>概率图学习——Particle-Based Approximate Inference</h1>
             <span class="meta-info">
                 
                 
-                <span class="octicon octicon-calendar"></span> 2018/12/22
+                <span class="octicon octicon-calendar"></span> 2018/10/10
                 
             </span>
         </div>
@@ -125,7 +125,9 @@
 <p>Particle-Based Approximate Inference （2018-12-22-PBAI/PBAI）最基本的想法是从目标分布中采样x[1], …, x[m]，然后用采样数据去估计函数<script type="math/tex">E_p(f) \approx \frac{1}{M} \sum_{m=1}^{M} f(x[m])</script></p>
 
 <p>2018-12-22-PBAI/PBAI的关键是如何从后验分布<script type="math/tex">P(x\|E=e)</script>中采样</p>
+
 <h2 id="前向采样-forward-sampling-fs">前向采样 Forward Sampling （FS）</h2>
+
 <p>从分布P(X)中利用Bayesian Network产生随机样本，使用<script type="math/tex">P(X=e)\approx \frac{1}{M} \sum_{m=1}^{M} I(x[m]=e)</script></p>
 
 <p>估计概率， 其中I(·)是指示函数</p>
