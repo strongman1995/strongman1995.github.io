@@ -47,7 +47,7 @@ kramdown:
   input: GFM
   enable_coderay: true
 
-Œ
+
 # Disque
 #disque: my_disque_settings # ex. httpdongchuangithubio.disqus.com
 
