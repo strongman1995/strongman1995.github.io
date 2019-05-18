@@ -5,8 +5,8 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 17 May 2019 14:43:44 +0800</pubDate>
-    <lastBuildDate>Fri, 17 May 2019 14:43:44 +0800</lastBuildDate>
+    <pubDate>Sat, 18 May 2019 13:53:27 +0800</pubDate>
+    <lastBuildDate>Sat, 18 May 2019 13:53:27 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -607,9 +607,9 @@
 
 &lt;h3 id=&quot;hybrid-hamiltonian-monte-carlo-hmc&quot;&gt;(Hybrid) Hamiltonian Monte Carlo (HMC)&lt;/h3&gt;
 </description>
-        <pubDate>Wed, 10 Oct 2018 19:25:35 +0800</pubDate>
-        <link>http://localhost:4000/pgm/2018/10/10/PBAI.html</link>
-        <guid isPermaLink="true">http://localhost:4000/pgm/2018/10/10/PBAI.html</guid>
+        <pubDate>Sat, 22 Sep 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2018/09/22/PBAI.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2018/09/22/PBAI.html</guid>
         
         <category>采样</category>
         
