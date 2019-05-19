@@ -5,13 +5,13 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 19 May 2019 15:01:34 +0800</pubDate>
-    <lastBuildDate>Sun, 19 May 2019 15:01:34 +0800</lastBuildDate>
+    <pubDate>Sun, 19 May 2019 15:03:58 +0800</pubDate>
+    <lastBuildDate>Sun, 19 May 2019 15:03:58 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
         <title>leetcode 学习笔记</title>
-        <description>&lt;h4 id=&quot;2-两数相加&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/add-two-numbers/&quot;&gt;2. 两数相加&lt;/a&gt;&lt;/h4&gt;
+        <description>&lt;h2 id=&quot;2-两数相加&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/add-two-numbers/&quot;&gt;2. 两数相加&lt;/a&gt;&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addTwoNumbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
@@ -29,7 +29,7 @@
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;3-无重复字符的最长子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/&quot;&gt;3. 无重复字符的最长子串&lt;/a&gt;&lt;/h4&gt;
+&lt;h2 id=&quot;3-无重复字符的最长子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/&quot;&gt;3. 无重复字符的最长子串&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;暴力法：O(n^3)
 滑动窗口: O(n)， 通过使用 HashSet 作为滑动窗口，我们可以用O(1)的时间来完成对字符是否在当前的子字符串中的检查。滑动窗口是数组/字符串问题中常用的抽象概念。 窗口通常是在数组/字符串中由开始和结束索引定义的一系列元素的集合，即 [i,j)（左闭，右开）。而滑动窗口是可以将两个边界向某一方向“滑动”的窗口。例如，我们将 [i,j)向右滑动 11 个元素，则它将变为 [i+1,j+1)（左闭，右开）。
 回到我们的问题，我们使用 HashSet 将字符存储在当前窗口 [i,j)最初 （j=i）中。 然后我们向右侧滑动索引 j，如果它不在 HashSet 中，我们会继续滑动 j。直到 s[j] 已经存在于 HashSet 中。此时，我们找到的没有重复字符的最长子字符串将会以索引 i 开头。如果我们对所有的 i 这样做，就可以得到答案。&lt;/p&gt;
@@ -45,7 +45,7 @@
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;5-最长回文子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-palindromic-substring/&quot;&gt;5. 最长回文子串&lt;/a&gt;&lt;/h4&gt;
+&lt;h2 id=&quot;5-最长回文子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-palindromic-substring/&quot;&gt;5. 最长回文子串&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;可以用动态规划
 但更优的是中心扩展算法，回文可以从它的中心展开，并且只有 2n−1 个这样的中心。&lt;/p&gt;
 
@@ -70,7 +70,7 @@
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;6-z-字形变换&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/zigzag-conversion/&quot;&gt;6. Z 字形变换&lt;/a&gt;&lt;/h4&gt;
+&lt;h2 id=&quot;6-z-字形变换&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/zigzag-conversion/&quot;&gt;6. Z 字形变换&lt;/a&gt;&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -105,7 +105,7 @@
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;8-字符串转换整数-atoi&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/string-to-integer-atoi/&quot;&gt;8. 字符串转换整数 (atoi)&lt;/a&gt;&lt;/h4&gt;
+&lt;h2 id=&quot;8-字符串转换整数-atoi&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/string-to-integer-atoi/&quot;&gt;8. 字符串转换整数 (atoi)&lt;/a&gt;&lt;/h2&gt;
 
 &lt;p&gt;使用正则表达式&lt;/p&gt;
 
@@ -127,7 +127,7 @@
 
 &lt;p&gt;首先，这个假设对于python不成立，python不存在32位的int类型。其次，即使搜索到的字符串转32位整数可能导致溢出，我们也可以直接通过字符串判断是否存在溢出的情况（比如 try函数 或 判断字符串长度+字符串比较）&lt;/p&gt;
 
-&lt;h4 id=&quot;11-盛最多水的容器&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/container-with-most-water/&quot;&gt;11. 盛最多水的容器&lt;/a&gt;&lt;/h4&gt;
+&lt;h2 id=&quot;11-盛最多水的容器&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/container-with-most-water/&quot;&gt;11. 盛最多水的容器&lt;/a&gt;&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -159,7 +159,7 @@
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;12-整数转罗马数字&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/integer-to-roman/&quot;&gt;12. 整数转罗马数字&lt;/a&gt;&lt;/h4&gt;
+&lt;h2 id=&quot;12-整数转罗马数字&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/integer-to-roman/&quot;&gt;12. 整数转罗马数字&lt;/a&gt;&lt;/h2&gt;
 
 &lt;p&gt;比较简单，用哈希查表的方法&lt;/p&gt;
 
