@@ -120,7 +120,7 @@
         
         <div class="col-md-8 markdown-body">
 
-            <h2 id="2-两数相加"><a href="https://leetcode-cn.com/problems/add-two-numbers/">2. 两数相加</a></h2>
+            <h4 id="2-两数相加"><a href="https://leetcode-cn.com/problems/add-two-numbers/">2. 两数相加</a></h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">addTwoNumbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l1</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">,</span> <span class="n">l2</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListNode</span><span class="p">:</span>
@@ -138,7 +138,7 @@
         <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="nb">next</span>
 </code></pre></div></div>
 
-<h2 id="3-无重复字符的最长子串"><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">3. 无重复字符的最长子串</a></h2>
+<h4 id="3-无重复字符的最长子串"><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">3. 无重复字符的最长子串</a></h4>
 <p>暴力法：O(n^3)
 滑动窗口: O(n)， 通过使用 HashSet 作为滑动窗口，我们可以用O(1)的时间来完成对字符是否在当前的子字符串中的检查。滑动窗口是数组/字符串问题中常用的抽象概念。 窗口通常是在数组/字符串中由开始和结束索引定义的一系列元素的集合，即 [i,j)（左闭，右开）。而滑动窗口是可以将两个边界向某一方向“滑动”的窗口。例如，我们将 [i,j)向右滑动 11 个元素，则它将变为 [i+1,j+1)（左闭，右开）。
 回到我们的问题，我们使用 HashSet 将字符存储在当前窗口 [i,j)最初 （j=i）中。 然后我们向右侧滑动索引 j，如果它不在 HashSet 中，我们会继续滑动 j。直到 s[j] 已经存在于 HashSet 中。此时，我们找到的没有重复字符的最长子字符串将会以索引 i 开头。如果我们对所有的 i 这样做，就可以得到答案。</p>
@@ -154,7 +154,7 @@
         <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="5-最长回文子串"><a href="https://leetcode-cn.com/problems/longest-palindromic-substring/">5. 最长回文子串</a></h2>
+<h4 id="5-最长回文子串"><a href="https://leetcode-cn.com/problems/longest-palindromic-substring/">5. 最长回文子串</a></h4>
 <p>可以用动态规划
 但更优的是中心扩展算法，回文可以从它的中心展开，并且只有 2n−1 个这样的中心。</p>
 
@@ -178,6 +178,115 @@
             <span class="n">R</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">R</span> <span class="o">-</span> <span class="n">L</span> <span class="o">-</span><span class="mi">1</span>
 </code></pre></div></div>
+
+<h4 id="6-z-字形变换"><a href="https://leetcode-cn.com/problems/zigzag-conversion/">6. Z 字形变换</a></h4>
+
+<ol>
+  <li>
+    <p>用一个二维矩阵来表示完整Z 型字符串，然后按行遍历二维矩阵，输出字符串</p>
+  </li>
+  <li>
+    <p>模拟 Z 字形过程，先垂直向下走再斜向上走</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">numRows</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">""</span>
+        <span class="k">if</span> <span class="n">numRows</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">s</span>
+        <span class="c"># s_Rows[j]代表每一行的字符串，最后再 join</span>
+        <span class="n">s_Rows</span> <span class="o">=</span> <span class="p">[</span><span class="s">""</span><span class="p">]</span> <span class="o">*</span> <span class="n">numRows</span>
+        <span class="n">i</span>  <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="c"># 垂直向下走</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numRows</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="n">s_Rows</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c"># 斜向上走</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numRows</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="n">s_Rows</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s_Rows</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="8-字符串转换整数-atoi"><a href="https://leetcode-cn.com/problems/string-to-integer-atoi/">8. 字符串转换整数 (atoi)</a></h4>
+
+<p>使用正则表达式</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">myAtoi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="o">*</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">'^[</span><span class="err">\</span><span class="s">+</span><span class="err">\</span><span class="s">-]?</span><span class="err">\</span><span class="s">d+'</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">lstrip</span><span class="p">())),</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">31</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^：匹配字符串开头
+[\+\-]：代表一个+字符或-字符
+?：前面一个字符可有可无
+\d：一个数字
++：前面一个字符的一个或多个
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">max(min(数字, 2**31 - 1), -2**31)</code> 用来防止结果越界</p>
+
+<p>题目中描述：假设我们的环境只能存储 32 位大小的有符号整数</p>
+
+<p>首先，这个假设对于python不成立，python不存在32位的int类型。其次，即使搜索到的字符串转32位整数可能导致溢出，我们也可以直接通过字符串判断是否存在溢出的情况（比如 try函数 或 判断字符串长度+字符串比较）</p>
+
+<h4 id="11-盛最多水的容器"><a href="https://leetcode-cn.com/problems/container-with-most-water/">11. 盛最多水的容器</a></h4>
+
+<ol>
+  <li>
+    <p>暴力法，考虑每对可能出现的线段组合并找出这些情况之下的最大面积，时间复杂度 <script type="math/tex">O(n^2)</script></p>
+  </li>
+  <li>
+    <p>双指针法！很妙</p>
+
+    <p>这种方法背后的思路在于，两线段之间形成的区域总是会受到其中较短那条长度的限制。此外，两线段距离越远，得到的面积就越大。我们在由线段长度构成的数组中使用两个指针，一个放在开始，一个置于末尾。 此外，我们会使用变量 maxarea来持续存储到目前为止所获得的最大面积。 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 maxarea，并将指向较短线段的指针向较长线段那端移动一步。</p>
+
+    <p>最初我们考虑由最外围两条线段构成的区域。现在，为了使面积最大化，我们需要考虑更长的两条线段之间的区域。</p>
+
+    <p>如果我们试图将指向较长线段的指针向内侧移动，矩形区域的面积将受限于较短的线段而不会获得任何增加。</p>
+
+    <p>但是，在同样的条件下，移动指向较短线段的指针尽管造成了矩形宽度的减小，但却可能会有助于面积的增大。因为移动较短线段的指针会得到一条相对较长的线段，这可以克服由宽度减小而引起的面积减小。</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxArea</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">res</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span> 
+            <span class="k">if</span> <span class="n">height</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">[</span><span class="n">r</span><span class="p">]:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span>  <span class="n">height</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">))</span>
+                <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span>  <span class="n">height</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">))</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">res</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="12-整数转罗马数字"><a href="https://leetcode-cn.com/problems/integer-to-roman/">12. 整数转罗马数字</a></h4>
+
+<p>比较简单，用哈希查表的方法</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">intToRoman</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="s">'I'</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="s">'IV'</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span><span class="s">'V'</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="s">'IX'</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="s">'X'</span><span class="p">,</span> <span class="mi">40</span><span class="p">:</span><span class="s">'XL'</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="s">'L'</span><span class="p">,</span> <span class="mi">90</span><span class="p">:</span><span class="s">'XC'</span><span class="p">,</span>
+            <span class="mi">100</span><span class="p">:</span><span class="s">'C'</span><span class="p">,</span> <span class="mi">400</span><span class="p">:</span><span class="s">'CD'</span><span class="p">,</span> <span class="mi">500</span><span class="p">:</span><span class="s">'D'</span><span class="p">,</span> <span class="mi">900</span><span class="p">:</span><span class="s">'CM'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">:</span><span class="s">'M'</span><span class="p">}</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="s">""</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lookup</span><span class="o">.</span><span class="n">keys</span><span class="p">())[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">num</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="p">(</span><span class="n">lookup</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">res</span>
+</code></pre></div></div>
+
 
 
             <!-- Comments -->
