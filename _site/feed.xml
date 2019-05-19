@@ -5,8 +5,8 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 May 2019 00:27:35 +0800</pubDate>
-    <lastBuildDate>Mon, 20 May 2019 00:27:35 +0800</lastBuildDate>
+    <pubDate>Mon, 20 May 2019 00:27:40 +0800</pubDate>
+    <lastBuildDate>Mon, 20 May 2019 00:27:40 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -732,7 +732,7 @@
       </item>
     
       <item>
-        <title>统计机器学习 chap2</title>
+        <title>统计机器学习 chap1</title>
         <description>&lt;h2 id=&quot;knn-k-近邻-无参方法&quot;&gt;KNN k 近邻 无参方法&lt;/h2&gt;
 
 &lt;p&gt;KNN (k-Nearest Neighbor) k 近邻算法。&lt;/p&gt;
