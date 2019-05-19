@@ -13,7 +13,7 @@
     <meta name="description"
           content="KNN k 近邻 无参方法">
 
-    <link rel="canonical" href="http://localhost:4000/ml/2018/03/10/chap2.html">
+    <link rel="canonical" href="http://localhost:4000/ml/2018/12/12/chap2.html">
     <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -98,7 +98,7 @@
             <span class="meta-info">
                 
                 
-                <span class="octicon octicon-calendar"></span> 2018/03/10
+                <span class="octicon octicon-calendar"></span> 2018/12/12
                 
             </span>
         </div>
@@ -166,7 +166,7 @@
 
 <p>分割面的间隔(margin <script type="math/tex">\rho</script>)就是支持向量超平面之间的距离</p>
 
-<p><img src="assets/images/2018-03-10-chap1/1.png" alt="" /></p>
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/1.png" alt="" /></p>
 
 <p>所以分类的 <script type="math/tex">confidence=y_i(w^Tx_i+b)</script></p>
 
@@ -176,23 +176,23 @@
 
 <p>设训练集被间隔为<script type="math/tex">\rho</script> 的超平面分割</p>
 
-<p><img src="assets/images/2018-03-10-chap1/2.png" alt="" /></p>
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/2.png" alt="" /></p>
 
-<p>对支持向量<script type="math/tex">x_s</script>来说，上式不等式是一个等式，在用<script type="math/tex">\rho</script>/2放缩 w 和 b后，<script type="math/tex">y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N</script> <img src="assets/images/2018-03-10-chap1/3.png" alt="" /></p>
+<p>对支持向量<script type="math/tex">x_s</script>来说，上式不等式是一个等式，在用<script type="math/tex">\rho</script>/2放缩 w 和 b后，<script type="math/tex">y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N</script> <img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/3.png" alt="" /></p>
 
-<h3><img src="assets/images/2018-03-10-chap1/5.png" alt="" /></h3>
+<h3><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/5.png" alt="" /></h3>
 
-<p><img src="assets/images/2018-03-10-chap1/6.png" alt="" /></p>
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/6.png" alt="" /></p>
 
-<p><img src="assets/images/2018-03-10-chap1/7.png" alt="7" /></p>
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/7.png" alt="7" /></p>
 
-<p><img src="assets/images/2018-03-10-chap1/8.png" alt="8" /></p>
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/8.png" alt="8" /></p>
 
 <p>上面是 hard SVM(使用 hard 约束条件，必须线性可分) ，但是有些无法线性分割，一个方法是增加新的特征，使之在高维空间是线性可分的</p>
 
 <p>另一个是使用 soft margin SVM 而不是 hard SVM</p>
 
-<p><img src="assets/images/2018-03-10-chap1/9.png" alt="" /></p>
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/9.png" alt="" /></p>
 
 <p>但是因为阶跃函数非凸，</p>
 
