@@ -5,8 +5,8 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 May 2019 00:26:40 +0800</pubDate>
-    <lastBuildDate>Mon, 20 May 2019 00:26:40 +0800</lastBuildDate>
+    <pubDate>Mon, 20 May 2019 00:27:35 +0800</pubDate>
+    <lastBuildDate>Mon, 20 May 2019 00:27:35 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -185,93 +185,6 @@
         
         
         <category>leetcode</category>
-        
-      </item>
-    
-      <item>
-        <title>统计机器学习 chap1</title>
-        <description>&lt;h2 id=&quot;knn-k-近邻-无参方法&quot;&gt;KNN k 近邻 无参方法&lt;/h2&gt;
-
-&lt;p&gt;KNN (k-Nearest Neighbor) k 近邻算法。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;方法思路&lt;/strong&gt;：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。&lt;/p&gt;
-
-&lt;p&gt;KNN算法中，所选择的邻居都是已经正确分类的对象（已知的训练数据）。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。 KNN方法虽然从原理上也依赖于极限定理，但在类别决策时，只与极少量的相邻样本有关。由于KNN方法主要靠周围有限的邻近的样本，而不是靠判别类域的方法来确定所属类别的，因此对于&lt;strong&gt;类域的交叉或重叠较多的待分样本集&lt;/strong&gt;来说，KNN方法较其他方法更为适合。&lt;/p&gt;
-
-&lt;p&gt;KNN算法不仅可以用于分类，还可以用于回归。通过找出一个样本的k个最近邻居，将这些邻居的属性的平均值赋给该样本，就可以得到该样本的属性。更有用的方法是将不同距离的邻居对该样本产生的影响给予不同的权值(weight)，如权值与距离成反比。&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{y}=\sum_{i\in \mathcal{N_K}} \frac{1}{dist(x, x_i)} y_i&lt;/script&gt;
-
-&lt;p&gt;如果拥有无穷的数据，KNN 的错误率最多是最小错误率(Bayes 错误率)的两倍 (注：Bayes 错误率是给定分布的数据能达到的最小错误率)&lt;/p&gt;
-
-&lt;p&gt;KNN的问题：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;对于训练集大的问题，计算量太大，因为每分类一个测试样本都要遍历一次训练集，但是用好的近邻搜索策略会减少计算量。&lt;/li&gt;
-  &lt;li&gt;K 的选择&lt;/li&gt;
-  &lt;li&gt;距离测量标准很重要&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;svm-支持向量机-有参方法&quot;&gt;SVM 支持向量机 有参方法&lt;/h2&gt;
-
-&lt;p&gt;二元分类可以看做是在特征空间中将不同类别分割开来。&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x) = sign(w^Tx+b)&lt;/script&gt;
-
-&lt;h3 id=&quot;线性分割&quot;&gt;线性分割&lt;/h3&gt;
-
-&lt;p&gt;如何分割才是最优的呢？&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;从样本 &lt;script type=&quot;math/tex&quot;&gt;x_i&lt;/script&gt;到分割面的距离是$$r = \frac{&lt;/td&gt;
-      &lt;td&gt;w^Tx_i+b&lt;/td&gt;
-      &lt;td&gt;}{|w|}$$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;最靠近超平面(hyperplane)的样本就是支持向量(support vectors)&lt;/p&gt;
-
-&lt;p&gt;分割面的间隔(margin &lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt;)就是支持向量超平面之间的距离&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所以分类的 &lt;script type=&quot;math/tex&quot;&gt;confidence=y_i(w^Tx_i+b)&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;尽量使得 margin 更大，而之前定义是 margin 是支持向量超平面之前的距离，所以只涉及支持向量，其他训练数据是无关的&lt;/p&gt;
-
-&lt;h3 id=&quot;线性-svm&quot;&gt;线性 SVM&lt;/h3&gt;
-
-&lt;p&gt;设训练集被间隔为&lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt; 的超平面分割&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;对支持向量&lt;script type=&quot;math/tex&quot;&gt;x_s&lt;/script&gt;来说，上式不等式是一个等式，在用&lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt;/2放缩 w 和 b后，&lt;script type=&quot;math/tex&quot;&gt;y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N&lt;/script&gt; &lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/5.png&quot; alt=&quot;&quot; /&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/7.png&quot; alt=&quot;7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/8.png&quot; alt=&quot;8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;上面是 hard SVM(使用 hard 约束条件，必须线性可分) ，但是有些无法线性分割，一个方法是增加新的特征，使之在高维空间是线性可分的&lt;/p&gt;
-
-&lt;p&gt;另一个是使用 soft margin SVM 而不是 hard SVM&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;但是因为阶跃函数非凸，&lt;/p&gt;
-</description>
-        <pubDate>Wed, 12 Dec 2018 19:25:35 +0800</pubDate>
-        <link>http://localhost:4000/ml/2018/12/12/chap2.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ml/2018/12/12/chap2.html</guid>
-        
-        
-        <category>ML</category>
         
       </item>
     
@@ -815,6 +728,93 @@
         
         
         <category>pgm</category>
+        
+      </item>
+    
+      <item>
+        <title>统计机器学习 chap2</title>
+        <description>&lt;h2 id=&quot;knn-k-近邻-无参方法&quot;&gt;KNN k 近邻 无参方法&lt;/h2&gt;
+
+&lt;p&gt;KNN (k-Nearest Neighbor) k 近邻算法。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;方法思路&lt;/strong&gt;：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。&lt;/p&gt;
+
+&lt;p&gt;KNN算法中，所选择的邻居都是已经正确分类的对象（已知的训练数据）。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。 KNN方法虽然从原理上也依赖于极限定理，但在类别决策时，只与极少量的相邻样本有关。由于KNN方法主要靠周围有限的邻近的样本，而不是靠判别类域的方法来确定所属类别的，因此对于&lt;strong&gt;类域的交叉或重叠较多的待分样本集&lt;/strong&gt;来说，KNN方法较其他方法更为适合。&lt;/p&gt;
+
+&lt;p&gt;KNN算法不仅可以用于分类，还可以用于回归。通过找出一个样本的k个最近邻居，将这些邻居的属性的平均值赋给该样本，就可以得到该样本的属性。更有用的方法是将不同距离的邻居对该样本产生的影响给予不同的权值(weight)，如权值与距离成反比。&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{y}=\sum_{i\in \mathcal{N_K}} \frac{1}{dist(x, x_i)} y_i&lt;/script&gt;
+
+&lt;p&gt;如果拥有无穷的数据，KNN 的错误率最多是最小错误率(Bayes 错误率)的两倍 (注：Bayes 错误率是给定分布的数据能达到的最小错误率)&lt;/p&gt;
+
+&lt;p&gt;KNN的问题：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;对于训练集大的问题，计算量太大，因为每分类一个测试样本都要遍历一次训练集，但是用好的近邻搜索策略会减少计算量。&lt;/li&gt;
+  &lt;li&gt;K 的选择&lt;/li&gt;
+  &lt;li&gt;距离测量标准很重要&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;svm-支持向量机-有参方法&quot;&gt;SVM 支持向量机 有参方法&lt;/h2&gt;
+
+&lt;p&gt;二元分类可以看做是在特征空间中将不同类别分割开来。&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x) = sign(w^Tx+b)&lt;/script&gt;
+
+&lt;h3 id=&quot;线性分割&quot;&gt;线性分割&lt;/h3&gt;
+
+&lt;p&gt;如何分割才是最优的呢？&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;从样本 &lt;script type=&quot;math/tex&quot;&gt;x_i&lt;/script&gt;到分割面的距离是$$r = \frac{&lt;/td&gt;
+      &lt;td&gt;w^Tx_i+b&lt;/td&gt;
+      &lt;td&gt;}{|w|}$$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;最靠近超平面(hyperplane)的样本就是支持向量(support vectors)&lt;/p&gt;
+
+&lt;p&gt;分割面的间隔(margin &lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt;)就是支持向量超平面之间的距离&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所以分类的 &lt;script type=&quot;math/tex&quot;&gt;confidence=y_i(w^Tx_i+b)&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;尽量使得 margin 更大，而之前定义是 margin 是支持向量超平面之前的距离，所以只涉及支持向量，其他训练数据是无关的&lt;/p&gt;
+
+&lt;h3 id=&quot;线性-svm&quot;&gt;线性 SVM&lt;/h3&gt;
+
+&lt;p&gt;设训练集被间隔为&lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt; 的超平面分割&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;对支持向量&lt;script type=&quot;math/tex&quot;&gt;x_s&lt;/script&gt;来说，上式不等式是一个等式，在用&lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt;/2放缩 w 和 b后，&lt;script type=&quot;math/tex&quot;&gt;y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N&lt;/script&gt; &lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/5.png&quot; alt=&quot;&quot; /&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/7.png&quot; alt=&quot;7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/8.png&quot; alt=&quot;8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面是 hard SVM(使用 hard 约束条件，必须线性可分) ，但是有些无法线性分割，一个方法是增加新的特征，使之在高维空间是线性可分的&lt;/p&gt;
+
+&lt;p&gt;另一个是使用 soft margin SVM 而不是 hard SVM&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但是因为阶跃函数非凸，&lt;/p&gt;
+</description>
+        <pubDate>Sat, 10 Mar 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/ml/2018/03/10/chap2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/ml/2018/03/10/chap2.html</guid>
+        
+        
+        <category>ML</category>
         
       </item>
     
