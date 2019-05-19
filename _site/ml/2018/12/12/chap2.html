@@ -172,6 +172,29 @@
 
 <p>尽量使得 margin 更大，而之前定义是 margin 是支持向量超平面之前的距离，所以只涉及支持向量，其他训练数据是无关的</p>
 
+<h3 id="线性-svm">线性 SVM</h3>
+
+<p>设训练集被间隔为<script type="math/tex">\rho</script> 的超平面分割</p>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/2.png" alt="" /></p>
+
+<p>对支持向量<script type="math/tex">x_s</script>来说，上式不等式是一个等式，在用<script type="math/tex">\rho</script>/2放缩 w 和 b后，<script type="math/tex">y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N</script> <img src="/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/3.png" alt="" /></p>
+
+<h3><img src="/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/5.png" alt="" /></h3>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/6.png" alt="" /></p>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/7.png" alt="7" /></p>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/8.png" alt="8" /></p>
+
+<p>上面是 hard SVM(使用 hard 约束条件，必须线性可分) ，但是有些无法线性分割，一个方法是增加新的特征，使之在高维空间是线性可分的</p>
+
+<p>另一个是使用 soft margin SVM 而不是 hard SVM</p>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/9.png" alt="" /></p>
+
+<p>但是因为阶跃函数非凸，</p>
 
 
             <!-- Comments -->

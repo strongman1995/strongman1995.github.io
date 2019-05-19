@@ -5,8 +5,8 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 19 May 2019 20:21:31 +0800</pubDate>
-    <lastBuildDate>Sun, 19 May 2019 20:21:31 +0800</lastBuildDate>
+    <pubDate>Mon, 20 May 2019 00:23:21 +0800</pubDate>
+    <lastBuildDate>Mon, 20 May 2019 00:23:21 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -242,6 +242,29 @@
 
 &lt;p&gt;尽量使得 margin 更大，而之前定义是 margin 是支持向量超平面之前的距离，所以只涉及支持向量，其他训练数据是无关的&lt;/p&gt;
 
+&lt;h3 id=&quot;线性-svm&quot;&gt;线性 SVM&lt;/h3&gt;
+
+&lt;p&gt;设训练集被间隔为&lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt; 的超平面分割&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;对支持向量&lt;script type=&quot;math/tex&quot;&gt;x_s&lt;/script&gt;来说，上式不等式是一个等式，在用&lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt;/2放缩 w 和 b后，&lt;script type=&quot;math/tex&quot;&gt;y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N&lt;/script&gt; &lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/5.png&quot; alt=&quot;&quot; /&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/7.png&quot; alt=&quot;7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/8.png&quot; alt=&quot;8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面是 hard SVM(使用 hard 约束条件，必须线性可分) ，但是有些无法线性分割，一个方法是增加新的特征，使之在高维空间是线性可分的&lt;/p&gt;
+
+&lt;p&gt;另一个是使用 soft margin SVM 而不是 hard SVM&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2018-03-10-chap1/9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但是因为阶跃函数非凸，&lt;/p&gt;
 </description>
         <pubDate>Wed, 12 Dec 2018 19:25:35 +0800</pubDate>
         <link>http://localhost:4000/ml/2018/12/12/chap2.html</link>
