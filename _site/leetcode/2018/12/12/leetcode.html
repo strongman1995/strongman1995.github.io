@@ -139,9 +139,12 @@
 </code></pre></div></div>
 
 <h2 id="3-无重复字符的最长子串"><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">3. 无重复字符的最长子串</a></h2>
-<p>暴力法：O(n^3)
-滑动窗口: O(n)， 通过使用 HashSet 作为滑动窗口，我们可以用O(1)的时间来完成对字符是否在当前的子字符串中的检查。滑动窗口是数组/字符串问题中常用的抽象概念。 窗口通常是在数组/字符串中由开始和结束索引定义的一系列元素的集合，即 [i,j)（左闭，右开）。而滑动窗口是可以将两个边界向某一方向“滑动”的窗口。例如，我们将 [i,j)向右滑动 11 个元素，则它将变为 [i+1,j+1)（左闭，右开）。
-回到我们的问题，我们使用 HashSet 将字符存储在当前窗口 [i,j)最初 （j=i）中。 然后我们向右侧滑动索引 j，如果它不在 HashSet 中，我们会继续滑动 j。直到 s[j] 已经存在于 HashSet 中。此时，我们找到的没有重复字符的最长子字符串将会以索引 i 开头。如果我们对所有的 i 这样做，就可以得到答案。</p>
+<ol>
+  <li>暴力法：<script type="math/tex">O(n^3)</script></li>
+  <li>滑动窗口: 时间复杂度<script type="math/tex">O(n)</script>， 通过使用 HashSet 作为滑动窗口，我们可以用O(1)的时间来完成对字符是否在当前的子字符串中的检查。滑动窗口是数组/字符串问题中常用的抽象概念。 窗口通常是在数组/字符串中由开始和结束索引定义的一系列元素的集合，即 [i,j)（左闭，右开）。而滑动窗口是可以将两个边界向某一方向“滑动”的窗口。例如，我们将 [i,j)向右滑动 11 个元素，则它将变为 [i+1,j+1)（左闭，右开）。
+回到我们的问题，我们使用 HashSet 将字符存储在当前窗口 [i,j)最初 （j=i）中。 然后我们向右侧滑动索引 j，如果它不在 HashSet 中，我们会继续滑动 j。直到 s[j] 已经存在于 HashSet 中。此时，我们找到的没有重复字符的最长子字符串将会以索引 i 开头。如果我们对所有的 i 这样做，就可以得到答案。</li>
+</ol>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">lengthOfLongestSubstring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="n">st</span> <span class="o">=</span> <span class="p">{}</span>
@@ -285,6 +288,145 @@
             <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">break</span>
         <span class="k">return</span> <span class="n">res</span>
+</code></pre></div></div>
+
+<h2 id="15-三数之和"><a href="https://leetcode-cn.com/problems/3sum/">15. 三数之和</a></h2>
+
+<p>超出时间限制，┑(￣Д ￣)┍</p>
+
+<p>排序 + 对撞指针 + 剪枝策略，时间复杂度 <script type="math/tex">O(n^2)</script></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">threeSum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">nums</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="ow">in</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
+                <span class="n">_sum</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">+</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">+</span> <span class="n">num</span>
+                <span class="k">if</span> <span class="n">_sum</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">while</span> <span class="n">n2</span> <span class="o">&gt;</span> <span class="n">n1</span> <span class="ow">and</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">n2</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="n">n2</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">_sum</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">while</span> <span class="n">n2</span> <span class="o">&gt;</span> <span class="n">n1</span> <span class="ow">and</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">n1</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">n1</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">num</span><span class="p">,</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n2</span><span class="p">]])</span>
+                    <span class="k">while</span> <span class="n">n2</span> <span class="o">&gt;</span> <span class="n">n1</span> <span class="ow">and</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">n2</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="n">n2</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="k">while</span> <span class="n">n2</span> <span class="o">&gt;</span> <span class="n">n1</span> <span class="ow">and</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="n">n1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">n1</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">n1</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">res</span>
+</code></pre></div></div>
+
+<h2 id="16-最接近的三数之和"><a href="https://leetcode-cn.com/problems/3sum-closest/">16. 最接近的三数之和</a></h2>
+
+<p>和上题差不多的思路</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">threeSumClosest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">target</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">"inf"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="p">:</span>
+                <span class="n">cur</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">cur</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">target</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">res</span> <span class="o">-</span> <span class="n">target</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cur</span> <span class="o">-</span> <span class="n">target</span><span class="p">):</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="n">cur</span>
+                <span class="k">if</span> <span class="n">cur</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
+                    <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">cur</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+                    <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">res</span>
+</code></pre></div></div>
+
+<h2 id="17-电话号码的字母组合"><a href="https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/">17. 电话号码的字母组合</a></h2>
+
+<p>使用回溯算法(递归迭代)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">letterCombinations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">digits</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">digits</span> <span class="ow">or</span> <span class="n">digits</span> <span class="o">==</span> <span class="s">""</span><span class="p">:</span> <span class="k">return</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">letters</span> <span class="o">=</span> <span class="p">{</span><span class="s">'2'</span><span class="p">:</span><span class="s">"abc"</span><span class="p">,</span> <span class="s">'3'</span><span class="p">:</span><span class="s">"def"</span><span class="p">,</span> <span class="s">'4'</span><span class="p">:</span><span class="s">"ghi"</span><span class="p">,</span> <span class="s">'5'</span><span class="p">:</span><span class="s">"jkl"</span><span class="p">,</span> <span class="s">'6'</span><span class="p">:</span><span class="s">"mno"</span><span class="p">,</span> <span class="s">'7'</span><span class="p">:</span><span class="s">"pqrs"</span><span class="p">,</span> <span class="s">'8'</span><span class="p">:</span><span class="s">"tuv"</span><span class="p">,</span> <span class="s">'9'</span><span class="p">:</span><span class="s">"wxyz"</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">digits</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">digits</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">digits</span> <span class="o">==</span> <span class="s">""</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="s">""</span><span class="p">]</span>
+        <span class="n">new_res</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">digits</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="c"># 得到除头部数字后面字符串得到的所有结果</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">letters</span><span class="p">[</span><span class="n">digits</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+                <span class="n">new_res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="c"># 加上当前的数字对应的所有字母</span>
+        <span class="k">return</span> <span class="n">new_res</span>
+</code></pre></div></div>
+
+<h2 id="18-四数之和"><a href="https://leetcode-cn.com/problems/4sum/">18. 四数之和</a></h2>
+
+<p>仿照三数之和，使用双循环固定两个数，用双指针找另外两个数，通过比较与<code class="highlighter-rouge">target</code> 的大小，移动指针。</p>
+
+<p>时间复杂度是 <script type="math/tex">O(n^3)</script></p>
+
+<pre><code class="language-Python">class Solution:
+    def fourSum(self, nums: List[int], target: int) -&gt; List[List[int]]:
+        n = len(nums)
+        if n &lt; 4: return []
+        nums.sort()
+        res = []
+        for i in range(n-3):
+            if i &gt; 0 and nums[i] == nums[i-1]: continue # 防止重复 数组进入 res
+            # 当数组最小值和都大于 target 跳出
+            if nums[i] + nums[i+1] + nums[i+2] + nums[i+3] &gt; target: break
+            # 当数组最大值和都小于target,说明i这个数还是太小,遍历下一个
+            if nums[i] + nums[n-1] + nums[n-2] + nums[n-3] &lt; target: continue
+            for j in range(i+1,n-2):
+                if j - i &gt; 1 and nums[j] == nums[j-1]: continue # 防止重复 数组进入 res
+                if nums[i] + nums[j] + nums[j+1] + nums[j+2] &gt; target: break # 同理
+                if nums[i] + nums[j] + nums[n-1] + nums[n-2] &lt; target: continue # 同理
+                left, right = j + 1, n - 1 # 双指针
+                while left &lt; right:
+                    tmp = nums[i] + nums[j] + nums[left] + nums[right]
+                    if tmp == target:
+                        res.append([nums[i],nums[j],nums[left],nums[right]])
+                        while left &lt; right and nums[left] == nums[left+1]: left += 1
+                        while left &lt; right and nums[right] == nums[right-1]: right -= 1
+                        left += 1
+                        right -= 1
+                    elif tmp &gt; target:
+                        right -= 1
+                    else:
+                        left += 1
+        return res
+</code></pre>
+
+<h2 id="19-删除链表的倒数第n个节点"><a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第N个节点</a></h2>
+
+<p>用双指针，间隔为 n，并且创建一个新的 head 节点来避免临界的情况判断</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">removeNthFromEnd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListNode</span><span class="p">:</span>
+        <span class="n">new_head</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">new_head</span><span class="o">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="n">ptr1</span><span class="p">,</span> <span class="n">ptr2</span> <span class="o">=</span> <span class="n">new_head</span><span class="p">,</span> <span class="n">head</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">ptr2</span> <span class="o">=</span> <span class="n">ptr2</span><span class="o">.</span><span class="nb">next</span>
+        <span class="k">while</span> <span class="n">ptr2</span><span class="p">:</span>
+            <span class="n">ptr1</span> <span class="o">=</span> <span class="n">ptr1</span><span class="o">.</span><span class="nb">next</span>
+            <span class="n">ptr2</span> <span class="o">=</span> <span class="n">ptr2</span><span class="o">.</span><span class="nb">next</span>
+        <span class="n">ptr1</span><span class="o">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">ptr1</span><span class="o">.</span><span class="nb">next</span><span class="o">.</span><span class="nb">next</span>
+        <span class="k">return</span> <span class="n">new_head</span><span class="o">.</span><span class="nb">next</span>
 </code></pre></div></div>
 
 
