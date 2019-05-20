@@ -172,7 +172,7 @@
 
 <p>对支持向量<script type="math/tex">x_s</script>来说，上式不等式是一个等式，在用<script type="math/tex">\rho</script>/2放缩 w 和 b后，<script type="math/tex">y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N</script> <img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/3.png" alt="" /></p>
 
-<h3><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/5.png" alt="" /></h3>
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/5.png" alt="" /></p>
 
 <p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/6.png" alt="" /></p>
 
@@ -186,7 +186,67 @@
 
 <p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/9.png" alt="" /></p>
 
-<p>但是因为阶跃函数非凸，</p>
+<p>但是因为阶跃函数非凸，所以想用其他函数替代，比如</p>
+
+<p><script type="math/tex">\ell_{lin}(yf(x))=max(0, 1-yf(x))</script> Hinge loss, convex, non-smooth</p>
+
+<p><script type="math/tex">\ell_{quad}(yf(x))=max(0, 1-yf(x))^2</script> Square-loss, convex, smooth</p>
+
+<p><script type="math/tex">% <![CDATA[
+\ell_{Huber}(yf(x))=\begin{cases}1-yf(x) \quad if \quad yf(x) < 0 \\ max(0, 1-yf(x))^2,\quad  if \quad yf(x) \geq 0\end{cases} %]]></script> 结合了上面两种方法，convex, smooth</p>
+
+<p>如果用 hinge loss 来代替 0-1 loss，可以求得 0-1loss 的 upper bound</p>
+
+<p>为什么 Support Vector Machine 叫这个名字？</p>
+
+<p>是因为在 Hard-SVM 中，KKT 条件中的一条就是所有 support vectors <script type="math/tex">x_i</script> ,满足<script type="math/tex">y_i \hat{w} x_i =1</script></p>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/10.png" alt="" /></p>
+
+<h3 id="nonlinear-svm">NonLinear SVM</h3>
+
+<p>把数据映射到高维空间中，使得在高维空间中训练数据是可分割的。</p>
+
+<p>Kernel Trick: 映射函数，找另一种表示，在 SVM 和无监督学习中都有同样的思想</p>
+
+<script type="math/tex; mode=display">\Phi(x)^T \Phi(z) = (x^Tz)^d=K(x,z)</script>
+
+<p>核函数，相当于是等于在特定特征空间的内积。而且不需要映射到高维空间后再做点积，直接用 K 计算点积</p>
+
+<p>Mercer’s theorem:</p>
+
+<blockquote>
+  <p>任意半正定对称函数都是核函数</p>
+</blockquote>
+
+<p>常用核函数：</p>
+
+<ol>
+  <li>线性：<script type="math/tex">K(x_i, x_j)=x_i^Tx_j</script> <script type="math/tex">\Phi: x \rightarrow \Phi(x)</script> where <script type="math/tex">\Phi(x)=x</script></li>
+  <li>p 次多项式：<script type="math/tex">K(x_i, x_j)=(1+x_i^Tx_j)^p</script></li>
+  <li>高斯：<script type="math/tex">K(x_i, x_j)=exp(-\frac{\|x_i-x_j\|^2}{2\sigma})</script></li>
+</ol>
+
+<h2 id="holdout-method">Holdout Method</h2>
+
+<p>用 Resampling 来解决数据太少，测试集很宝贵的情况</p>
+
+<ol>
+  <li>Cross-validation
+    <ol>
+      <li>Random subsampling</li>
+      <li>K-fold cross-validation</li>
+      <li>Leave-one-out cross-validation</li>
+    </ol>
+  </li>
+  <li>Boostrap</li>
+</ol>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/11.png" alt="" /></p>
+
+<p>选取 fold 的数量是有讲究的，在实际应用中，大数据集用小的 K，而稀疏数据集需要更大的 K</p>
+
+<p>一般 K-fold CV 用 K=10 比较多</p>
 
 
             <!-- Comments -->
