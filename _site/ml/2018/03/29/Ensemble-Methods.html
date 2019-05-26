@@ -9,11 +9,11 @@
     <!-- Favicon Icon -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
 
-    <title>统计机器学习 chap1</title>
+    <title>统计机器学习 chap3 Ensemble Methods</title>
     <meta name="description"
-          content="KNN k 近邻 无参方法">
+          content="Classification Trees">
 
-    <link rel="canonical" href="http://localhost:4000/ml/2018/03/10/chap2.html">
+    <link rel="canonical" href="http://localhost:4000/ml/2018/03/29/Ensemble-Methods.html">
     <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -91,14 +91,14 @@
 
 
         <div class="content">
-            <section class="jumbotron geopattern" data-pattern-id="统计机器学习 chap1">
+            <section class="jumbotron geopattern" data-pattern-id="统计机器学习 chap3 Ensemble Methods">
     <div class="container">
         <div id="jumbotron-meta-info">
-            <h1>统计机器学习 chap1</h1>
+            <h1>统计机器学习 chap3 Ensemble Methods</h1>
             <span class="meta-info">
                 
                 
-                <span class="octicon octicon-calendar"></span> 2018/03/10
+                <span class="octicon octicon-calendar"></span> 2018/03/29
                 
             </span>
         </div>
@@ -120,133 +120,13 @@
         
         <div class="col-md-8 markdown-body">
 
-            <h2 id="knn-k-近邻-无参方法">KNN k 近邻 无参方法</h2>
+            <h2 id="classification-trees">Classification Trees</h2>
 
-<p>KNN (k-Nearest Neighbor) k 近邻算法。</p>
+<h2 id="bagging-averaging-tress">Bagging: Averaging Tress</h2>
 
-<p><strong>方法思路</strong>：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。</p>
+<h2 id="random-forests-cleverer-averaging-of-trees">Random Forests: Cleverer Averaging of Trees</h2>
 
-<p>KNN算法中，所选择的邻居都是已经正确分类的对象（已知的训练数据）。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。 KNN方法虽然从原理上也依赖于极限定理，但在类别决策时，只与极少量的相邻样本有关。由于KNN方法主要靠周围有限的邻近的样本，而不是靠判别类域的方法来确定所属类别的，因此对于<strong>类域的交叉或重叠较多的待分样本集</strong>来说，KNN方法较其他方法更为适合。</p>
-
-<p>KNN算法不仅可以用于分类，还可以用于回归。通过找出一个样本的k个最近邻居，将这些邻居的属性的平均值赋给该样本，就可以得到该样本的属性。更有用的方法是将不同距离的邻居对该样本产生的影响给予不同的权值(weight)，如权值与距离成反比。</p>
-
-<script type="math/tex; mode=display">\hat{y}=\sum_{i\in \mathcal{N_K}} \frac{1}{dist(x, x_i)} y_i</script>
-
-<p>如果拥有无穷的数据，KNN 的错误率最多是最小错误率(Bayes 错误率)的两倍 (注：Bayes 错误率是给定分布的数据能达到的最小错误率)</p>
-
-<p>KNN的问题：</p>
-
-<ol>
-  <li>对于训练集大的问题，计算量太大，因为每分类一个测试样本都要遍历一次训练集，但是用好的近邻搜索策略会减少计算量。</li>
-  <li>K 的选择</li>
-  <li>距离测量标准很重要</li>
-</ol>
-
-<h2 id="svm-支持向量机-有参方法">SVM 支持向量机 有参方法</h2>
-
-<p>二元分类可以看做是在特征空间中将不同类别分割开来。</p>
-
-<script type="math/tex; mode=display">f(x) = sign(w^Tx+b)</script>
-
-<h3 id="线性分割">线性分割</h3>
-
-<p>如何分割才是最优的呢？</p>
-
-<p>从样本 <script type="math/tex">x_i</script>到分割面的距离是<script type="math/tex">r = \frac{\|w^Tx_i+b\|}{\|w\|}</script></p>
-
-<p>最靠近超平面(hyperplane)的样本就是支持向量(support vectors)</p>
-
-<p>分割面的间隔(margin <script type="math/tex">\rho</script>)就是支持向量超平面之间的距离</p>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/1.png" alt="" /></p>
-
-<p>所以分类的 <script type="math/tex">confidence=y_i(w^Tx_i+b)</script></p>
-
-<p>尽量使得 margin 更大，而之前定义是 margin 是支持向量超平面之前的距离，所以只涉及支持向量，其他训练数据是无关的</p>
-
-<h3 id="线性-svm">线性 SVM</h3>
-
-<p>设训练集被间隔为<script type="math/tex">\rho</script> 的超平面分割</p>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/2.png" alt="" /></p>
-
-<p>对支持向量<script type="math/tex">x_s</script>来说，上式不等式是一个等式，在用<script type="math/tex">\rho</script>/2放缩 w 和 b后，<script type="math/tex">y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N</script> <img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/3.png" alt="" /></p>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/5.png" alt="" /></p>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/6.png" alt="" /></p>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/7.png" alt="7" /></p>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/8.png" alt="8" /></p>
-
-<p>上面是 hard SVM(使用 hard 约束条件，必须线性可分) ，但是有些无法线性分割，一个方法是增加新的特征，使之在高维空间是线性可分的</p>
-
-<p>另一个是使用 soft margin SVM 而不是 hard SVM</p>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/9.png" alt="" /></p>
-
-<p>但是因为阶跃函数非凸，所以想用其他函数替代，比如</p>
-
-<p><script type="math/tex">\ell_{lin}(yf(x))=max(0, 1-yf(x))</script> Hinge loss, convex, non-smooth</p>
-
-<p><script type="math/tex">\ell_{quad}(yf(x))=max(0, 1-yf(x))^2</script> Square-loss, convex, smooth</p>
-
-<p><script type="math/tex">% <![CDATA[
-\ell_{Huber}(yf(x))=\begin{cases}1-yf(x) \quad if \quad yf(x) < 0 \\ max(0, 1-yf(x))^2,\quad  if \quad yf(x) \geq 0\end{cases} %]]></script> 结合了上面两种方法，convex, smooth</p>
-
-<p>如果用 hinge loss 来代替 0-1 loss，可以求得 0-1loss 的 upper bound</p>
-
-<p>为什么 Support Vector Machine 叫这个名字？</p>
-
-<p>是因为在 Hard-SVM 中，KKT 条件中的一条就是所有 support vectors <script type="math/tex">x_i</script> ,满足<script type="math/tex">y_i \hat{w} x_i =1</script></p>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/10.png" alt="" /></p>
-
-<h3 id="nonlinear-svm">NonLinear SVM</h3>
-
-<p>把数据映射到高维空间中，使得在高维空间中训练数据是可分割的。</p>
-
-<p>Kernel Trick: 映射函数，找另一种表示，在 SVM 和无监督学习中都有同样的思想</p>
-
-<script type="math/tex; mode=display">\Phi(x)^T \Phi(z) = (x^Tz)^d=K(x,z)</script>
-
-<p>核函数，相当于是等于在特定特征空间的内积。而且不需要映射到高维空间后再做点积，直接用 K 计算点积</p>
-
-<p>Mercer’s theorem:</p>
-
-<blockquote>
-  <p>任意半正定对称函数都是核函数</p>
-</blockquote>
-
-<p>常用核函数：</p>
-
-<ol>
-  <li>线性：<script type="math/tex">K(x_i, x_j)=x_i^Tx_j</script> <script type="math/tex">\Phi: x \rightarrow \Phi(x)</script> where <script type="math/tex">\Phi(x)=x</script></li>
-  <li>p 次多项式：<script type="math/tex">K(x_i, x_j)=(1+x_i^Tx_j)^p</script></li>
-  <li>高斯：<script type="math/tex">K(x_i, x_j)=exp(-\frac{\|x_i-x_j\|^2}{2\sigma})</script></li>
-</ol>
-
-<h2 id="holdout-method">Holdout Method</h2>
-
-<p>用 Resampling 来解决数据太少，测试集很宝贵的情况</p>
-
-<ol>
-  <li>Cross-validation
-    <ol>
-      <li>Random subsampling</li>
-      <li>K-fold cross-validation</li>
-      <li>Leave-one-out cross-validation</li>
-    </ol>
-  </li>
-  <li>Boostrap</li>
-</ol>
-
-<p><img src="http://127.0.0.1:4000/assets/images/2018-03-10-chap1/11.png" alt="" /></p>
-
-<p>选取 fold 的数量是有讲究的，在实际应用中，大数据集用小的 K，而稀疏数据集需要更大的 K</p>
-
-<p>一般 K-fold CV 用 K=10 比较多</p>
+<h2 id="boosting-cleverest-averaging-of-trees">Boosting: Cleverest Averaging of Trees</h2>
 
 
             <!-- Comments -->

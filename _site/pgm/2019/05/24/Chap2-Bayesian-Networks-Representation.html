@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+    <title>Chap2 Bayesian Networks: Representation</title>
+    <meta name="description"
+          content="Conditional independence">
+
+    <link rel="canonical" href="http://localhost:4000/pgm/2019/05/24/Chap2-Bayesian-Networks-Representation.html">
+    <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Third-Party CSS -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/bower_components/hover/css/hover-min.css">
+    <link rel="stylesheet" href="/bower_components/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/assets/css/common.css">
+
+    <!-- CSS set in page -->
+    
+
+    <!-- CSS set in layout -->
+    
+    <link rel="stylesheet" href="/assets/css/sidebar-post-nav.css">
+    
+
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+
+    <body>
+
+    <header class="site-header">
+    <div class="container">
+        <a id="site-header-brand" href="/" title="Lu Chen">
+            <span class="octicon octicon-mark-github"></span> Lu Chen
+        </a>
+        <nav class="site-header-nav" role="navigation">
+            
+            <a href="/"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Home">
+                Home
+            </a>
+            
+            <a href="/about"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="About">
+                About
+            </a>
+            
+            <a href="/blog"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Blog">
+                Blog
+            </a>
+            
+            <a href="/open-source"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Open-Source">
+                Open-Source
+            </a>
+            
+            <a href="/bookmark"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Bookmark">
+                Bookmark
+            </a>
+            
+        </nav>
+    </div>
+</header>
+
+
+        <div class="content">
+            <section class="jumbotron geopattern" data-pattern-id="Chap2 Bayesian Networks: Representation">
+    <div class="container">
+        <div id="jumbotron-meta-info">
+            <h1>Chap2 Bayesian Networks: Representation</h1>
+            <span class="meta-info">
+                
+                
+                <span class="octicon octicon-calendar"></span> 2019/05/24
+                
+            </span>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function(){
+
+        $('.geopattern').each(function(){
+            $(this).geopattern($(this).data('pattern-id'));
+        });
+
+    });
+</script>
+<article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="row">
+
+        
+        <div class="col-md-8 markdown-body">
+
+            <h2 id="conditional-independence">Conditional independence</h2>
+
+<p>变量 X 和 Y 是独立的：</p>
+
+<p><script type="math/tex">P(X=x\|Y=y)=P(X=x)</script> 即Y的取值不会改变X的预测概率</p>
+
+<script type="math/tex; mode=display">P(X, Y) = P(X\|Y)P(Y) = P(X) P(Y)</script>
+
+<script type="math/tex; mode=display">P(X_1, …, X_n)=P(X_1)…P(X_n)</script>
+
+<p>变量 X 和 变量 Y 在给定 Z的条件下是条件独立(conditionally independent)的</p>
+
+<p>P(X=x|Y=y, Z=z) = P(X=x|Z=z) for all values x, y, z</p>
+
+<p>可以写作：<script type="math/tex">Ind(X;Y\|Z) or (X\bot Y\|Z)</script></p>
+
+<h2 id="conditional-parameterization">Conditional Parameterization</h2>
+
+<p>这一节是说如何计算条件概率的参数量</p>
+
+<p>比如P(D, I, G)=P(D)P(I)P(G|D, I) 其中D和I是二值变量，G是三值变量，所以P(D)和P(I)都是1个独立参数，而P(G|D, I)有4*(3-1)=8个独立参数，4是D和I有4种组合，G是三值，所以知道两个概率就可以求出剩下一个的概率，所以是2个参数</p>
+
+<h2 id="naive-bayes-model">Naive Bayes model</h2>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/2.png" alt="" /></p>
+
+<script type="math/tex; mode=display">P(C, X_1, …, X_n)=P(C)\prod_{i=1}^n P(X_i\|C)</script>
+
+<h2 id="baysian-networks">Baysian networks</h2>
+
+<h3 id="bns-and-local-independences">BNs and local independences</h3>
+
+<p>有向无环图 DAG <em>G</em> 编码了 local independence assumptions:</p>
+
+<script type="math/tex; mode=display">(X_i \bot NonDesc(X_i) \| Pa(X_i))</script>
+
+<p>给定父亲节点，<script type="math/tex">X_i</script> 独立于它的非后继节点(即独立于它的 Markov Blanket)</p>
+
+<h3 id="i-map-and-factorization">I-map and factorization</h3>
+
+<p>I-Maps: Independency Mappings</p>
+
+<p>P 是 X 的分布</p>
+
+<p>I(P)是 P 上的 independencies(不知道怎么用中文表示。。。)</p>
+
+<blockquote>
+  <p>A Bayesian network G is an I-map of P if I(G) <script type="math/tex">\subseteq</script> I(P) <script type="math/tex">\leftrightarrow P(X_1, …, X_n)=\prod_{i=1}^n P(X_i\|Pa(X_i))</script></p>
+</blockquote>
+
+<p>所以上面这句话就是说如果符合G 的 independence 是符合 P 的 inpendencies 的子集，那么 G 就是 P 的 I-Map。</p>
+
+<p>G 是 P 的 I-Map，P 可以根据 G 做分解</p>
+
+<p>P可以根据 G 做分解，那说明 G 是 P 的 I-Map</p>
+
+<p><strong>Bayesian Network</strong>其实是由<strong>(G，P)</strong>共同定义的，P 在 G 上做分解（<strong>BN Factorization</strong>），P 定义为关于 G 上节点的conditional probability dependences（CPDs）的集合</p>
+
+<p>一个很简单的计算题：符合P(X, Y, C) = P(C)P(X|C)P(Y|C) 的G</p>
+
+<p>计算 P(X=x|Y=y), 要讲 C 加入到这个计算式子中，如何加呢？</p>
+
+<script type="math/tex; mode=display">P(x\|y)=\sum_c P(x, C\|y)</script>
+
+<p>给定 y分解x 和 C</p>
+
+<script type="math/tex; mode=display">P(x\|y)=\sum_c P(x, c\|y)=\sum_c P(x\|y, c)P(c\|y)</script>
+
+<p>因为<script type="math/tex">(X\bot Y\|C)</script> P(x|y, c)=P(x|c)</p>
+
+<script type="math/tex; mode=display">P(x\|y)=\sum_c P(x, c\|y)=\sum_c P(x\|y, c)P(c\|y)=\sum_c P(x\|c) P(c\|y)</script>
+
+<p>P(c|y)使用贝叶斯公式</p>
+
+<script type="math/tex; mode=display">P(x\|y)=\sum_c P(x, c\|y)=\sum_c P(x\|y, c)P(c\|y)=\sum_c P(x\|c) P(c\|y)=\sum_c P(x\|c) \frac{P(y\|c)P(c)}{\sum_c P(y\|c)P(c)}</script>
+
+<p>上述整个过程其实就是努力把公式的所有项都转化为”local probability”的形式 P(child|Parents)</p>
+
+<h3 id="d-separation-in-bns">d-separation in BNs</h3>
+
+<p>其实就是设计一个过程能找到 G 中的所有 independencies</p>
+
+<p>直接相连的 X 和 Y 是 not separated</p>
+
+<p>active：X 和Y 之间的路是通的，是相互依赖的，非独立的</p>
+
+<p>blocked：X 和 Y 之间的路被堵住了，是相互独立的</p>
+
+<p>令<script type="math/tex">X_1\leftrightarrow … \leftrightarrow X_n</script>是 G 的一条 trail 路径，<strong>E</strong>是 G 的观测节点(evidence nodes)子集</p>
+
+<blockquote>
+  <p>The trail <script type="math/tex">X_1\leftrightarrow … \leftrightarrow X_n</script> is active given evidence <em>E</em> if:</p>
+
+  <ul>
+    <li>
+      <p>For every V-structure <script type="math/tex">X_{i-1} \rightarrow X_i \leftarrow X_{i+1}</script> , <script type="math/tex">X_i</script> or one of its descendants is observed</p>
+    </li>
+    <li>
+      <p>No other nodes along the trail are in <strong><em>E</em></strong></p>
+    </li>
+  </ul>
+</blockquote>
+
+<p>给定 <strong><em>Z</em></strong>,  如果没有 active trail 在<strong><em>X</em></strong> <strong><em>和 Y</em></strong> 之间，<strong><em>X</em></strong> <strong><em>和 Y</em></strong> 是 d-separeted in G ，记作<script type="math/tex">d-sep_G (X;Y\|Z)</script></p>
+
+<p>从d-separation 可以得到所有的 independencies</p>
+
+<p><strong>backward process</strong>：给出结果，推断原因(learning的过程)，更难</p>
+
+<p><strong>forward process</strong>：从原因到结果(inference 的过程)</p>
+
+<p>为什么 backward 更难呢，在 v-structure, 因为子节点观测到的话，会 activate the trails(probability dependences) between their parents，而且这种依赖还会继续往上传递。但是树状结构不就是没有 v-structure 吗</p>
+
+<p>有个 d-separation 的算法来找到给定观测变量 Z，找到X所有 reachable 的 nodes</p>
+
+<p>有了更多的独立关系，可以减少参数量，而且对于 inference，只需要考虑子图上的 loca dependent</p>
+
+<blockquote>
+  <p>Two graph G1 and G2 are <strong>I-equivalent</strong>, if I(G1)=I(G2)</p>
+</blockquote>
+
+<p>这两个图encode 的独立关系相同</p>
+
+<h3 id="from-distribution-to-bns">From distribution to BNs</h3>
+
+<p>即从分布 P，构造出图 G，能够合理替代分布 P 中的独立性</p>
+
+<p><strong>Minimal I-Maps</strong></p>
+
+<blockquote>
+  <p>A graph <strong>G</strong> is a minimal I-map for a set of independences <strong>I</strong> if it is an I-map for <strong>I</strong>, and if the removal of even a single edge from <strong>G</strong> renders it not an I-map.</p>
+</blockquote>
+
+<p>移除一条边意味着增加独立条件。</p>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2019-05-24-chap2/1.png" alt="image-20190526145652979" /></p>
+
+<p>主要思想是，对于第 i 个变量<script type="math/tex">X_i</script>, 从前面 i-1个变量中找到<script type="math/tex">X_i</script>父亲节点的最小集合。</p>
+
+<p>对于变量不同的初始排列顺序会生成不同的网络 G</p>
+
+<p><strong>Perfect Maps</strong></p>
+
+<blockquote>
+  <p>A graph <strong>G</strong> is a perfect map (P-map) for a set of independences <strong>I</strong> if <strong>I(G)=I</strong> or <strong>I(G)=I(P)</strong>. P is a distribution</p>
+</blockquote>
+
+<p>枚举G和 P所有的独立条件，看是否 G 是 P 的 perfect map</p>
+
+
+            <!-- Comments -->
+            
+
+        </div>
+
+        <div class="col-md-4">
+            <h3>Post Directory</h3>
+<div id="post-directory-module">
+<section class="post-directory">
+    <!-- Links that trigger the jumping -->
+    <!-- Added by javascript below -->
+    <dl></dl>
+</section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $( "article h2" ).each(function( index ) {
+            $(".post-directory dl").append("<dt><a class=\"jumper\" hre=#" +
+                    $(this).attr("id")
+                    + ">"
+                    + $(this).text()
+                    + "</a></dt>");
+
+            var children = $(this).nextUntil("h2", "h3")
+
+            children.each(function( index ) {
+                $(".post-directory dl").append("<dd><a class=\"jumper\" hre=#" +
+                        $(this).attr("id")
+                        + ">"
+                        + "&nbsp;&nbsp;- " + $(this).text()
+                        + "</a></dd>");
+            });
+        });
+
+        var fixmeTop = $('#post-directory-module').offset().top - 100;       // get initial position of the element
+
+        $(window).scroll(function() {                  // assign scroll event listener
+
+            var currentScroll = $(window).scrollTop(); // get current position
+
+            if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+                $('#post-directory-module').css({      // scroll to that element or below it
+                    top: '100px',
+                    position: 'fixed',
+                    width: 'inherit'
+                });
+            } else {                                   // apply position: static
+                $('#post-directory-module').css({      // if you scroll above it
+                    position: 'inherit',
+                    width: 'inherit'
+                });
+            }
+
+        });
+
+        $("a.jumper").on("click", function( e ) {
+
+            e.preventDefault();
+
+            $("body, html").animate({
+                scrollTop: ($( $(this).attr('hre') ).offset().top - 100)
+            }, 600);
+
+        });
+    });
+
+</script>
+        </div>
+        
+
+    </div>
+
+
+
+        </div>
+
+    <footer class="container">
+
+    <div class="site-footer">
+
+        <!--<div class="copyright pull-left">-->
+            <!--&lt;!&ndash; 请不要更改这一行 方便其他人知道模板的来源 谢谢 &ndash;&gt;-->
+            <!--&lt;!&ndash; Please keep this line to let others know where this theme comes from. Thank you :D &ndash;&gt;-->
+            <!--Power by <a href="https://github.com/DONGChuan/Yummy-Jekyll">Yummy Jekyll</a>-->
+        <!--</div>-->
+
+        <a href="https://github.com/strongman1995" target="_blank" aria-label="view source code">
+            <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+        </a>
+
+        <div align=left>
+            Visitors:
+            <a href='https://www.counter12.com'>
+                <img src='https://www.counter12.com/img-Cwz4393YWx8CY2a8-15.gif' border='0' alt='free web counter'></a>
+            <script type='text/javascript' src='https://www.counter12.com/ad.js?id=Cwz4393YWx8CY2a8'></script>
+        </div>
+
+        <div class="pull-right">
+            <a href="javascript:window.scrollTo(0,0)">TOP</a>
+        </div>
+
+    </div>
+
+    <!-- Third-Party JS -->
+    <script type="text/javascript" src="/bower_components/geopattern/js/geopattern.min.js"></script>
+
+    <!-- My JS -->
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+
+    
+
+    
+    <!-- Google Analytics -->
+    <!--<div style="display:none">-->
+    <div>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-139849944-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </div>
+    
+
+</footer>
+
+
+    </body>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+</html>

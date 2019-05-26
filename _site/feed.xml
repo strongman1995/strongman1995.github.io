@@ -5,9 +5,267 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 21 May 2019 00:39:47 +0800</pubDate>
-    <lastBuildDate>Tue, 21 May 2019 00:39:47 +0800</lastBuildDate>
+    <pubDate>Sun, 26 May 2019 16:15:00 +0800</pubDate>
+    <lastBuildDate>Sun, 26 May 2019 16:15:00 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Chap2 Bayesian Networks: Representation</title>
+        <description>&lt;h2 id=&quot;conditional-independence&quot;&gt;Conditional independence&lt;/h2&gt;
+
+&lt;p&gt;变量 X 和 Y 是独立的：&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;P(X=x\|Y=y)=P(X=x)&lt;/script&gt; 即Y的取值不会改变X的预测概率&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(X, Y) = P(X\|Y)P(Y) = P(X) P(Y)&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(X_1, …, X_n)=P(X_1)…P(X_n)&lt;/script&gt;
+
+&lt;p&gt;变量 X 和 变量 Y 在给定 Z的条件下是条件独立(conditionally independent)的&lt;/p&gt;
+
+&lt;p&gt;P(X=x|Y=y, Z=z) = P(X=x|Z=z) for all values x, y, z&lt;/p&gt;
+
+&lt;p&gt;可以写作：&lt;script type=&quot;math/tex&quot;&gt;Ind(X;Y\|Z) or (X\bot Y\|Z)&lt;/script&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conditional-parameterization&quot;&gt;Conditional Parameterization&lt;/h2&gt;
+
+&lt;p&gt;这一节是说如何计算条件概率的参数量&lt;/p&gt;
+
+&lt;p&gt;比如P(D, I, G)=P(D)P(I)P(G|D, I) 其中D和I是二值变量，G是三值变量，所以P(D)和P(I)都是1个独立参数，而P(G|D, I)有4*(3-1)=8个独立参数，4是D和I有4种组合，G是三值，所以知道两个概率就可以求出剩下一个的概率，所以是2个参数&lt;/p&gt;
+
+&lt;h2 id=&quot;naive-bayes-model&quot;&gt;Naive Bayes model&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(C, X_1, …, X_n)=P(C)\prod_{i=1}^n P(X_i\|C)&lt;/script&gt;
+
+&lt;h2 id=&quot;baysian-networks&quot;&gt;Baysian networks&lt;/h2&gt;
+
+&lt;h3 id=&quot;bns-and-local-independences&quot;&gt;BNs and local independences&lt;/h3&gt;
+
+&lt;p&gt;有向无环图 DAG &lt;em&gt;G&lt;/em&gt; 编码了 local independence assumptions:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;(X_i \bot NonDesc(X_i) \| Pa(X_i))&lt;/script&gt;
+
+&lt;p&gt;给定父亲节点，&lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt; 独立于它的非后继节点(即独立于它的 Markov Blanket)&lt;/p&gt;
+
+&lt;h3 id=&quot;i-map-and-factorization&quot;&gt;I-map and factorization&lt;/h3&gt;
+
+&lt;p&gt;I-Maps: Independency Mappings&lt;/p&gt;
+
+&lt;p&gt;P 是 X 的分布&lt;/p&gt;
+
+&lt;p&gt;I(P)是 P 上的 independencies(不知道怎么用中文表示。。。)&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A Bayesian network G is an I-map of P if I(G) &lt;script type=&quot;math/tex&quot;&gt;\subseteq&lt;/script&gt; I(P) &lt;script type=&quot;math/tex&quot;&gt;\leftrightarrow P(X_1, …, X_n)=\prod_{i=1}^n P(X_i\|Pa(X_i))&lt;/script&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;所以上面这句话就是说如果符合G 的 independence 是符合 P 的 inpendencies 的子集，那么 G 就是 P 的 I-Map。&lt;/p&gt;
+
+&lt;p&gt;G 是 P 的 I-Map，P 可以根据 G 做分解&lt;/p&gt;
+
+&lt;p&gt;P可以根据 G 做分解，那说明 G 是 P 的 I-Map&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Bayesian Network&lt;/strong&gt;其实是由&lt;strong&gt;(G，P)&lt;/strong&gt;共同定义的，P 在 G 上做分解（&lt;strong&gt;BN Factorization&lt;/strong&gt;），P 定义为关于 G 上节点的conditional probability dependences（CPDs）的集合&lt;/p&gt;
+
+&lt;p&gt;一个很简单的计算题：符合P(X, Y, C) = P(C)P(X|C)P(Y|C) 的G&lt;/p&gt;
+
+&lt;p&gt;计算 P(X=x|Y=y), 要讲 C 加入到这个计算式子中，如何加呢？&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(x\|y)=\sum_c P(x, C\|y)&lt;/script&gt;
+
+&lt;p&gt;给定 y分解x 和 C&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(x\|y)=\sum_c P(x, c\|y)=\sum_c P(x\|y, c)P(c\|y)&lt;/script&gt;
+
+&lt;p&gt;因为&lt;script type=&quot;math/tex&quot;&gt;(X\bot Y\|C)&lt;/script&gt; P(x|y, c)=P(x|c)&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(x\|y)=\sum_c P(x, c\|y)=\sum_c P(x\|y, c)P(c\|y)=\sum_c P(x\|c) P(c\|y)&lt;/script&gt;
+
+&lt;p&gt;P(c|y)使用贝叶斯公式&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(x\|y)=\sum_c P(x, c\|y)=\sum_c P(x\|y, c)P(c\|y)=\sum_c P(x\|c) P(c\|y)=\sum_c P(x\|c) \frac{P(y\|c)P(c)}{\sum_c P(y\|c)P(c)}&lt;/script&gt;
+
+&lt;p&gt;上述整个过程其实就是努力把公式的所有项都转化为”local probability”的形式 P(child|Parents)&lt;/p&gt;
+
+&lt;h3 id=&quot;d-separation-in-bns&quot;&gt;d-separation in BNs&lt;/h3&gt;
+
+&lt;p&gt;其实就是设计一个过程能找到 G 中的所有 independencies&lt;/p&gt;
+
+&lt;p&gt;直接相连的 X 和 Y 是 not separated&lt;/p&gt;
+
+&lt;p&gt;active：X 和Y 之间的路是通的，是相互依赖的，非独立的&lt;/p&gt;
+
+&lt;p&gt;blocked：X 和 Y 之间的路被堵住了，是相互独立的&lt;/p&gt;
+
+&lt;p&gt;令&lt;script type=&quot;math/tex&quot;&gt;X_1\leftrightarrow … \leftrightarrow X_n&lt;/script&gt;是 G 的一条 trail 路径，&lt;strong&gt;E&lt;/strong&gt;是 G 的观测节点(evidence nodes)子集&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The trail &lt;script type=&quot;math/tex&quot;&gt;X_1\leftrightarrow … \leftrightarrow X_n&lt;/script&gt; is active given evidence &lt;em&gt;E&lt;/em&gt; if:&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;p&gt;For every V-structure &lt;script type=&quot;math/tex&quot;&gt;X_{i-1} \rightarrow X_i \leftarrow X_{i+1}&lt;/script&gt; , &lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt; or one of its descendants is observed&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;p&gt;No other nodes along the trail are in &lt;strong&gt;&lt;em&gt;E&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;给定 &lt;strong&gt;&lt;em&gt;Z&lt;/em&gt;&lt;/strong&gt;,  如果没有 active trail 在&lt;strong&gt;&lt;em&gt;X&lt;/em&gt;&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;和 Y&lt;/em&gt;&lt;/strong&gt; 之间，&lt;strong&gt;&lt;em&gt;X&lt;/em&gt;&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;和 Y&lt;/em&gt;&lt;/strong&gt; 是 d-separeted in G ，记作&lt;script type=&quot;math/tex&quot;&gt;d-sep_G (X;Y\|Z)&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;从d-separation 可以得到所有的 independencies&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;backward process&lt;/strong&gt;：给出结果，推断原因(learning的过程)，更难&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;forward process&lt;/strong&gt;：从原因到结果(inference 的过程)&lt;/p&gt;
+
+&lt;p&gt;为什么 backward 更难呢，在 v-structure, 因为子节点观测到的话，会 activate the trails(probability dependences) between their parents，而且这种依赖还会继续往上传递。但是树状结构不就是没有 v-structure 吗&lt;/p&gt;
+
+&lt;p&gt;有个 d-separation 的算法来找到给定观测变量 Z，找到X所有 reachable 的 nodes&lt;/p&gt;
+
+&lt;p&gt;有了更多的独立关系，可以减少参数量，而且对于 inference，只需要考虑子图上的 loca dependent&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Two graph G1 and G2 are &lt;strong&gt;I-equivalent&lt;/strong&gt;, if I(G1)=I(G2)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这两个图encode 的独立关系相同&lt;/p&gt;
+
+&lt;h3 id=&quot;from-distribution-to-bns&quot;&gt;From distribution to BNs&lt;/h3&gt;
+
+&lt;p&gt;即从分布 P，构造出图 G，能够合理替代分布 P 中的独立性&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Minimal I-Maps&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A graph &lt;strong&gt;G&lt;/strong&gt; is a minimal I-map for a set of independences &lt;strong&gt;I&lt;/strong&gt; if it is an I-map for &lt;strong&gt;I&lt;/strong&gt;, and if the removal of even a single edge from &lt;strong&gt;G&lt;/strong&gt; renders it not an I-map.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;移除一条边意味着增加独立条件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2019-05-24-chap2/1.png&quot; alt=&quot;image-20190526145652979&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;主要思想是，对于第 i 个变量&lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt;, 从前面 i-1个变量中找到&lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt;父亲节点的最小集合。&lt;/p&gt;
+
+&lt;p&gt;对于变量不同的初始排列顺序会生成不同的网络 G&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Perfect Maps&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A graph &lt;strong&gt;G&lt;/strong&gt; is a perfect map (P-map) for a set of independences &lt;strong&gt;I&lt;/strong&gt; if &lt;strong&gt;I(G)=I&lt;/strong&gt; or &lt;strong&gt;I(G)=I(P)&lt;/strong&gt;. P is a distribution&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;枚举G和 P所有的独立条件，看是否 G 是 P 的 perfect map&lt;/p&gt;
+</description>
+        <pubDate>Fri, 24 May 2019 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2019/05/24/Chap2-Bayesian-Networks-Representation.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2019/05/24/Chap2-Bayesian-Networks-Representation.html</guid>
+        
+        
+        <category>PGM</category>
+        
+      </item>
+    
+      <item>
+        <title>PGM 复习</title>
+        <description>&lt;p&gt;去年上了古槿老师的概率图的课，受益匪浅，但是过了大半年没有接触又忘了许多，所以打算重新复习一番，希望能有新的体悟。&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction-to-pgm&quot;&gt;Introduction to PGM&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Probability:&lt;/strong&gt; decision making based on probability&lt;/p&gt;
+
+&lt;p&gt;如果有n个因素会影响最后的决策，那么参数的个数会呈指数型的增长，如果因素是二值的，那么会有 &lt;script type=&quot;math/tex&quot;&gt;2^n&lt;/script&gt; 个参数，但如果是用一个graph来表示n个因素的关系，将会大大减少参数量，这也是为什么概率图产生的原因吧&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Probability&lt;/strong&gt; 的基础：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Frequentist probability：&lt;script type=&quot;math/tex&quot;&gt;p(x)\approx \frac{n_x}{n_t}&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;p(x)=\lim_{n_t \to \infty}\frac{n_x}{n_t}&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;Bayesian probability: 定义一些先验概率，就能计算一些后验概率&lt;/li&gt;
+  &lt;li&gt;相关名词：random variable，joint probability，marginal probability，conditional probability，probability function，probability density function，independence，conditional independence&lt;/li&gt;
+  &lt;li&gt;Chain rule：&lt;script type=&quot;math/tex&quot;&gt;p(X_1, X_2, …, X_n)=P(X_1)P(X_2\|X_1)…P(X_n\|X_1, …, X_{n-1})&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;全概率公式：&lt;script type=&quot;math/tex&quot;&gt;P(X)=\sum_Y P(XY)=\sum_Y P(X\|Y) P(Y)&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;Bayes’ theorem: &lt;script type=&quot;math/tex&quot;&gt;P(X\|Y)=\frac{P(X, Y)}{P(Y)}=\frac{P(Y\|X)P(X)}{P(Y)}=\frac{P(Y\|X)P(X)}{\sum_X P(Y\|X)P(X)}&lt;/script&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Graph&lt;/strong&gt; 的基础&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;G(V, E): node/vertex, edges&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;path, trail&lt;/strong&gt;, connectivity&lt;/li&gt;
+  &lt;li&gt;Polytree, tree, &lt;strong&gt;chordal graph&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Centrality: degree, betweenness, closeness&lt;/li&gt;
+  &lt;li&gt;Subgraph, cut, &lt;strong&gt;clique&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;PGM的应用场景&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这几个也是面试时候会问的，毕竟日常场景使用会比较多&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;HMM：股票市场指数&lt;/li&gt;
+  &lt;li&gt;VAE：Dimension Reduction&lt;/li&gt;
+  &lt;li&gt;CRF: 图像分割，后面章节其实提到了是Ising model，但没有想到是用来作图像分割的&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/1.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;隐变量和它临近节点是有相似值，因为图像在同一块区域一般不会有突变&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;CNN：计算机视觉，举这个例子感觉和PGM不是很扯的上边&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;古老师分了十一个章节来阐述PGM，而且特别注重Representation，当时上课感觉这个层层递进，老师讲的也特别清楚，希望一章一章能逐步复习完，加油！&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Representation&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Chap1 Introduction&lt;/li&gt;
+      &lt;li&gt;Chap2 Bayesian Network&lt;/li&gt;
+      &lt;li&gt;Chap3 Local Probabilistic Model&lt;/li&gt;
+      &lt;li&gt;Chap4 Dynamic Bayesian Networks&lt;/li&gt;
+      &lt;li&gt;Chap5 Markov Random Fields&lt;/li&gt;
+      &lt;li&gt;Chap6 Advanced Models&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Inference&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Chap7 Variational Inference&lt;/li&gt;
+      &lt;li&gt;Chap8 Particle Based Approximate Inference&lt;/li&gt;
+      &lt;li&gt;Chap9 MAP Inference&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Learning&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Chap10 Bayesian Netowrk Learning&lt;/li&gt;
+      &lt;li&gt;Chap11 Learning with Incomplete Data&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;naive-bayesian-model&quot;&gt;Naive Bayesian Model&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果类标签给定了，那所有的观测变量都是独立的&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(X_1, X_2, X_3, C) = P(X_1\|C)P(X_2\|C)P(X_3\|C)P(C)&lt;/script&gt;
+
+&lt;p&gt;&lt;strong&gt;Representation&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;P\Leftrightarrow \{P, G/H\}&lt;/script&gt; 其中G代表有向图，H代表无向图&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Inference：&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;P(C\|X=x, \theta)&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Learning:&lt;/strong&gt; &lt;script type=&quot;math/tex&quot;&gt;P(\theta \| x^1, x^2, ...)&lt;/script&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 24 May 2019 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2019/05/24/Chap1-Introduction.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2019/05/24/Chap1-Introduction.html</guid>
+        
+        
+        <category>PGM</category>
+        
+      </item>
     
       <item>
         <title>leetcode 学习笔记</title>
@@ -319,6 +577,71 @@
         &lt;span class=&quot;n&quot;&gt;ptr1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ptr1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;22-括号生成&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/generate-parentheses/&quot;&gt;22. 括号生成&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;使用回溯算法，时间复杂度&lt;script type=&quot;math/tex&quot;&gt;\frac{1}{n+1}\dbinom{2n}{n}&lt;/script&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generateParenthesis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;backtrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;backtrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'('&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;backtrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;')'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;backtrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;24-两两交换链表中的节点&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/swap-nodes-in-pairs/&quot;&gt;24. 两两交换链表中的节点&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;两种思路：1. 迭代 2. 递归&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;swapPairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;swapPairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;26-删除排序数组中的重复项&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/&quot;&gt;26. 删除排序数组中的重复项&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;这题用双指针很妙&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;removeDuplicates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;27-移除元素&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/remove-element/&quot;&gt;27. 移除元素&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;和上题思路相同，使用双指针&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;removeElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;                
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;29-两数相除&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/divide-two-integers/&quot;&gt;29. 两数相除&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;使用位运算（代替乘除法）+二分查找&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 12 Dec 2018 19:25:35 +0800</pubDate>
@@ -874,138 +1197,28 @@
       </item>
     
       <item>
-        <title>统计机器学习 chap1</title>
-        <description>&lt;h2 id=&quot;knn-k-近邻-无参方法&quot;&gt;KNN k 近邻 无参方法&lt;/h2&gt;
+        <title>统计机器学习 chap7 Deep Generative Models</title>
+        <description>&lt;h2 id=&quot;hierarchical-bayesian-methods&quot;&gt;Hierarchical Bayesian Methods&lt;/h2&gt;
 
-&lt;p&gt;KNN (k-Nearest Neighbor) k 近邻算法。&lt;/p&gt;
+&lt;h2 id=&quot;deep-generative-models&quot;&gt;Deep Generative Models&lt;/h2&gt;
 
-&lt;p&gt;&lt;strong&gt;方法思路&lt;/strong&gt;：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。&lt;/p&gt;
-
-&lt;p&gt;KNN算法中，所选择的邻居都是已经正确分类的对象（已知的训练数据）。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。 KNN方法虽然从原理上也依赖于极限定理，但在类别决策时，只与极少量的相邻样本有关。由于KNN方法主要靠周围有限的邻近的样本，而不是靠判别类域的方法来确定所属类别的，因此对于&lt;strong&gt;类域的交叉或重叠较多的待分样本集&lt;/strong&gt;来说，KNN方法较其他方法更为适合。&lt;/p&gt;
-
-&lt;p&gt;KNN算法不仅可以用于分类，还可以用于回归。通过找出一个样本的k个最近邻居，将这些邻居的属性的平均值赋给该样本，就可以得到该样本的属性。更有用的方法是将不同距离的邻居对该样本产生的影响给予不同的权值(weight)，如权值与距离成反比。&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{y}=\sum_{i\in \mathcal{N_K}} \frac{1}{dist(x, x_i)} y_i&lt;/script&gt;
-
-&lt;p&gt;如果拥有无穷的数据，KNN 的错误率最多是最小错误率(Bayes 错误率)的两倍 (注：Bayes 错误率是给定分布的数据能达到的最小错误率)&lt;/p&gt;
-
-&lt;p&gt;KNN的问题：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;对于训练集大的问题，计算量太大，因为每分类一个测试样本都要遍历一次训练集，但是用好的近邻搜索策略会减少计算量。&lt;/li&gt;
-  &lt;li&gt;K 的选择&lt;/li&gt;
-  &lt;li&gt;距离测量标准很重要&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;svm-支持向量机-有参方法&quot;&gt;SVM 支持向量机 有参方法&lt;/h2&gt;
-
-&lt;p&gt;二元分类可以看做是在特征空间中将不同类别分割开来。&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x) = sign(w^Tx+b)&lt;/script&gt;
-
-&lt;h3 id=&quot;线性分割&quot;&gt;线性分割&lt;/h3&gt;
-
-&lt;p&gt;如何分割才是最优的呢？&lt;/p&gt;
-
-&lt;p&gt;从样本 &lt;script type=&quot;math/tex&quot;&gt;x_i&lt;/script&gt;到分割面的距离是&lt;script type=&quot;math/tex&quot;&gt;r = \frac{\|w^Tx_i+b\|}{\|w\|}&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;最靠近超平面(hyperplane)的样本就是支持向量(support vectors)&lt;/p&gt;
-
-&lt;p&gt;分割面的间隔(margin &lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt;)就是支持向量超平面之间的距离&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所以分类的 &lt;script type=&quot;math/tex&quot;&gt;confidence=y_i(w^Tx_i+b)&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;尽量使得 margin 更大，而之前定义是 margin 是支持向量超平面之前的距离，所以只涉及支持向量，其他训练数据是无关的&lt;/p&gt;
-
-&lt;h3 id=&quot;线性-svm&quot;&gt;线性 SVM&lt;/h3&gt;
-
-&lt;p&gt;设训练集被间隔为&lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt; 的超平面分割&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;对支持向量&lt;script type=&quot;math/tex&quot;&gt;x_s&lt;/script&gt;来说，上式不等式是一个等式，在用&lt;script type=&quot;math/tex&quot;&gt;\rho&lt;/script&gt;/2放缩 w 和 b后，&lt;script type=&quot;math/tex&quot;&gt;y_i(w^Tx_i+b) \geq 1, \forall i=1, …, N&lt;/script&gt; &lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/5.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/7.png&quot; alt=&quot;7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/8.png&quot; alt=&quot;8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;上面是 hard SVM(使用 hard 约束条件，必须线性可分) ，但是有些无法线性分割，一个方法是增加新的特征，使之在高维空间是线性可分的&lt;/p&gt;
-
-&lt;p&gt;另一个是使用 soft margin SVM 而不是 hard SVM&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;但是因为阶跃函数非凸，所以想用其他函数替代，比如&lt;/p&gt;
-
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\ell_{lin}(yf(x))=max(0, 1-yf(x))&lt;/script&gt; Hinge loss, convex, non-smooth&lt;/p&gt;
-
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\ell_{quad}(yf(x))=max(0, 1-yf(x))^2&lt;/script&gt; Square-loss, convex, smooth&lt;/p&gt;
-
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
-\ell_{Huber}(yf(x))=\begin{cases}1-yf(x) \quad if \quad yf(x) &lt; 0 \\ max(0, 1-yf(x))^2,\quad  if \quad yf(x) \geq 0\end{cases} %]]&gt;&lt;/script&gt; 结合了上面两种方法，convex, smooth&lt;/p&gt;
-
-&lt;p&gt;如果用 hinge loss 来代替 0-1 loss，可以求得 0-1loss 的 upper bound&lt;/p&gt;
-
-&lt;p&gt;为什么 Support Vector Machine 叫这个名字？&lt;/p&gt;
-
-&lt;p&gt;是因为在 Hard-SVM 中，KKT 条件中的一条就是所有 support vectors &lt;script type=&quot;math/tex&quot;&gt;x_i&lt;/script&gt; ,满足&lt;script type=&quot;math/tex&quot;&gt;y_i \hat{w} x_i =1&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;nonlinear-svm&quot;&gt;NonLinear SVM&lt;/h3&gt;
-
-&lt;p&gt;把数据映射到高维空间中，使得在高维空间中训练数据是可分割的。&lt;/p&gt;
-
-&lt;p&gt;Kernel Trick: 映射函数，找另一种表示，在 SVM 和无监督学习中都有同样的思想&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Phi(x)^T \Phi(z) = (x^Tz)^d=K(x,z)&lt;/script&gt;
-
-&lt;p&gt;核函数，相当于是等于在特定特征空间的内积。而且不需要映射到高维空间后再做点积，直接用 K 计算点积&lt;/p&gt;
-
-&lt;p&gt;Mercer’s theorem:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;任意半正定对称函数都是核函数&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;常用核函数：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;线性：&lt;script type=&quot;math/tex&quot;&gt;K(x_i, x_j)=x_i^Tx_j&lt;/script&gt; &lt;script type=&quot;math/tex&quot;&gt;\Phi: x \rightarrow \Phi(x)&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\Phi(x)=x&lt;/script&gt;&lt;/li&gt;
-  &lt;li&gt;p 次多项式：&lt;script type=&quot;math/tex&quot;&gt;K(x_i, x_j)=(1+x_i^Tx_j)^p&lt;/script&gt;&lt;/li&gt;
-  &lt;li&gt;高斯：&lt;script type=&quot;math/tex&quot;&gt;K(x_i, x_j)=exp(-\frac{\|x_i-x_j\|^2}{2\sigma})&lt;/script&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;holdout-method&quot;&gt;Holdout Method&lt;/h2&gt;
-
-&lt;p&gt;用 Resampling 来解决数据太少，测试集很宝贵的情况&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Cross-validation
-    &lt;ol&gt;
-      &lt;li&gt;Random subsampling&lt;/li&gt;
-      &lt;li&gt;K-fold cross-validation&lt;/li&gt;
-      &lt;li&gt;Leave-one-out cross-validation&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Boostrap&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2018-03-10-chap1/11.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;选取 fold 的数量是有讲究的，在实际应用中，大数据集用小的 K，而稀疏数据集需要更大的 K&lt;/p&gt;
-
-&lt;p&gt;一般 K-fold CV 用 K=10 比较多&lt;/p&gt;
 </description>
-        <pubDate>Sat, 10 Mar 2018 19:25:35 +0800</pubDate>
-        <link>http://localhost:4000/ml/2018/03/10/chap2.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ml/2018/03/10/chap2.html</guid>
+        <pubDate>Sun, 20 May 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/ml/2018/05/20/Deep-Generative-Models.html</link>
+        <guid isPermaLink="true">http://localhost:4000/ml/2018/05/20/Deep-Generative-Models.html</guid>
+        
+        
+        <category>ML</category>
+        
+      </item>
+    
+      <item>
+        <title>统计机器学习 chap6 Statistical Learning Theory</title>
+        <description>
+</description>
+        <pubDate>Sun, 06 May 2018 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/ml/2018/05/06/SLT.html</link>
+        <guid isPermaLink="true">http://localhost:4000/ml/2018/05/06/SLT.html</guid>
         
         
         <category>ML</category>

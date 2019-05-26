@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+    <title>PGM 复习</title>
+    <meta name="description"
+          content="去年上了古槿老师的概率图的课，受益匪浅，但是过了大半年没有接触又忘了许多，所以打算重新复习一番，希望能有新的体悟。">
+
+    <link rel="canonical" href="http://localhost:4000/pgm/2019/05/24/Chap1-Introduction.html">
+    <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Third-Party CSS -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/bower_components/hover/css/hover-min.css">
+    <link rel="stylesheet" href="/bower_components/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/assets/css/common.css">
+
+    <!-- CSS set in page -->
+    
+
+    <!-- CSS set in layout -->
+    
+    <link rel="stylesheet" href="/assets/css/sidebar-post-nav.css">
+    
+
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+
+    <body>
+
+    <header class="site-header">
+    <div class="container">
+        <a id="site-header-brand" href="/" title="Lu Chen">
+            <span class="octicon octicon-mark-github"></span> Lu Chen
+        </a>
+        <nav class="site-header-nav" role="navigation">
+            
+            <a href="/"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Home">
+                Home
+            </a>
+            
+            <a href="/about"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="About">
+                About
+            </a>
+            
+            <a href="/blog"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Blog">
+                Blog
+            </a>
+            
+            <a href="/open-source"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Open-Source">
+                Open-Source
+            </a>
+            
+            <a href="/bookmark"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Bookmark">
+                Bookmark
+            </a>
+            
+        </nav>
+    </div>
+</header>
+
+
+        <div class="content">
+            <section class="jumbotron geopattern" data-pattern-id="PGM 复习">
+    <div class="container">
+        <div id="jumbotron-meta-info">
+            <h1>PGM 复习</h1>
+            <span class="meta-info">
+                
+                
+                <span class="octicon octicon-calendar"></span> 2019/05/24
+                
+            </span>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function(){
+
+        $('.geopattern').each(function(){
+            $(this).geopattern($(this).data('pattern-id'));
+        });
+
+    });
+</script>
+<article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="row">
+
+        
+        <div class="col-md-8 markdown-body">
+
+            <p>去年上了古槿老师的概率图的课，受益匪浅，但是过了大半年没有接触又忘了许多，所以打算重新复习一番，希望能有新的体悟。</p>
+
+<h2 id="introduction-to-pgm">Introduction to PGM</h2>
+
+<p><strong>Probability:</strong> decision making based on probability</p>
+
+<p>如果有n个因素会影响最后的决策，那么参数的个数会呈指数型的增长，如果因素是二值的，那么会有 <script type="math/tex">2^n</script> 个参数，但如果是用一个graph来表示n个因素的关系，将会大大减少参数量，这也是为什么概率图产生的原因吧</p>
+
+<p><strong>Probability</strong> 的基础：</p>
+
+<ol>
+  <li>Frequentist probability：<script type="math/tex">p(x)\approx \frac{n_x}{n_t}</script> <script type="math/tex">p(x)=\lim_{n_t \to \infty}\frac{n_x}{n_t}</script></li>
+  <li>Bayesian probability: 定义一些先验概率，就能计算一些后验概率</li>
+  <li>相关名词：random variable，joint probability，marginal probability，conditional probability，probability function，probability density function，independence，conditional independence</li>
+  <li>Chain rule：<script type="math/tex">p(X_1, X_2, …, X_n)=P(X_1)P(X_2\|X_1)…P(X_n\|X_1, …, X_{n-1})</script></li>
+  <li>全概率公式：<script type="math/tex">P(X)=\sum_Y P(XY)=\sum_Y P(X\|Y) P(Y)</script></li>
+  <li>Bayes’ theorem: <script type="math/tex">P(X\|Y)=\frac{P(X, Y)}{P(Y)}=\frac{P(Y\|X)P(X)}{P(Y)}=\frac{P(Y\|X)P(X)}{\sum_X P(Y\|X)P(X)}</script></li>
+</ol>
+
+<p><strong>Graph</strong> 的基础</p>
+
+<ol>
+  <li>G(V, E): node/vertex, edges</li>
+  <li><strong>path, trail</strong>, connectivity</li>
+  <li>Polytree, tree, <strong>chordal graph</strong></li>
+  <li>Centrality: degree, betweenness, closeness</li>
+  <li>Subgraph, cut, <strong>clique</strong></li>
+</ol>
+
+<p><strong>PGM的应用场景</strong></p>
+
+<p>这几个也是面试时候会问的，毕竟日常场景使用会比较多</p>
+
+<ol>
+  <li>HMM：股票市场指数</li>
+  <li>VAE：Dimension Reduction</li>
+  <li>CRF: 图像分割，后面章节其实提到了是Ising model，但没有想到是用来作图像分割的<img src="http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/1.png" alt="" /></li>
+</ol>
+
+<p>隐变量和它临近节点是有相似值，因为图像在同一块区域一般不会有突变</p>
+
+<ol>
+  <li>CNN：计算机视觉，举这个例子感觉和PGM不是很扯的上边</li>
+</ol>
+
+<p>古老师分了十一个章节来阐述PGM，而且特别注重Representation，当时上课感觉这个层层递进，老师讲的也特别清楚，希望一章一章能逐步复习完，加油！</p>
+
+<ul>
+  <li><strong>Representation</strong>
+    <ul>
+      <li>Chap1 Introduction</li>
+      <li>Chap2 Bayesian Network</li>
+      <li>Chap3 Local Probabilistic Model</li>
+      <li>Chap4 Dynamic Bayesian Networks</li>
+      <li>Chap5 Markov Random Fields</li>
+      <li>Chap6 Advanced Models</li>
+    </ul>
+  </li>
+  <li><strong>Inference</strong>
+    <ul>
+      <li>Chap7 Variational Inference</li>
+      <li>Chap8 Particle Based Approximate Inference</li>
+      <li>Chap9 MAP Inference</li>
+    </ul>
+  </li>
+  <li><strong>Learning</strong>
+    <ul>
+      <li>Chap10 Bayesian Netowrk Learning</li>
+      <li>Chap11 Learning with Incomplete Data</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="naive-bayesian-model">Naive Bayesian Model</h2>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/2.png" alt="" /></p>
+
+<p>如果类标签给定了，那所有的观测变量都是独立的</p>
+
+<script type="math/tex; mode=display">P(X_1, X_2, X_3, C) = P(X_1\|C)P(X_2\|C)P(X_3\|C)P(C)</script>
+
+<p><strong>Representation</strong>: <script type="math/tex">P\Leftrightarrow \{P, G/H\}</script> 其中G代表有向图，H代表无向图</p>
+
+<p><strong>Inference：</strong> <script type="math/tex">P(C\|X=x, \theta)</script></p>
+
+<p><strong>Learning:</strong> <script type="math/tex">P(\theta \| x^1, x^2, ...)</script></p>
+
+
+            <!-- Comments -->
+            
+
+        </div>
+
+        <div class="col-md-4">
+            <h3>Post Directory</h3>
+<div id="post-directory-module">
+<section class="post-directory">
+    <!-- Links that trigger the jumping -->
+    <!-- Added by javascript below -->
+    <dl></dl>
+</section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $( "article h2" ).each(function( index ) {
+            $(".post-directory dl").append("<dt><a class=\"jumper\" hre=#" +
+                    $(this).attr("id")
+                    + ">"
+                    + $(this).text()
+                    + "</a></dt>");
+
+            var children = $(this).nextUntil("h2", "h3")
+
+            children.each(function( index ) {
+                $(".post-directory dl").append("<dd><a class=\"jumper\" hre=#" +
+                        $(this).attr("id")
+                        + ">"
+                        + "&nbsp;&nbsp;- " + $(this).text()
+                        + "</a></dd>");
+            });
+        });
+
+        var fixmeTop = $('#post-directory-module').offset().top - 100;       // get initial position of the element
+
+        $(window).scroll(function() {                  // assign scroll event listener
+
+            var currentScroll = $(window).scrollTop(); // get current position
+
+            if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+                $('#post-directory-module').css({      // scroll to that element or below it
+                    top: '100px',
+                    position: 'fixed',
+                    width: 'inherit'
+                });
+            } else {                                   // apply position: static
+                $('#post-directory-module').css({      // if you scroll above it
+                    position: 'inherit',
+                    width: 'inherit'
+                });
+            }
+
+        });
+
+        $("a.jumper").on("click", function( e ) {
+
+            e.preventDefault();
+
+            $("body, html").animate({
+                scrollTop: ($( $(this).attr('hre') ).offset().top - 100)
+            }, 600);
+
+        });
+    });
+
+</script>
+        </div>
+        
+
+    </div>
+
+
+
+        </div>
+
+    <footer class="container">
+
+    <div class="site-footer">
+
+        <!--<div class="copyright pull-left">-->
+            <!--&lt;!&ndash; 请不要更改这一行 方便其他人知道模板的来源 谢谢 &ndash;&gt;-->
+            <!--&lt;!&ndash; Please keep this line to let others know where this theme comes from. Thank you :D &ndash;&gt;-->
+            <!--Power by <a href="https://github.com/DONGChuan/Yummy-Jekyll">Yummy Jekyll</a>-->
+        <!--</div>-->
+
+        <a href="https://github.com/strongman1995" target="_blank" aria-label="view source code">
+            <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+        </a>
+
+        <div align=left>
+            Visitors:
+            <a href='https://www.counter12.com'>
+                <img src='https://www.counter12.com/img-Cwz4393YWx8CY2a8-15.gif' border='0' alt='free web counter'></a>
+            <script type='text/javascript' src='https://www.counter12.com/ad.js?id=Cwz4393YWx8CY2a8'></script>
+        </div>
+
+        <div class="pull-right">
+            <a href="javascript:window.scrollTo(0,0)">TOP</a>
+        </div>
+
+    </div>
+
+    <!-- Third-Party JS -->
+    <script type="text/javascript" src="/bower_components/geopattern/js/geopattern.min.js"></script>
+
+    <!-- My JS -->
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+
+    
+
+    
+    <!-- Google Analytics -->
+    <!--<div style="display:none">-->
+    <div>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-139849944-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </div>
+    
+
+</footer>
+
+
+    </body>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+</html>

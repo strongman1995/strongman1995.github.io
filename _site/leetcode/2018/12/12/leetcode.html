@@ -429,6 +429,71 @@
         <span class="k">return</span> <span class="n">new_head</span><span class="o">.</span><span class="nb">next</span>
 </code></pre></div></div>
 
+<h2 id="22-括号生成"><a href="https://leetcode-cn.com/problems/generate-parentheses/">22. 括号生成</a></h2>
+
+<p>使用回溯算法，时间复杂度<script type="math/tex">\frac{1}{n+1}\dbinom{2n}{n}</script></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">generateParenthesis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">S</span> <span class="o">=</span> <span class="s">''</span><span class="p">,</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="p">:</span>
+                <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">:</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">S</span><span class="o">+</span><span class="s">'('</span><span class="p">,</span> <span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">left</span><span class="p">:</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">S</span><span class="o">+</span><span class="s">')'</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">backtrack</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+<h2 id="24-两两交换链表中的节点"><a href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/">24. 两两交换链表中的节点</a></h2>
+
+<p>两种思路：1. 迭代 2. 递归</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">swapPairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListNode</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">head</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">head</span><span class="o">.</span><span class="nb">next</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">head</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="nb">next</span>
+        <span class="n">head</span><span class="o">.</span><span class="nb">next</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">swapPairs</span><span class="p">(</span><span class="n">head</span><span class="o">.</span><span class="nb">next</span><span class="o">.</span><span class="nb">next</span><span class="p">)</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="k">return</span> <span class="n">tmp</span>
+</code></pre></div></div>
+
+<h2 id="26-删除排序数组中的重复项"><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/">26. 删除排序数组中的重复项</a></h2>
+
+<p>这题用双指针很妙</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">removeDuplicates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<h2 id="27-移除元素"><a href="https://leetcode-cn.com/problems/remove-element/">27. 移除元素</a></h2>
+
+<p>和上题思路相同，使用双指针</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">removeElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span> <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">val</span><span class="p">:</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>                
+        <span class="k">return</span> <span class="n">i</span>
+</code></pre></div></div>
+
+<h2 id="29-两数相除"><a href="https://leetcode-cn.com/problems/divide-two-integers/">29. 两数相除</a></h2>
+
+<p>使用位运算（代替乘除法）+二分查找</p>
+
 
 
             <!-- Comments -->
