@@ -6,15 +6,13 @@ tags: []
 date:   2019-05-27 13:25:35 +0200
 ---
 
-### 总结
-
 HMM 是 generative model，生成式模型。HMM 有两种 inference 问题，和一个 learning 问题。
 
-Inference 1：$$P(X|\theta)$$ ，已知模型$$\theta$$和观察序列$$X$$，推测该模型得到该观测序列的概率。基本的想法是由联合分布 $$P(X, Y|\theta)$$, 积掉 Y，得到$$P(X|\theta)$$。$$P(X, Y|\theta)$$ 用分解定理分解为由$$P(Y_{i-1}|Y_i), P(X_i|Y_i)$$项组成的连乘公式。积掉$$P(X, Y|\theta)$$ 可以从两个方向积，一个是从前往后积(Forward)，一个是从后往前积(Backward)，所以有了 Forward/Backward Algorithm
+Inference 1：$$P(X\|\theta)$$ ，已知模型$$\theta$$和观察序列$$X$$，推测该模型得到该观测序列的概率。基本的想法是由联合分布 $$P(X, Y\|\theta)$$, 积掉 Y，得到$$P(X\|\theta)$$。$$P(X, Y\|\theta)$$ 用分解定理分解为由$$P(Y_{i-1}\|Y_i), P(X_i\|Y_i)$$项组成的连乘公式。积掉$$P(X, Y\|\theta)$$ 可以从两个方向积，一个是从前往后积(Forward)，一个是从后往前积(Backward)，所以有了 Forward/Backward Algorithm
 
-Inference 2:  $$\mathop{\arg \max}_Y P(X, Y|\theta)$$ 已知模型$$\theta$$和观测序列$$X$$, 推出该序列对应的 hidden label Y。这个问题其实就是使用 HMM 模型时的 decode 解码过程，使用了 Viterbi Algorithm，是动态规划算法，注意和 beam search 做区分。因为 HMM 当前状态只依赖于上个状态，所以可以由上个状态得到当前状态的最优解，适合动态规划。forward phase和 Inference 1 相似，只是把 上个时刻所有可能状态之和 替换为 上个状态到当前状态最大概率的值，并且记录下到当前状态所经过的上个状态值。backward phase 是由 forward phase 求出的最后一个时刻的最优状态，根据 forward phase中产生的状态记录，回溯，得到最优状态序列 Y
+Inference 2:  $$\mathop{\arg \max}_Y P(X, Y\|\theta)$$ 已知模型$$\theta$$和观测序列$$X$$, 推出该序列对应的 hidden label Y。这个问题其实就是使用 HMM 模型时的 decode 解码过程，使用了 Viterbi Algorithm，是动态规划算法，注意和 beam search 做区分。因为 HMM 当前状态只依赖于上个状态，所以可以由上个状态得到当前状态的最优解，适合动态规划。forward phase和 Inference 1 相似，只是把 上个时刻所有可能状态之和 替换为 上个状态到当前状态最大概率的值，并且记录下到当前状态所经过的上个状态值。backward phase 是由 forward phase 求出的最后一个时刻的最优状态，根据 forward phase中产生的状态记录，回溯，得到最优状态序列 Y
 
-Learning： $$\mathop{\arg \max}_{\theta} P(X|\theta)$$ 模型参数$$\theta$$未知， 从观测序列 X 学习得到。学习的过程是用了 Baum-Welch algorithm。和 EM 过程一样（迭代 inference 和 re-estimate 过程），先填充未知的参数，做 inference 得到 hidden variable 的值（注意，这边的 inference 不是和前面一样，用的是 Gibbs Sampling 的方法），然后再重新估计参数。重复上述过程直到收敛。
+Learning： $$\mathop{\arg \max}_{\theta} P(X\|\theta)$$ 模型参数$$\theta$$未知， 从观测序列 X 学习得到。学习的过程是用了 Baum-Welch algorithm。和 EM 过程一样（迭代 inference 和 re-estimate 过程），先填充未知的参数，做 inference 得到 hidden variable 的值（注意，这边的 inference 不是和前面一样，用的是 Gibbs Sampling 的方法），然后再重新估计参数。重复上述过程直到收敛。
 
 ## Stochastic Process and Markov property
 
@@ -24,11 +22,11 @@ Markov property 也可以说是 Memoryless property。
 
 ![](http://strongman1995.github.io/assets/images/2019-05-27-chap4/1.png)
 
-$$P(X)=\prod_{t=1}^n P(X(t)|X(1), …, X(t-1))$$
+$$P(X)=\prod_{t=1}^n P(X(t)\|X(1), …, X(t-1))$$
 
-- Markov assumption: $$P(X)=\prod_{t=1}^n P(X(t)|X(t-1))$$, 当前时刻只由上个时刻决定
+- Markov assumption: $$P(X)=\prod_{t=1}^n P(X(t)\|X(t-1))$$, 当前时刻只由上个时刻决定
 
-- 分布式稳态的(stationary)，时不变的(time invariant), 同质的(homogeneous)$$\forall i, j: P(X(i)|X(i-1))=P(X(j)|X(j-1))$$
+- 分布式稳态的(stationary)，时不变的(time invariant), 同质的(homogeneous)$$\forall i, j: P(X(i)\|X(i-1))=P(X(j)\|X(j-1))$$
 
 ## Dynamic Bayesian Networks
 
@@ -88,27 +86,27 @@ X=\{x_t, t=1...T\}
 $$
 基本思想是：$$P(X)=\sum_Y P(XY)$$
 
-通过分解定律：$$P(XY)=P(Y_1)P(X_1|Y_1)P(Y_2|Y_1)P(X_2|Y_2)P(Y_3|Y_2)...$$
+通过分解定律：$$P(XY)=P(Y_1)P(X_1\|Y_1)P(Y_2\|Y_1)P(X_2\|Y_2)P(Y_3\|Y_2)...$$
 
 所以可以通过不断消掉$$Y_i$$来解决这个模型
 
-#### Problem1（Inference）: $P(X|\theta)$ , 已知模型$\theta$和观察序列$X$，推测该模型得到该观测序列的概率
+#### Problem1（Inference）: $P(X\|\theta)$ , 已知模型$\theta$和观察序列$X$，推测该模型得到该观测序列的概率
 
 基本思路就是$$P(X)=\sum_Y P(XY)$$, 从 XY 的联合分布，将 Y 积掉，得到观测序列 X 的概率。而 P(XY)可以根据 HMM 分解：
 
-$$P(XY)=P(Y_1)P(X_1|Y_1)P(Y_2|Y_1)P(X_2|Y_2)...$$
+$$P(XY)=P(Y_1)P(X_1\|Y_1)P(Y_2\|Y_1)P(X_2\|Y_2)...$$
 
-或者$$P(XY)=P(X_T|Y_T)P(Y_{T}|Y_{T-1})P(X_{T-1}|Y_{T-1})…$$ 
+或者$$P(XY)=P(X_T\|Y_T)P(Y_{T}\|Y_{T-1})P(X_{T-1}\|Y_{T-1})…$$ 
 
 所以可以从两个方向去吧 $$Y_i$$消除，一个是从前往后（Forward alogrithm），如上述式子 1，一个是从后往前(Backward algorithm)，如上述式子 2
 
 ![](http://strongman1995.github.io/assets/images/2019-05-27-chap4/5.png)
 
-这里的$$\pi_i=P(Y_i), e_{i, x_i}=P(X_i|Y_i), t_{j, i}=P(Y_{i}|Y_{j})$$, 所以$$\alpha_{t+1}(i)$$不断迭代的过程其实就是在P(XY)的连乘式子上不断添加项，并且做消元，下面另一个方向也是同理。
+这里的$$\pi_i=P(Y_i), e_{i, x_i}=P(X_i\|Y_i), t_{j, i}=P(Y_{i}\|Y_{j})$$, 所以$$\alpha_{t+1}(i)$$不断迭代的过程其实就是在P(XY)的连乘式子上不断添加项，并且做消元，下面另一个方向也是同理。
 
 ![](http://strongman1995.github.io/assets/images/2019-05-27-chap4/6.png)
 
-#### Problem2（Inference）: $\mathop{\arg \max}_Y P(X, Y|\theta)$ 已知模型$\theta$和观测序列$X$, 推出该序列对应的 hidden label Y
+#### Problem2（Inference）: $\mathop{\arg \max}_Y P(X, Y\|\theta)$ 已知模型$\theta$和观测序列$X$, 推出该序列对应的 hidden label Y
 
 这一步就是求 HMM 中最有可能的状态序列(即概率最大的状态序列 Y)
 
@@ -120,7 +118,7 @@ $$P(XY)=P(Y_1)P(X_1|Y_1)P(Y_2|Y_1)P(X_2|Y_2)...$$
 
 ![](http://strongman1995.github.io/assets/images/2019-05-27-chap4/8.png)
 
-#### Problem3（Learning）: $\mathop{\arg \max}_{\theta} P(X|\theta)$ 模型参数$\theta$未知， 从观测序列 X 学习得到
+#### Problem3（Learning）: $\mathop{\arg \max}_{\theta} P(X\|\theta)$ 模型参数$\theta$未知， 从观测序列 X 学习得到
 
 使用 Baum-Welch algorithm ，也就是 EM。
 
@@ -137,7 +135,7 @@ $$P(XY)=P(Y_1)P(X_1|Y_1)P(Y_2|Y_1)P(X_2|Y_2)...$$
 
 ![](http://strongman1995.github.io/assets/images/2019-05-27-chap4/12.png)
 
-$$ \xi_t(i, j)=P(y_t=i, y_{t+1}=j|X, \theta)$$ 
+$$ \xi_t(i, j)=P(y_t=i, y_{t+1}=j\|X, \theta)$$ 
 
 时刻 t 隐状态为 i 的概率：$$\gamma_t(i)=\sum_{j=1}^Y \xi_t(i, j)$$
 
@@ -156,8 +154,6 @@ Factorial HMMs
 Hierarchical HMMs
 
 Bayesian HMMs
-
-
 
 ### Max Entropy Markov Models——MEMM
 
