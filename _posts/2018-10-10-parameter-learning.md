@@ -61,7 +61,7 @@ Learning：从观测数据中构建模型。
 
 如果一组数据的分布参数不知道，那么这组数据的联合分布不会等于每个数据的概率乘积。假设知道了分布参数，那所有的 samples 是独立同分布的，即 i.i.d
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-10-parameter-learning/1.png)
+![在这里插入图片描述](http://strongman1995.github.io/assets/images/2018-10-10-parameter-learning/1.png)
 
 ## 最大似然参数估计 Maximum Likelihood Parameter Estimation（MLE）
 

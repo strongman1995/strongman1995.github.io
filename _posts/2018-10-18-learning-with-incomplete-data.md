@@ -11,13 +11,13 @@ date:   2018-10-18 13:25:35 +0200
 
 ### HMM
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/1.png)
+![在这里插入图片描述](http://strongman1995.github.io/assets/images/2018-10-18-learning-with-incomplete-data/1.png)
 
 状态变量 y 不能被观测
 
 ### Gaussian Mixture Model
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/2.png)
+![在这里插入图片描述](http://strongman1995.github.io/assets/images/2018-10-18-learning-with-incomplete-data/2.png)
 
 ## Missing Values and Data Outliers
 
@@ -29,11 +29,11 @@ date:   2018-10-18 13:25:35 +0200
 
 目标函数：$\underset{\theta}{\operatorname{arg max}} p(D\|\theta)$
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/3.png)
+![在这里插入图片描述](http://strongman1995.github.io/assets/images/2018-10-18-learning-with-incomplete-data/3.png)
 
 对于完整数据，MLE 学习是简单的，已知完整数据 Dc={(x[i], y[i])}~i=1...M~
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/4.png)
+![在这里插入图片描述](http://strongman1995.github.io/assets/images/2018-10-18-learning-with-incomplete-data/4.png)
 
 E-step:
 
@@ -65,7 +65,7 @@ $\pi_k^{t+1}=\frac{1}{M}\sum_{m=1}^M Q^{(t)}(x[m]=k)$
 
 新一轮的 M 步迭代：
 
-![在这里插入图片描述](http://127.0.0.1:4000/assets/images/2018-10-18-learning-with-incomplete-data/5.png)
+![在这里插入图片描述](http://strongman1995.github.io/assets/images/2018-10-18-learning-with-incomplete-data/5.png)
 
 ## General Principles and Methods
 ### General Priciples

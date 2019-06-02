@@ -37,7 +37,7 @@ date:   2019-05-24 13:25:35 +0200
 
 1. HMM：股票市场指数
 2. VAE：Dimension Reduction
-3. CRF: 图像分割，后面章节其实提到了是Ising model，但没有想到是用来作图像分割的![](http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/1.png)
+3. CRF: 图像分割，后面章节其实提到了是Ising model，但没有想到是用来作图像分割的![](http://strongman1995.github.io/assets/images/2019-05-24-pgm-intro/1.png)
 
 隐变量和它临近节点是有相似值，因为图像在同一块区域一般不会有突变
 
@@ -64,7 +64,7 @@ date:   2019-05-24 13:25:35 +0200
 
 ## Naive Bayesian Model
 
-![](http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/2.png)
+![](http://strongman1995.github.io/assets/images/2019-05-24-pgm-intro/2.png)
 
 如果类标签给定了，那所有的观测变量都是独立的
 

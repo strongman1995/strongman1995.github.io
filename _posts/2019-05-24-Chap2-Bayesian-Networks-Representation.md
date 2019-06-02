@@ -30,7 +30,7 @@ P(X=x\|Y=y, Z=z) = P(X=x\|Z=z) for all values x, y, z
 
 ## Naive Bayes model
 
-![](http://127.0.0.1:4000/assets/images/2019-05-24-pgm-intro/2.png)
+![](http://strongman1995.github.io/assets/images/2019-05-24-pgm-intro/2.png)
 
 $$P(C, X_1, …, X_n)=P(C)\prod_{i=1}^n P(X_i\|C)$$ 
 
@@ -128,7 +128,7 @@ blocked：X 和 Y 之间的路被堵住了，是相互独立的
 
 移除一条边意味着增加独立条件。
 
-![image-20190526145652979](http://127.0.0.1:4000/assets/images/2019-05-24-chap2/1.png)
+![image-20190526145652979](http://strongman1995.github.io/assets/images/2019-05-24-chap2/1.png)
 
 主要思想是，对于第 i 个变量$$X_i$$, 从前面 i-1个变量中找到$$X_i$$父亲节点的最小集合。
 
