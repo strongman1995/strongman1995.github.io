@@ -22,7 +22,7 @@ Markov property 也可以说是 Memoryless property。
 
 给变量增加时间维度$$X\rightarrow X^{(t)}$$
 
-![](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/1.png)
+![](assets/images/2019-05-27-chap4/1.png)
 
 $$P(X)=\prod_{t=1}^n P(X(t)|X(1), …, X(t-1))$$
 
@@ -38,11 +38,11 @@ Dynamic Bayesian Networks for Time Invariant Process/System
 
 通常时不变系统的参数是不会随着时间改变的
 
-![image-20190527140619382](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/2.png)
+![image-20190527140619382](assets/images/2019-05-27-chap4/2.png)
 
 
 
-![image-20190527140716298](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/3.png)
+![image-20190527140716298](assets/images/2019-05-27-chap4/3.png)
 
 在每个时间片的参数：
 
@@ -53,7 +53,7 @@ Dynamic Bayesian Networks for Time Invariant Process/System
 
 ## Hidden Markov Models(HMMs)
 
-![](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/4.png)
+![](assets/images/2019-05-27-chap4/4.png)
 
 ### State-Observation Models
 
@@ -102,11 +102,11 @@ $$P(XY)=P(Y_1)P(X_1|Y_1)P(Y_2|Y_1)P(X_2|Y_2)...$$
 
 所以可以从两个方向去吧 $$Y_i$$消除，一个是从前往后（Forward alogrithm），如上述式子 1，一个是从后往前(Backward algorithm)，如上述式子 2
 
-![](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/5.png)
+![](assets/images/2019-05-27-chap4/5.png)
 
 这里的$$\pi_i=P(Y_i), e_{i, x_i}=P(X_i|Y_i), t_{j, i}=P(Y_{i}|Y_{j})$$, 所以$$\alpha_{t+1}(i)$$不断迭代的过程其实就是在P(XY)的连乘式子上不断添加项，并且做消元，下面另一个方向也是同理。
 
-![](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/6.png)
+![](assets/images/2019-05-27-chap4/6.png)
 
 #### Problem2（Inference）: $\mathop{\arg \max}_Y P(X, Y|\theta)$ 已知模型$\theta$和观测序列$X$, 推出该序列对应的 hidden label Y
 
@@ -114,11 +114,11 @@ $$P(XY)=P(Y_1)P(X_1|Y_1)P(Y_2|Y_1)P(X_2|Y_2)...$$
 
 使用 Viterbi algorithm，这是一个动态规划算法。由于 HMM 的 Markov 性质，当前状态只依赖于上个状态，所以只从上个状态就能推断出当前状态的最优值。
 
-![](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/7.png)
+![](assets/images/2019-05-27-chap4/7.png)
 
 对于$$Y_1=i, \delta_{1, i}=\pi_i e_{i, x_1}$$ ,$$\delta_{t, i}$$有点类似于 inference 1 中的$$\alpha_t(i)$$ ，只不过是$$\delta_{t, i}$$ 只需要得到最大可能转移值，而不像$$\alpha_t(i)$$ 将所有转移路径的可能都相加了。非常重要的是，用$$\phi_t(i)$$记录下了 t 时刻转移到状态 i时是由上个时刻的状态$$y_{t-1}$$转移过来的。当forward phase 走到最后，可以得到最后时刻的最优状态$$y_T^*$$ 。进入到 backward phase，可以直接从最后一个状态$$y_T^*$$和$$\phi_T(y_T^*)$$得到上个状态$$y_{T-1}^*$$，依次递推出整个状态序列，结束 backward phase。
 
-![](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/8.png)
+![](assets/images/2019-05-27-chap4/8.png)
 
 #### Problem3（Learning）: $\mathop{\arg \max}_{\theta} P(X|\theta)$ 模型参数$\theta$未知， 从观测序列 X 学习得到
 
@@ -131,11 +131,11 @@ $$P(XY)=P(Y_1)P(X_1|Y_1)P(Y_2|Y_1)P(X_2|Y_2)...$$
 
 > Gibbs sampling is a Markov chain Monte Carlo(MCMC) algorithm for obtaining a sequence of random samples from multivariate probability distribution.
 
-![](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/11.png)
+![](assets/images/2019-05-27-chap4/11.png)
 
 使用 Gibbs sampling 来得到隐变量的概率，其实最后只需要保留和 $$y_t$$相关的项，即$$y_t$$的 Markov blanket，然后他们的条件概率相乘就行。然后用采样出来的样本，重新估计新的参数 T 和 E
 
-![](http://127.0.0.1:4000/assets/images/2019-05-27-chap4/12.png)
+![](assets/images/2019-05-27-chap4/12.png)
 
 $$ \xi_t(i, j)=P(y_t=i, y_{t+1}=j|X, \theta)$$ 
 
