@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+    <title>Chap3 Local Probabilistic Models</title>
+    <meta name="description"
+          content="Local Probabilistic Model">
+
+    <link rel="canonical" href="http://localhost:4000/pgm/2019/05/26/Chap3-Local-Probabilistic-Models.html">
+    <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Third-Party CSS -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/bower_components/hover/css/hover-min.css">
+    <link rel="stylesheet" href="/bower_components/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/assets/css/common.css">
+
+    <!-- CSS set in page -->
+    
+
+    <!-- CSS set in layout -->
+    
+    <link rel="stylesheet" href="/assets/css/sidebar-post-nav.css">
+    
+
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+
+    <body>
+
+    <header class="site-header">
+    <div class="container">
+        <a id="site-header-brand" href="/" title="Lu Chen">
+            <span class="octicon octicon-mark-github"></span> Lu Chen
+        </a>
+        <nav class="site-header-nav" role="navigation">
+            
+            <a href="/"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Home">
+                Home
+            </a>
+            
+            <a href="/about"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="About">
+                About
+            </a>
+            
+            <a href="/blog"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Blog">
+                Blog
+            </a>
+            
+            <a href="/open-source"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Open-Source">
+                Open-Source
+            </a>
+            
+            <a href="/bookmark"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Bookmark">
+                Bookmark
+            </a>
+            
+        </nav>
+    </div>
+</header>
+
+
+        <div class="content">
+            <section class="jumbotron geopattern" data-pattern-id="Chap3 Local Probabilistic Models">
+    <div class="container">
+        <div id="jumbotron-meta-info">
+            <h1>Chap3 Local Probabilistic Models</h1>
+            <span class="meta-info">
+                
+                
+                <span class="octicon octicon-calendar"></span> 2019/05/26
+                
+            </span>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function(){
+
+        $('.geopattern').each(function(){
+            $(this).geopattern($(this).data('pattern-id'));
+        });
+
+    });
+</script>
+<article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="row">
+
+        
+        <div class="col-md-8 markdown-body">
+
+            <p>Local Probabilistic Model</p>
+
+<p>Conditional Probability Distributions (CPDs)</p>
+
+<p><strong>The Basic Structures in BNs</strong></p>
+
+<p>回顾基于 G 的概率分解<script type="math/tex">P(X_1, …, X_n)=\prod_{i=1}^n P(X_i\|Pa(X_i))</script></p>
+
+<p>所需要的表达项是 local conditional probability distributions(CPDs) encoded by the target variable <script type="math/tex">X_i</script>given its parents <script type="math/tex">Pa(X_i)</script></p>
+
+<h2 id="discrete-cpds">Discrete CPDs</h2>
+
+<h3 id="tabular-cpds">Tabular CPDs</h3>
+
+<p>对于(Y|X1, X2, …, Xk) 有<script type="math/tex">2^k</script> 个独立参数。参数是关于父亲个数呈指数级增长的</p>
+
+<h3 id="rule-cpds">Rule CPDs</h3>
+
+<p>即把 Tabular CPDs 相同项合并起来。</p>
+
+<p>Tree CPDs 可以直接转化为 rule CPD</p>
+
+<h3 id="independence-of-causal-influence">Independence of causal influence</h3>
+
+<p>“Causal”|“Associative”</p>
+
+<h2 id="continuous-cpds">Continuous CPDs</h2>
+
+<h3 id="logistic-cpds">Logistic CPDs</h3>
+
+<p><script type="math/tex">P(Y=y^1\|X_1, …, X_k)=sigmoid(w_0+\sum_{i=1}^k w_i X_i)</script>  这个其实就是 NN 了，X1…Xk 是输入节点，Y 是 hidden layer 中的一个点，sigmoid是 activation function</p>
+
+<p>Log-odds: <script type="math/tex">O=\frac{P(Y=y^1\|X_1, …, X_k)}{P(Y=y^0\|X_1, …, X_k)}=e^Z</script></p>
+
+<p>更大的 odds 表示更有可能导致 positive result</p>
+
+<p>如果 log-odds 中的二元变量 Xj 改变<script type="math/tex">\Delta O=\frac{O(X_{-j}, X_j=x_j^1)}{O(X_{-j}, X_j=x_j^0)}=e^{w_j}</script></p>
+
+<p><script type="math/tex">w_j>0</script> 代表有 positive contribution</p>
+
+<h3 id="generalized-linear-models">Generalized Linear Models</h3>
+
+<ul>
+  <li>Linear Gaussian</li>
+  <li>Binomial distribution (Logistic CPD)</li>
+  <li>Poisson distribution</li>
+</ul>
+
+<h2 id="a-few-cpds-in-neural-networks">A few CPDs in neural networks</h2>
+
+<p>ReLu: Rectified Linear Units</p>
+
+<p>Rectifier: <script type="math/tex">y=f(s)=max(0, s)</script></p>
+
+<p>Softplus: <script type="math/tex">y=f(s)=ln(1+exp(s))</script></p>
+
+<h2 id="bayesian-networks-representation-examples">Bayesian networks representation examples</h2>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2019-05-26-chap3/1.png" alt="" /></p>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2019-05-26-chap3/2.png" alt="" /></p>
+
+<p><img src="http://127.0.0.1:4000/assets/images/2019-05-26-chap3/3.png" alt="" /></p>
+
+
+
+            <!-- Comments -->
+            
+
+        </div>
+
+        <div class="col-md-4">
+            <h3>Post Directory</h3>
+<div id="post-directory-module">
+<section class="post-directory">
+    <!-- Links that trigger the jumping -->
+    <!-- Added by javascript below -->
+    <dl></dl>
+</section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $( "article h2" ).each(function( index ) {
+            $(".post-directory dl").append("<dt><a class=\"jumper\" hre=#" +
+                    $(this).attr("id")
+                    + ">"
+                    + $(this).text()
+                    + "</a></dt>");
+
+            var children = $(this).nextUntil("h2", "h3")
+
+            children.each(function( index ) {
+                $(".post-directory dl").append("<dd><a class=\"jumper\" hre=#" +
+                        $(this).attr("id")
+                        + ">"
+                        + "&nbsp;&nbsp;- " + $(this).text()
+                        + "</a></dd>");
+            });
+        });
+
+        var fixmeTop = $('#post-directory-module').offset().top - 100;       // get initial position of the element
+
+        $(window).scroll(function() {                  // assign scroll event listener
+
+            var currentScroll = $(window).scrollTop(); // get current position
+
+            if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+                $('#post-directory-module').css({      // scroll to that element or below it
+                    top: '100px',
+                    position: 'fixed',
+                    width: 'inherit'
+                });
+            } else {                                   // apply position: static
+                $('#post-directory-module').css({      // if you scroll above it
+                    position: 'inherit',
+                    width: 'inherit'
+                });
+            }
+
+        });
+
+        $("a.jumper").on("click", function( e ) {
+
+            e.preventDefault();
+
+            $("body, html").animate({
+                scrollTop: ($( $(this).attr('hre') ).offset().top - 100)
+            }, 600);
+
+        });
+    });
+
+</script>
+        </div>
+        
+
+    </div>
+
+
+
+        </div>
+
+    <footer class="container">
+
+    <div class="site-footer">
+
+        <!--<div class="copyright pull-left">-->
+            <!--&lt;!&ndash; 请不要更改这一行 方便其他人知道模板的来源 谢谢 &ndash;&gt;-->
+            <!--&lt;!&ndash; Please keep this line to let others know where this theme comes from. Thank you :D &ndash;&gt;-->
+            <!--Power by <a href="https://github.com/DONGChuan/Yummy-Jekyll">Yummy Jekyll</a>-->
+        <!--</div>-->
+
+        <a href="https://github.com/strongman1995" target="_blank" aria-label="view source code">
+            <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+        </a>
+
+        <div align=left>
+            Visitors:
+            <a href='https://www.counter12.com'>
+                <img src='https://www.counter12.com/img-Cwz4393YWx8CY2a8-15.gif' border='0' alt='free web counter'></a>
+            <script type='text/javascript' src='https://www.counter12.com/ad.js?id=Cwz4393YWx8CY2a8'></script>
+        </div>
+
+        <div class="pull-right">
+            <a href="javascript:window.scrollTo(0,0)">TOP</a>
+        </div>
+
+    </div>
+
+    <!-- Third-Party JS -->
+    <script type="text/javascript" src="/bower_components/geopattern/js/geopattern.min.js"></script>
+
+    <!-- My JS -->
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+
+    
+
+    
+    <!-- Google Analytics -->
+    <!--<div style="display:none">-->
+    <div>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-139849944-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </div>
+    
+
+</footer>
+
+
+    </body>
+
+<!--<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">-->
+  <!--</script>-->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>

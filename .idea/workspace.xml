@@ -1,43 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64c9d7fa-a728-47d7-b472-7bd8e609f84a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_layouts/default.html" beforeDir="false" afterPath="$PROJECT_DIR$/_layouts/default.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bookmark.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bookmark.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/bootstrap/CHANGELOG.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/bootstrap/CHANGELOG.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/bootstrap/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/bootstrap/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/flag-icon-css/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/flag-icon-css/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/geopattern/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/geopattern/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/hover/HISTORY.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/hover/HISTORY.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/jquery/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/jquery/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/octicons/CHANGELOG.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/octicons/CHANGELOG.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/octicons/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/octicons/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/octicons/octicons/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/octicons/octicons/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/primer-markdown/CLA.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/primer-markdown/CLA.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/bower_components/underscore/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/bower_components/underscore/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/feed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_site/feed.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/leetcode/2018/12/12/leetcode.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/leetcode/2018/12/12/leetcode.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/ml/2018/03/10/SVM.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/ml/2018/03/10/SVM.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/ml/2018/03/19/LR.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/ml/2018/03/19/LR.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/ml/2018/03/29/Ensemble-Methods.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/ml/2018/03/29/Ensemble-Methods.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/ml/2018/04/10/Clustering.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/ml/2018/04/10/Clustering.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/ml/2018/04/22/Dimension-Reduction.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/ml/2018/04/22/Dimension-Reduction.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/ml/2018/05/06/SLT.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/ml/2018/05/06/SLT.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/ml/2018/05/20/Deep-Generative-Models.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/ml/2018/05/20/Deep-Generative-Models.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/open-source.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/open-source.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/page2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/page2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/pgm/2018/09/22/PBAI.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/pgm/2018/09/22/PBAI.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/pgm/2018/10/10/parameter-learning.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/pgm/2018/10/10/parameter-learning.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/pgm/2018/10/18/learning-with-incomplete-data.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/pgm/2018/10/18/learning-with-incomplete-data.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/pgm/2018/10/26/inference-as-optimization.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/pgm/2018/10/26/inference-as-optimization.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/pgm/2018/11/09/variational-inference.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/pgm/2018/11/09/variational-inference.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/pgm/2019/05/24/Chap1-Introduction.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/pgm/2019/05/24/Chap1-Introduction.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/pgm/2019/05/24/Chap2-Bayesian-Networks-Representation.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/pgm/2019/05/24/Chap2-Bayesian-Networks-Representation.html" afterDir="false" />
-    </list>
+    <list default="true" id="64c9d7fa-a728-47d7-b472-7bd8e609f84a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_layouts/default.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+            <state relative-caret-position="340">
+              <caret line="20" column="94" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="94" />
             </state>
           </provider>
         </entry>
@@ -261,12 +225,12 @@
       <workItem from="1557903209811" duration="13505000" />
       <workItem from="1557931282318" duration="2000" />
       <workItem from="1558074603404" duration="818000" />
-      <workItem from="1558858947942" duration="882000" />
+      <workItem from="1558858947942" duration="1071000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20620000" />
+    <option name="totallyTimeSpent" value="20809000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-639" y="-1440" width="2560" height="1440" extended-state="6" />
@@ -567,8 +531,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_layouts/default.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+        <state relative-caret-position="340">
+          <caret line="20" column="94" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="94" />
         </state>
       </provider>
     </entry>

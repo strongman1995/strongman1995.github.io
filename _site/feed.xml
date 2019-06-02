@@ -5,9 +5,214 @@
     <description>Learn from yesterday, live for today, hope for tomorrow</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 26 May 2019 16:37:52 +0800</pubDate>
-    <lastBuildDate>Sun, 26 May 2019 16:37:52 +0800</lastBuildDate>
+    <pubDate>Wed, 29 May 2019 10:48:59 +0800</pubDate>
+    <lastBuildDate>Wed, 29 May 2019 10:48:59 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Chap4 Dynamic Bayesian Networks</title>
+        <description>&lt;h2 id=&quot;stochastic-process-and-markov-property&quot;&gt;Stochastic Process and Markov property&lt;/h2&gt;
+
+&lt;p&gt;Markov property 也可以说是 Memoryless property。&lt;/p&gt;
+
+&lt;p&gt;给变量增加时间维度&lt;script type=&quot;math/tex&quot;&gt;X\rightarrow X^{(t)}&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2019-05-27-chap4/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(X)=\prod_{t=1}^n P(X(t)|X(1), …, X(t-1))&lt;/script&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Markov assumption: $$P(X)=\prod_{t=1}^n P(X(t)&lt;/td&gt;
+          &lt;td&gt;X(t-1))$$, 当前时刻只由上个时刻决定&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;分布式稳态的(stationary)，时不变的(time invariant), 同质的(homogeneous)$$\forall i, j: P(X(i)&lt;/td&gt;
+          &lt;td&gt;X(i-1))=P(X(j)&lt;/td&gt;
+          &lt;td&gt;X(j-1))$$&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dynamic-bayesian-networks&quot;&gt;Dynamic Bayesian Networks&lt;/h2&gt;
+
+&lt;p&gt;Dynamic Bayesian Networks for Time Invariant Process/System&lt;/p&gt;
+
+&lt;p&gt;时不变过程/系统的动态贝叶斯网络&lt;/p&gt;
+
+&lt;p&gt;通常时不变系统的参数是不会随着时间改变的&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2019-05-27-chap4/2.png&quot; alt=&quot;image-20190527140619382&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2019-05-27-chap4/3.png&quot; alt=&quot;image-20190527140716298&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在每个时间片的参数：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;内部state variables的参数&lt;/li&gt;
+  &lt;li&gt;state variables 和 observation variables 之间的 &lt;strong&gt;emission&lt;/strong&gt;/observation &lt;strong&gt;parameters&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;transition parameters&lt;/strong&gt; between two consecutive time slices&lt;/p&gt;
+
+&lt;h2 id=&quot;hidden-markov-modelshmms&quot;&gt;Hidden Markov Models(HMMs)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/chenlu/strongman1995.github.io/assets/images/2019-05-27-chap4/4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;state-observation-models&quot;&gt;State-Observation Models&lt;/h3&gt;
+
+&lt;p&gt;如果 hidden variables 可以离散化为若干状态，那么 HMM 可以表示为 State-Observation Models.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;State-State &lt;strong&gt;Transmission Matrix&lt;/strong&gt; &lt;strong&gt;T(n, n)&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;S^t=TS^{t-1}&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;State-Observation &lt;strong&gt;Emission Matrix E(m, n)&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;O^t=ES^t&lt;/script&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;a-few-examples-of-hmm-representations&quot;&gt;A Few Examples of HMM Representations&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Stock Market Index&lt;/li&gt;
+  &lt;li&gt;Chromatin States&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;calculations-for-hmms&quot;&gt;Calculations for HMMs&lt;/h3&gt;
+
+&lt;h4 id=&quot;formal-model-representation&quot;&gt;Formal Model Representation&lt;/h4&gt;
+
+&lt;p&gt;模型参数：
+&lt;script type=&quot;math/tex&quot;&gt;\theta
+\begin{cases}
+T=\{t_{i, j}, \quad i, j=1...N\}, Transmission Matrix\\
+E=\{e_{i, j}, \quad i=1...N, j=1...K\}, Emission Matrix\\
+\pi=\{\pi_i, \quad i=1...N\} Initial State
+\end{cases}&lt;/script&gt;
+隐状态有 N 个值，观测变量有 K 个取值&lt;/p&gt;
+
+&lt;p&gt;观测序列
+&lt;script type=&quot;math/tex&quot;&gt;X=\{x_t, t=1...T\}&lt;/script&gt;
+基本思想是：&lt;script type=&quot;math/tex&quot;&gt;P(X)=\sum_Y P(XY)&lt;/script&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;通过分解定律：$$P(XY)=P(Y_1)P(X_1&lt;/td&gt;
+      &lt;td&gt;Y_1)P(Y_2&lt;/td&gt;
+      &lt;td&gt;Y_1)P(X_2&lt;/td&gt;
+      &lt;td&gt;Y_2)P(Y_3&lt;/td&gt;
+      &lt;td&gt;Y_2)…$$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;所以可以通过不断消掉&lt;script type=&quot;math/tex&quot;&gt;Y_i&lt;/script&gt;来解决这个模型&lt;/p&gt;
+
+&lt;h4 id=&quot;problem1inference-pxtheta-已知模型theta和观察序列x推测该模型得到该观测序列的概率&quot;&gt;Problem1（Inference）: &lt;script type=&quot;math/tex&quot;&gt;P(X|\theta)&lt;/script&gt;, 已知模型&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;和观察序列&lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;，推测该模型得到该观测序列的概率&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Forward/Backward Algorithm&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;problem2inference-mathoparg-max_y-px-ytheta-已知模型theta和观测序列x-推出该序列对应的-hidden-label-y&quot;&gt;Problem2（Inference）: &lt;script type=&quot;math/tex&quot;&gt;\mathop{\arg \max}_Y P(X, Y|\theta)&lt;/script&gt; 已知模型&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;和观测序列&lt;script type=&quot;math/tex&quot;&gt;X&lt;/script&gt;, 推出该序列对应的 hidden label Y&lt;/h4&gt;
+
+&lt;h4 id=&quot;problem3learning-mathoparg-max_theta-pxtheta-模型参数theta未知-从观测序列-x-学习得到&quot;&gt;Problem3（Learning）: &lt;script type=&quot;math/tex&quot;&gt;\mathop{\arg \max}_{\theta} P(X|\theta)&lt;/script&gt; 模型参数&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;未知， 从观测序列 X 学习得到&lt;/h4&gt;
+
+&lt;h3 id=&quot;generate-simulated-data&quot;&gt;Generate Simulated Data&lt;/h3&gt;
+
+&lt;h2 id=&quot;extended-models&quot;&gt;Extended Models&lt;/h2&gt;
+</description>
+        <pubDate>Mon, 27 May 2019 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2019/05/27/Chap4-Dynamic-Bayesian-Networks.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2019/05/27/Chap4-Dynamic-Bayesian-Networks.html</guid>
+        
+        
+        <category>PGM</category>
+        
+      </item>
+    
+      <item>
+        <title>Chap3 Local Probabilistic Models</title>
+        <description>&lt;p&gt;Local Probabilistic Model&lt;/p&gt;
+
+&lt;p&gt;Conditional Probability Distributions (CPDs)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The Basic Structures in BNs&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;回顾基于 G 的概率分解&lt;script type=&quot;math/tex&quot;&gt;P(X_1, …, X_n)=\prod_{i=1}^n P(X_i\|Pa(X_i))&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;所需要的表达项是 local conditional probability distributions(CPDs) encoded by the target variable &lt;script type=&quot;math/tex&quot;&gt;X_i&lt;/script&gt;given its parents &lt;script type=&quot;math/tex&quot;&gt;Pa(X_i)&lt;/script&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;discrete-cpds&quot;&gt;Discrete CPDs&lt;/h2&gt;
+
+&lt;h3 id=&quot;tabular-cpds&quot;&gt;Tabular CPDs&lt;/h3&gt;
+
+&lt;p&gt;对于(Y|X1, X2, …, Xk) 有&lt;script type=&quot;math/tex&quot;&gt;2^k&lt;/script&gt; 个独立参数。参数是关于父亲个数呈指数级增长的&lt;/p&gt;
+
+&lt;h3 id=&quot;rule-cpds&quot;&gt;Rule CPDs&lt;/h3&gt;
+
+&lt;p&gt;即把 Tabular CPDs 相同项合并起来。&lt;/p&gt;
+
+&lt;p&gt;Tree CPDs 可以直接转化为 rule CPD&lt;/p&gt;
+
+&lt;h3 id=&quot;independence-of-causal-influence&quot;&gt;Independence of causal influence&lt;/h3&gt;
+
+&lt;p&gt;“Causal”|“Associative”&lt;/p&gt;
+
+&lt;h2 id=&quot;continuous-cpds&quot;&gt;Continuous CPDs&lt;/h2&gt;
+
+&lt;h3 id=&quot;logistic-cpds&quot;&gt;Logistic CPDs&lt;/h3&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;P(Y=y^1\|X_1, …, X_k)=sigmoid(w_0+\sum_{i=1}^k w_i X_i)&lt;/script&gt;  这个其实就是 NN 了，X1…Xk 是输入节点，Y 是 hidden layer 中的一个点，sigmoid是 activation function&lt;/p&gt;
+
+&lt;p&gt;Log-odds: &lt;script type=&quot;math/tex&quot;&gt;O=\frac{P(Y=y^1\|X_1, …, X_k)}{P(Y=y^0\|X_1, …, X_k)}=e^Z&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;更大的 odds 表示更有可能导致 positive result&lt;/p&gt;
+
+&lt;p&gt;如果 log-odds 中的二元变量 Xj 改变&lt;script type=&quot;math/tex&quot;&gt;\Delta O=\frac{O(X_{-j}, X_j=x_j^1)}{O(X_{-j}, X_j=x_j^0)}=e^{w_j}&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;w_j&gt;0&lt;/script&gt; 代表有 positive contribution&lt;/p&gt;
+
+&lt;h3 id=&quot;generalized-linear-models&quot;&gt;Generalized Linear Models&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Linear Gaussian&lt;/li&gt;
+  &lt;li&gt;Binomial distribution (Logistic CPD)&lt;/li&gt;
+  &lt;li&gt;Poisson distribution&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;a-few-cpds-in-neural-networks&quot;&gt;A few CPDs in neural networks&lt;/h2&gt;
+
+&lt;p&gt;ReLu: Rectified Linear Units&lt;/p&gt;
+
+&lt;p&gt;Rectifier: &lt;script type=&quot;math/tex&quot;&gt;y=f(s)=max(0, s)&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Softplus: &lt;script type=&quot;math/tex&quot;&gt;y=f(s)=ln(1+exp(s))&lt;/script&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayesian-networks-representation-examples&quot;&gt;Bayesian networks representation examples&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2019-05-26-chap3/1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2019-05-26-chap3/2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/assets/images/2019-05-26-chap3/3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 26 May 2019 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/pgm/2019/05/26/Chap3-Local-Probabilistic-Models.html</link>
+        <guid isPermaLink="true">http://localhost:4000/pgm/2019/05/26/Chap3-Local-Probabilistic-Models.html</guid>
+        
+        
+        <category>PGM</category>
+        
+      </item>
     
       <item>
         <title>Chap2 Bayesian Networks: Representation</title>
@@ -1193,35 +1398,6 @@
         
         
         <category>pgm</category>
-        
-      </item>
-    
-      <item>
-        <title>统计机器学习 chap7 Deep Generative Models</title>
-        <description>&lt;h2 id=&quot;hierarchical-bayesian-methods&quot;&gt;Hierarchical Bayesian Methods&lt;/h2&gt;
-
-&lt;h2 id=&quot;deep-generative-models&quot;&gt;Deep Generative Models&lt;/h2&gt;
-
-</description>
-        <pubDate>Sun, 20 May 2018 19:25:35 +0800</pubDate>
-        <link>http://localhost:4000/ml/2018/05/20/Deep-Generative-Models.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ml/2018/05/20/Deep-Generative-Models.html</guid>
-        
-        
-        <category>ML</category>
-        
-      </item>
-    
-      <item>
-        <title>统计机器学习 chap6 Statistical Learning Theory</title>
-        <description>
-</description>
-        <pubDate>Sun, 06 May 2018 19:25:35 +0800</pubDate>
-        <link>http://localhost:4000/ml/2018/05/06/SLT.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ml/2018/05/06/SLT.html</guid>
-        
-        
-        <category>ML</category>
         
       </item>
     

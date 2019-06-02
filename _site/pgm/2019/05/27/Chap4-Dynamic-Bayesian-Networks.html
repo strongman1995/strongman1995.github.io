@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+    <title>Chap4 Dynamic Bayesian Networks</title>
+    <meta name="description"
+          content="Stochastic Process and Markov property">
+
+    <link rel="canonical" href="http://localhost:4000/pgm/2019/05/27/Chap4-Dynamic-Bayesian-Networks.html">
+    <link rel="alternate" type="application/rss+xml" title="Starry, starry night" href="http://localhost:4000/feed.xml">
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Third-Party CSS -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/bower_components/hover/css/hover-min.css">
+    <link rel="stylesheet" href="/bower_components/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/assets/css/common.css">
+
+    <!-- CSS set in page -->
+    
+
+    <!-- CSS set in layout -->
+    
+    <link rel="stylesheet" href="/assets/css/sidebar-post-nav.css">
+    
+
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+
+    <body>
+
+    <header class="site-header">
+    <div class="container">
+        <a id="site-header-brand" href="/" title="Lu Chen">
+            <span class="octicon octicon-mark-github"></span> Lu Chen
+        </a>
+        <nav class="site-header-nav" role="navigation">
+            
+            <a href="/"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Home">
+                Home
+            </a>
+            
+            <a href="/about"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="About">
+                About
+            </a>
+            
+            <a href="/blog"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Blog">
+                Blog
+            </a>
+            
+            <a href="/open-source"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Open-Source">
+                Open-Source
+            </a>
+            
+            <a href="/bookmark"
+               class=" site-header-nav-item hvr-underline-from-center"
+               target=""
+               title="Bookmark">
+                Bookmark
+            </a>
+            
+        </nav>
+    </div>
+</header>
+
+
+        <div class="content">
+            <section class="jumbotron geopattern" data-pattern-id="Chap4 Dynamic Bayesian Networks">
+    <div class="container">
+        <div id="jumbotron-meta-info">
+            <h1>Chap4 Dynamic Bayesian Networks</h1>
+            <span class="meta-info">
+                
+                
+                <span class="octicon octicon-calendar"></span> 2019/05/27
+                
+            </span>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function(){
+
+        $('.geopattern').each(function(){
+            $(this).geopattern($(this).data('pattern-id'));
+        });
+
+    });
+</script>
+<article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="row">
+
+        
+        <div class="col-md-8 markdown-body">
+
+            <h2 id="stochastic-process-and-markov-property">Stochastic Process and Markov property</h2>
+
+<p>Markov property 也可以说是 Memoryless property。</p>
+
+<p>给变量增加时间维度<script type="math/tex">X\rightarrow X^{(t)}</script></p>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2019-05-27-chap4/1.png" alt="" /></p>
+
+<script type="math/tex; mode=display">P(X)=\prod_{t=1}^n P(X(t)|X(1), …, X(t-1))</script>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Markov assumption: $$P(X)=\prod_{t=1}^n P(X(t)</td>
+          <td>X(t-1))$$, 当前时刻只由上个时刻决定</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>分布式稳态的(stationary)，时不变的(time invariant), 同质的(homogeneous)$$\forall i, j: P(X(i)</td>
+          <td>X(i-1))=P(X(j)</td>
+          <td>X(j-1))$$</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="dynamic-bayesian-networks">Dynamic Bayesian Networks</h2>
+
+<p>Dynamic Bayesian Networks for Time Invariant Process/System</p>
+
+<p>时不变过程/系统的动态贝叶斯网络</p>
+
+<p>通常时不变系统的参数是不会随着时间改变的</p>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2019-05-27-chap4/2.png" alt="image-20190527140619382" /></p>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2019-05-27-chap4/3.png" alt="image-20190527140716298" /></p>
+
+<p>在每个时间片的参数：</p>
+
+<ul>
+  <li>内部state variables的参数</li>
+  <li>state variables 和 observation variables 之间的 <strong>emission</strong>/observation <strong>parameters</strong></li>
+</ul>
+
+<p><strong>transition parameters</strong> between two consecutive time slices</p>
+
+<h2 id="hidden-markov-modelshmms">Hidden Markov Models(HMMs)</h2>
+
+<p><img src="/Users/chenlu/strongman1995.github.io/assets/images/2019-05-27-chap4/4.png" alt="" /></p>
+
+<h3 id="state-observation-models">State-Observation Models</h3>
+
+<p>如果 hidden variables 可以离散化为若干状态，那么 HMM 可以表示为 State-Observation Models.</p>
+
+<ul>
+  <li>State-State <strong>Transmission Matrix</strong> <strong>T(n, n)</strong>: <script type="math/tex">S^t=TS^{t-1}</script></li>
+  <li>State-Observation <strong>Emission Matrix E(m, n)</strong>: <script type="math/tex">O^t=ES^t</script></li>
+</ul>
+
+<h3 id="a-few-examples-of-hmm-representations">A Few Examples of HMM Representations</h3>
+
+<ol>
+  <li>Stock Market Index</li>
+  <li>Chromatin States</li>
+</ol>
+
+<h3 id="calculations-for-hmms">Calculations for HMMs</h3>
+
+<h4 id="formal-model-representation">Formal Model Representation</h4>
+
+<p>模型参数：
+<script type="math/tex">\theta
+\begin{cases}
+T=\{t_{i, j}, \quad i, j=1...N\}, Transmission Matrix\\
+E=\{e_{i, j}, \quad i=1...N, j=1...K\}, Emission Matrix\\
+\pi=\{\pi_i, \quad i=1...N\} Initial State
+\end{cases}</script>
+隐状态有 N 个值，观测变量有 K 个取值</p>
+
+<p>观测序列
+<script type="math/tex">X=\{x_t, t=1...T\}</script>
+基本思想是：<script type="math/tex">P(X)=\sum_Y P(XY)</script></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>通过分解定律：$$P(XY)=P(Y_1)P(X_1</td>
+      <td>Y_1)P(Y_2</td>
+      <td>Y_1)P(X_2</td>
+      <td>Y_2)P(Y_3</td>
+      <td>Y_2)…$$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>所以可以通过不断消掉<script type="math/tex">Y_i</script>来解决这个模型</p>
+
+<h4 id="problem1inference-pxtheta-已知模型theta和观察序列x推测该模型得到该观测序列的概率">Problem1（Inference）: <script type="math/tex">P(X|\theta)</script>, 已知模型<script type="math/tex">\theta</script>和观察序列<script type="math/tex">X</script>，推测该模型得到该观测序列的概率</h4>
+
+<p><strong>Forward/Backward Algorithm</strong></p>
+
+<h4 id="problem2inference-mathoparg-max_y-px-ytheta-已知模型theta和观测序列x-推出该序列对应的-hidden-label-y">Problem2（Inference）: <script type="math/tex">\mathop{\arg \max}_Y P(X, Y|\theta)</script> 已知模型<script type="math/tex">\theta</script>和观测序列<script type="math/tex">X</script>, 推出该序列对应的 hidden label Y</h4>
+
+<h4 id="problem3learning-mathoparg-max_theta-pxtheta-模型参数theta未知-从观测序列-x-学习得到">Problem3（Learning）: <script type="math/tex">\mathop{\arg \max}_{\theta} P(X|\theta)</script> 模型参数<script type="math/tex">\theta</script>未知， 从观测序列 X 学习得到</h4>
+
+<h3 id="generate-simulated-data">Generate Simulated Data</h3>
+
+<h2 id="extended-models">Extended Models</h2>
+
+
+            <!-- Comments -->
+            
+
+        </div>
+
+        <div class="col-md-4">
+            <h3>Post Directory</h3>
+<div id="post-directory-module">
+<section class="post-directory">
+    <!-- Links that trigger the jumping -->
+    <!-- Added by javascript below -->
+    <dl></dl>
+</section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $( "article h2" ).each(function( index ) {
+            $(".post-directory dl").append("<dt><a class=\"jumper\" hre=#" +
+                    $(this).attr("id")
+                    + ">"
+                    + $(this).text()
+                    + "</a></dt>");
+
+            var children = $(this).nextUntil("h2", "h3")
+
+            children.each(function( index ) {
+                $(".post-directory dl").append("<dd><a class=\"jumper\" hre=#" +
+                        $(this).attr("id")
+                        + ">"
+                        + "&nbsp;&nbsp;- " + $(this).text()
+                        + "</a></dd>");
+            });
+        });
+
+        var fixmeTop = $('#post-directory-module').offset().top - 100;       // get initial position of the element
+
+        $(window).scroll(function() {                  // assign scroll event listener
+
+            var currentScroll = $(window).scrollTop(); // get current position
+
+            if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+                $('#post-directory-module').css({      // scroll to that element or below it
+                    top: '100px',
+                    position: 'fixed',
+                    width: 'inherit'
+                });
+            } else {                                   // apply position: static
+                $('#post-directory-module').css({      // if you scroll above it
+                    position: 'inherit',
+                    width: 'inherit'
+                });
+            }
+
+        });
+
+        $("a.jumper").on("click", function( e ) {
+
+            e.preventDefault();
+
+            $("body, html").animate({
+                scrollTop: ($( $(this).attr('hre') ).offset().top - 100)
+            }, 600);
+
+        });
+    });
+
+</script>
+        </div>
+        
+
+    </div>
+
+
+
+        </div>
+
+    <footer class="container">
+
+    <div class="site-footer">
+
+        <!--<div class="copyright pull-left">-->
+            <!--&lt;!&ndash; 请不要更改这一行 方便其他人知道模板的来源 谢谢 &ndash;&gt;-->
+            <!--&lt;!&ndash; Please keep this line to let others know where this theme comes from. Thank you :D &ndash;&gt;-->
+            <!--Power by <a href="https://github.com/DONGChuan/Yummy-Jekyll">Yummy Jekyll</a>-->
+        <!--</div>-->
+
+        <a href="https://github.com/strongman1995" target="_blank" aria-label="view source code">
+            <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+        </a>
+
+        <div align=left>
+            Visitors:
+            <a href='https://www.counter12.com'>
+                <img src='https://www.counter12.com/img-Cwz4393YWx8CY2a8-15.gif' border='0' alt='free web counter'></a>
+            <script type='text/javascript' src='https://www.counter12.com/ad.js?id=Cwz4393YWx8CY2a8'></script>
+        </div>
+
+        <div class="pull-right">
+            <a href="javascript:window.scrollTo(0,0)">TOP</a>
+        </div>
+
+    </div>
+
+    <!-- Third-Party JS -->
+    <script type="text/javascript" src="/bower_components/geopattern/js/geopattern.min.js"></script>
+
+    <!-- My JS -->
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+
+    
+
+    
+    <!-- Google Analytics -->
+    <!--<div style="display:none">-->
+    <div>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-139849944-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </div>
+    
+
+</footer>
+
+
+    </body>
+
+<!--<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">-->
+  <!--</script>-->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</html>
