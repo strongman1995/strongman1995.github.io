@@ -62,9 +62,9 @@ Softplus: $$y=f(s)=ln(1+exp(s))$$
 
 ## Bayesian networks representation examples
 
-![](http://127.0.0.1:4000/assets/images/2019-05-26-chap3/1.png)
+![](assets/images/2019-05-26-chap3/1.png)
 
-![](http://127.0.0.1:4000/assets/images/2019-05-26-chap3/2.png)
+![](assets/images/2019-05-26-chap3/2.png)
 
-![](http://127.0.0.1:4000/assets/images/2019-05-26-chap3/3.png)
+![](assets/images/2019-05-26-chap3/3.png)
 
