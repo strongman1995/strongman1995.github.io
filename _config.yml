@@ -73,9 +73,9 @@ navs:
     href: /open-source
     label: Open-Source
 
-  -
-    href: /bookmark
-    label: Bookmark
+  # -
+  #   href: /bookmark
+  #   label: Bookmark
 
 
 # Sidebar to show popular repo
