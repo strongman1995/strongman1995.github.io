@@ -8,6 +8,10 @@ date:   2019-05-24 13:25:35 +0200
 
 去年上了古槿老师的概率图的课，受益匪浅，但是过了大半年没有接触又忘了许多，所以打算重新复习一番，希望能有新的体悟。
 
+PGM 中的结构，画出来感觉结构会清晰很多
+
+![](https://strongman1995.github.io/assets/images/2019-05-24-pgm-intro/PGM.png)
+
 ## Introduction to PGM
 
 **Probability:** decision making based on probability
