@@ -128,7 +128,7 @@ LDA 中的变分推断，需要特别开一章进行学习。
 
 在很多情况下，无法用平均场的变分推断求出近似解，此时随机梯度下降的方法是经常使用到的。
 
-![](https://strongman1995.github.io/assets/images/2019-06-05-chap9/9.png){:height="100" width="100"}
+![](https://strongman1995.github.io/assets/images/2019-06-05-chap9/9.png)
 
 > Variational inference can be regarded as a kind of learning: find the optimal parameters by maximizing an energy functional
 >
