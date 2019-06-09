@@ -156,3 +156,9 @@ MAP estimation is defined as $$\hat{\theta} = \arg \max_{\theta} \log P(\theta\|
 
 预测时的后验，$$P(X\|D)=\int P(X\|\theta)P(\theta\|D)\, d\theta \approx P(X\|\theta)$$ 
 
+
+
+## 总结：
+
+- MLE 和 MAP 都是点估计，可以用梯度下降求解，
+- Bayesian estimation 是概率推断，需要共轭的先验，用 MCMC 做 inference

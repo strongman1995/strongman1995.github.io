@@ -82,3 +82,17 @@ EM 算法：
 
 MAP 和 MLE 的区别是在 P(x[m]=k)那一步，MLE 是概率，MAP 是 x[m]=arg max_k Q(x[m]=k) 
 
+## 总结：
+
+- 初始化参数
+- 根据observed variables推断 hidden variables
+  - 用 probability(期望) 填充
+  - 用值填充(MCMC 或者 MAP)
+- 学习(更新)参数
+  - MLE 或者 MAP 求点估计
+    - Expectation maximization(hard EM)
+    - Stochastic gradient ascent
+  - Bayesian Learning, 求分布
+    - MCMC sampling
+    - Variational bayesian learning
+- 重复上述过程直到收敛
