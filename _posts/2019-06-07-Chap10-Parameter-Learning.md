@@ -111,11 +111,11 @@ $$P(X^{n+1}\|X^1, …, X^n) = \frac{1}{P(X^1, …, X^n)}\int P(X^{n+1}\|\theta) 
 - $$\Gamma(x)=\int_0^\infty t^{x-1}e^{-t}\, dt$$ 
 - $$\Gamma(n)=(n-1)!$$ for integer
 
-$$P(\theta\|X)=\frac{P(X\|\theta)P(\theta)}{\int P(X\|\theta)P(\theta)}=Beta(M[1]+\alpha_1, M[0]+\alpha+0)$$ 
+$$P(\theta\|X)=\frac{P(X\|\theta)P(\theta)}{\int P(X\|\theta)P(\theta)}=Beta(M[1]+\alpha_1, M[0]+\alpha_0)$$ 
 
-$$P(X\|\theta)=\theta^{M[1]}(1-\theta)^{M[0]}$$
+二项分布：$$P(X\|\theta)=\theta^{M[1]}(1-\theta)^{M[0]}$$
 
-$$P(\theta) = Beta(\alpha_1, \alpha_0)=\gamma \theta^{\alpha_1-1} (1-\theta)^{\alpha_0-1}$$
+beta 分布：$$P(\theta) = Beta(\alpha_1, \alpha_0)=\gamma \theta^{\alpha_1-1} (1-\theta)^{\alpha_0-1}$$
 
 Beta distribution 是 conjugate 共轭的。只用于 binomial distribution
 
