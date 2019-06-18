@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "论文分享：Foolling automated surveillance cameras:adversarial patches to attack person detection"
+title: "论文分享：Foolling automated surveillance cameras"
 category: adversarial
 tags: []
 date:   2019-06-14 13:25:35 +0200
