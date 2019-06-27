@@ -6,7 +6,7 @@ tags: []
 date:   2019-06-14 13:25:35 +0200
 ---
 
-这篇论文是 CVPR Workshop 2019 的短文。本文学习到了一个攻击模型为图片打上 patch，可以欺骗 person detector，使攻击者不能被 person detector 检测出来
+这篇论文是 [CVPR Workshop 2019](https://arxiv.org/abs/1904.08653) 的短文。本文学习到了一个攻击模型为图片打上 patch，可以欺骗 person detector，使攻击者不能被 person detector 检测出来
 
 
 
