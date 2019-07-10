@@ -16,7 +16,7 @@ date:   2019-06-22 13:25:35 +0200
 
 ## L1 正则项
 
-在 LR 中加了 L1 正则项的叫 Lasso 回归：$$\min  \frac{1}{N} \sum_{i=1}^N (y_i - w^Tx_i)^2 + C|w|_1$$
+在 LR 中加了 L1 正则项的叫 Lasso 回归：$$\min  \frac{1}{N} \sum_{i=1}^N (y_i - w^Tx_i)^2 + C\|w\|_1$$
 
 如果以bayesian prior probability 的角度，参数 w~laplace 分布
 
@@ -28,7 +28,7 @@ date:   2019-06-22 13:25:35 +0200
 
 ## L2 正则项
 
-在 LR 中加了 L2 正则项的叫 Ridge 回归：$$\min  \frac{1}{N} \sum_{i=1}^N (y_i - w^Tx_i)^2 + C|w|_2$$
+在 LR 中加了 L2 正则项的叫 Ridge 回归：$$\min  \frac{1}{N} \sum_{i=1}^N (y_i - w^Tx_i)^2 + C\|w\|_2$$
 
 如果以bayesian prior probability 的角度，参数 w~正态分布
 
