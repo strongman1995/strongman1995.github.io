@@ -34,7 +34,7 @@ Time-efficient and faster convergence, but neurons are prone to death.
 $$
 g(\mathbf{z})_{i}=\frac{e^{z_{i}-z_{m}}}{\sum_{j=1}^{k} e^{z_{j}-z_{m}}}
 $$
- 
+
 
 $$ m=\operatorname{argmax}\left(z_{j}\right)$$
 
@@ -148,3 +148,5 @@ Universal: Two-layer MLP can represent any boundary (Hornik, 1991)
 Two-layer MLP requires exponentially large number of units KN->无穷
 
 ### Space Folding
+
+是讲如何形象地把低维空间非线性映射到高维空间中线性可分
